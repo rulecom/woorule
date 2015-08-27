@@ -20,8 +20,8 @@ class WC_Admin_Settings_Rulemailer {
 		add_action( 'woocommerce_order_status_changed', __CLASS__.'::order_status_changed', 10, 3 );
 
 		// params
-		self::$ACTION 		= empty( $_GET['woo-rule-action'] ) ? '' : sanitize_title( $_GET['woo-rule-action'] );
-		self::$RULE_ID		= empty( $_GET['rule-id'] ) ? '' : sanitize_title( $_GET['rule-id'] );
+		self::$ACTION  = empty( $_GET['woo-rule-action'] ) ? '' : sanitize_title( $_GET['woo-rule-action'] );
+		self::$RULE_ID = empty( $_GET['rule-id'] ) ? '' : sanitize_title( $_GET['rule-id'] );
 	}
 
 	public static function add_setting_tab( $tabs ) {
@@ -74,7 +74,7 @@ class WC_Admin_Settings_Rulemailer {
 						'update_on_duplicate'	=> get_option( $rule['update_on_duplicate']['id'] )	=== 'yes' ? true : false,
 						'auto_create_tags'		=> get_option( $rule['auto_create_tags']['id'] )		=== 'yes' ? true : false,
 						'auto_create_fields'	=> get_option( $rule['auto_create_fields']['id'] )	=== 'yes' ? true : false,
-						'tags' 								=> array( get_option( $rule['tags']['id'] )),
+						'tags'								=> array( get_option( $rule['tags']['id'] )),
 
 						'subscribers' => array(
 							'email'					=> $order->billing_email,

@@ -33,6 +33,7 @@ class WP_RuleMailer_API {
 
 		$resp = wp_remote_post( $url, $data );
 
+		// @TODO: this must be better.
 		if ( is_wp_error( $resp ) ) {
 			echo 'Error: ' . $resp->get_error_message();
 
