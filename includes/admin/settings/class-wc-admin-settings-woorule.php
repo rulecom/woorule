@@ -19,6 +19,8 @@ class WC_Admin_Settings_Rulemailer {
 
 		add_action( 'woocommerce_order_status_changed', __CLASS__.'::order_status_changed', 10, 3 );
 
+		add_action( 'woocommerce_checkout_fields', __CLASS__.'::checkout_fields' );
+
 		// params
 		self::$ACTION  = empty( $_GET['woo-rule-action'] ) ? '' : sanitize_title( $_GET['woo-rule-action'] );
 		self::$RULE_ID = empty( $_GET['rule-id'] ) ? '' : sanitize_title( $_GET['rule-id'] );
@@ -27,6 +29,29 @@ class WC_Admin_Settings_Rulemailer {
 	public static function add_setting_tab( $tabs ) {
 		$tabs['woorule_settings_tab'] = __( 'RuleMailer', 'woorule' );
 		return $tabs;
+	}
+
+	public static function checkout_fields( $fields ) {
+		$rules = get_option( 'woorule_rules', array() );
+
+		foreach ( $rules as $rule_id => $rule ) {
+			$enabled = get_option( $rule['enabled']['id'] ) === 'yes' ? true : false;
+
+			if ( $enabled && isset($rule['show_opt_in']) ) {
+				$show_opt_in = get_option( $rule['show_opt_in']['id'] ) === 'yes' ? true : false;
+
+				if ( $show_opt_in ) {
+					$opt_in_label = get_option( $rule['opt_in_label']['id'] );
+
+					$fields['order']['woorule_opt_in_'.$rule_id] = array(
+						'type' => 'checkbox',
+						'label' => $opt_in_label
+					);
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 	public static function order_status_changed( $id, $status = '', $new_status = '' ) {
@@ -329,6 +354,19 @@ class WC_Admin_Settings_Rulemailer {
 				'type'			=> 'checkbox',
 				'id'				=> 'woorule_enabled_'.$id,
 				'default'		=> 'no'
+			),
+
+			'show_opt_in' => array(
+				'title'			=> __( 'Show in cart', 'woorule' ),
+				'type'			=> 'checkbox',
+				'id'				=> 'woorule_show_opt_in_'.$id,
+				'default'		=> 'no'
+			),
+
+			'opt_in_label' => array(
+				'title'			=> __( 'Cart label', 'woorule' ),
+				'type'			=> 'text',
+				'id'				=> 'woorule_opt_in_label_'.$id
 			),
 
 			'update_on_duplicate' => array(
