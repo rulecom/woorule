@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ */
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class WooRule {
 	public $plugin_path = null;
