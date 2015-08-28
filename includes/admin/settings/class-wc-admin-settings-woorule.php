@@ -20,15 +20,26 @@ class WC_Admin_Settings_Rulemailer {
 		add_action( 'woocommerce_order_status_changed', __CLASS__.'::order_status_changed', 10, 3 );
 
 		add_action( 'woocommerce_checkout_fields', __CLASS__.'::checkout_fields' );
+		add_action( 'woocommerce_checkout_update_order_meta', __CLASS__.'::save_checkout_fields' );
 
 		// params
 		self::$ACTION  = empty( $_GET['woo-rule-action'] ) ? '' : sanitize_title( $_GET['woo-rule-action'] );
-		self::$RULE_ID = empty( $_GET['rule-id'] ) ? '' : sanitize_title( $_GET['rule-id'] );
+		self::$RULE_ID = empty( $_GET['rule-id'] )         ? '' : sanitize_title( $_GET['rule-id'] );
 	}
 
 	public static function add_setting_tab( $tabs ) {
 		$tabs['woorule_settings_tab'] = __( 'RuleMailer', 'woorule' );
 		return $tabs;
+	}
+
+	public static function save_checkout_fields( $order_id ) {
+		// @TODO: fix, this is st0pid
+		foreach ( $_POST as $k => $v ) {
+			if ( substr( $k, 0, 15) === 'woorule_opt_in_' ) {
+				$rule_id = substr( $k, 15, strlen( $k ) );
+				update_post_meta( $order_id, 'woorule_opt_in_'.$rule_id, 'yes');
+			}
+		}
 	}
 
 	public static function checkout_fields( $fields ) {
@@ -61,12 +72,24 @@ class WC_Admin_Settings_Rulemailer {
 			$enabled = get_option( $rule['enabled']['id'] ) === 'yes' ? true : false;
 
 			if ( $enabled ) {
-				$logger      = new WC_Logger();
-				$which_event = get_option( $rule['occurs']['id'] );
+				$logger         = new WC_Logger();
+				$which_event    = get_option( $rule['occurs']['id'] );
+				$is_opt_in_rule = false;
+				$want_in        = true;
 
-				$logger->clear( 'woorule' );
-			
-				if ( $new_status === $which_event ) {
+				if ( isset( $rule['show_opt_in'] ) ) {
+					$is_opt_in_rule = get_option( $rule['show_opt_in']['id'] ) === 'yes' ? true : false;
+				}
+
+				if ( $is_opt_in_rule ) {
+					$want_in = get_post_meta( $id, 'woorule_opt_in_'.$k, false );
+
+					if ( ! empty( $want_in ) ) {
+						$want_in = $want_in[0] === 'yes' ? true : false;
+					}
+				}
+
+				if ( $want_in && $new_status === $which_event ) {
 					$integration    = new WC_Integration_RuleMailer();
 					$order          = new WC_Order( $id );
 					$user           = $order->get_user();
@@ -192,7 +215,6 @@ class WC_Admin_Settings_Rulemailer {
 					}
 
 					$logger->add( 'woorule', print_r( json_encode( $subscription ), true ) );
-
 				}
 			}
 		}
@@ -393,13 +415,17 @@ class WC_Admin_Settings_Rulemailer {
 			'occurs' => array(
 				'title' 		=> __( 'Which Event', 'woorule' ),
 				'type' 			=> 'select',
-				'desc' 			=> __( 'When should this rule fire?', 'woorule' ),
+				'desc' 			=> __( 'On which order event should this rule fire?', 'woorule' ),
 				'default'		=> 'pending',
 				'id' 				=> 'woorule_event_'.$id,
 				'options' 	=> array(
-					'pending'    	=> __( 'Order Created', 'woorule' ),
-					'processing'	=> __( 'Order Processing', 'woorule' ),
-					'completed'  	=> __( 'Order Completed', 'woorule' ),
+					'pending'    	=> __( 'Pending Payment', 'woorule' ),
+					'processing'	=> __( 'Processing', 'woorule' ),
+					'on-hold'     => __( 'On Hold', 'woorule' ),
+					'completed'  	=> __( 'Completed', 'woorule' ),
+					'cancelled'  	=> __( 'Cancelled', 'woorule' ),
+					'refunded'  	=> __( 'Refunded', 'woorule' ),
+					'failed'      => __( 'Failed', 'woorule' ),
 				),
 			),
 
