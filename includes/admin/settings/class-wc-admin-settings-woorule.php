@@ -237,10 +237,6 @@ class WC_Admin_Settings_Rulemailer {
 
 				break;
 
-			case 'test':
-				self::send_test();
-				break;
-
 			case 'delete':
 				self::delete_rule();
 				self::show_list();
@@ -271,42 +267,6 @@ class WC_Admin_Settings_Rulemailer {
 			unset( $rules[self::$RULE_ID] );
 			update_option( 'woorule_rules', $rules );
 		}
-	}
-
-	public static function send_test() {
-		$settings = self::get_rule_settings_by_id( self::$RULE_ID );
-		$integration = new WC_Integration_RuleMailer();
-		$url = $integration->api_url;
-
-		$data = array(
-			'apikey' 							=> $integration->api_key,
-			'update_on_duplicate'	=> get_option( $settings['update_on_duplicate']['id'] )	=== 'yes' ? true : false,
-			'auto_create_tags'		=> get_option( $settings['auto_create_tags']['id'] )		=== 'yes' ? true : false,
-			'auto_create_fields'	=> get_option( $settings['auto_create_fields']['id'] )	=== 'yes' ? true : false,
-			'tags' 								=> array( get_option( $settings['tags']['id'] )),
-
-			'subscribers' => array(
-				'email'					=> 'adolfsson@gmail.com',
-				'phone_number'	=> '0704947424',
-
-				'fields' => array(
-					array(
-					'key'			=> 'Test.Foobar',
-					'value'		=> 'success'
-					)
-				)
-			)
-		);
-
-		$api = WP_RuleMailer_API::get_instance();
-		$api::subscribe( $url, $data );
-
-		echo '<pre>';
-		print_r(json_encode($data));
-		echo '<br>';
-		echo '<br>';
-		print_r(var_dump( $settings ));
-		echo '</pre>';
 	}
 
 	public static function create_new() {
