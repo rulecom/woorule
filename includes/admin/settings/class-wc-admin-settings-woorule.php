@@ -14,12 +14,13 @@ class WC_Admin_Settings_Rulemailer {
 		add_filter( 'woocommerce_settings_tabs_array', __CLASS__.'::add_setting_tab', 100 );
 
 		// actions
-		add_action( 'woocommerce_settings_tabs_woorule_settings_tab', __CLASS__.'::route' );
+		add_action( 'woocommerce_settings_tabs_woorule_settings_tab',  __CLASS__.'::route' );
 		add_action( 'woocommerce_update_options_woorule_settings_tab', __CLASS__.'::update_options' );
 
-		add_action( 'woocommerce_order_status_changed', __CLASS__.'::order_status_changed', 10, 3 );
+		add_action( 'woocommerce_checkout_update_order_meta',  __CLASS__.'::order_status_changed', 1000, 1 );
+		add_action( 'woocommerce_order_status_changed',        __CLASS__.'::order_status_changed', 10, 3 );
 
-		add_action( 'woocommerce_checkout_fields', __CLASS__.'::checkout_fields' );
+		add_action( 'woocommerce_checkout_fields',            __CLASS__.'::checkout_fields' );
 		add_action( 'woocommerce_checkout_update_order_meta', __CLASS__.'::save_checkout_fields' );
 
 		// params
@@ -72,7 +73,6 @@ class WC_Admin_Settings_Rulemailer {
 			$enabled = get_option( $rule['enabled']['id'] ) === 'yes' ? true : false;
 
 			if ( $enabled ) {
-				$logger         = new WC_Logger();
 				$which_event    = get_option( $rule['occurs']['id'] );
 				$is_opt_in_rule = false;
 				$want_in        = true;
@@ -193,7 +193,7 @@ class WC_Admin_Settings_Rulemailer {
 					if ( ! empty( $categories ) ) {
 						$subscription['subscribers']['fields'][] = array(
 							'key'			=> 'Order.Categories',
-							'value'		=> array( $categories ),
+							'value'		=> $categories,
 							'type'		=> 'multiple'
 						);
 					}
@@ -209,12 +209,13 @@ class WC_Admin_Settings_Rulemailer {
 					if ( ! empty( $brands ) ) {
 						$subscription['subscribers']['fields'][] = array(
 							'key'			=> 'Order.Brands',
-							'value'		=> array( $brands ),
+							'value'		=> $brands ,
 							'type'		=> 'multiple'
 						);
 					}
 
-					$logger->add( 'woorule', print_r( json_encode( $subscription ), true ) );
+					$api = WP_RuleMailer_API::get_instance();
+					$api::subscribe( $integration->api_url, $subscription );
 				}
 			}
 		}
@@ -379,14 +380,14 @@ class WC_Admin_Settings_Rulemailer {
 			),
 
 			'show_opt_in' => array(
-				'title'			=> __( 'Show in cart', 'woorule' ),
+				'title'			=> __( 'Show in Checkout', 'woorule' ),
 				'type'			=> 'checkbox',
 				'id'				=> 'woorule_show_opt_in_'.$id,
 				'default'		=> 'no'
 			),
 
 			'opt_in_label' => array(
-				'title'			=> __( 'Cart label', 'woorule' ),
+				'title'			=> __( 'Checkout label', 'woorule' ),
 				'type'			=> 'text',
 				'id'				=> 'woorule_opt_in_label_'.$id
 			),
@@ -439,7 +440,7 @@ class WC_Admin_Settings_Rulemailer {
 			'section_end' => array(
 				'type'		=> 'sectionend',
 				'id'			=> 'wc_settings_rulemailer_section_end'
-			),
+			)
 		);
 
 		return $settings;
