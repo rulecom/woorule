@@ -40,7 +40,7 @@ class WC_Integration_RuleMailer extends WC_Integration {
 			'woorule_api_key' => array(
 				'title' 				=> __( 'API Key', 'woorule' ),
 				'type' 					=> 'text',
-				'description'		=> __( 'Go to RuleMailers settings here to generetate one.', 'woorule' ),
+				'description'		=> __( 'Go to RuleMailers settings to generetate one.', 'woorule' ),
 				'default' 			=> '' 
 			),
 
@@ -55,8 +55,9 @@ class WC_Integration_RuleMailer extends WC_Integration {
 
 	public function admin_options() {
 		?>
-			<h2>RuleMailer</h2>
-			<p>Add your API key and a new tab will show up at the top of this page.</p>
+			<h2><?php _e( 'RuleMailer', 'woorule' ); ?></h2>
+			<p><?php _e( 'Add your API key and a new tab will show up at the top of this page.', 'woorule' ); ?></p>
+
 			<table class="form-table">
 				<?php $this->generate_settings_html(); ?>
 			</table>
