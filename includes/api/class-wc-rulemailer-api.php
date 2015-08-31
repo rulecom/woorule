@@ -33,15 +33,24 @@ class WP_RuleMailer_API {
 
 		$resp = wp_remote_post( $url, $data );
 
-		// @TODO: this must be better.
 		if ( is_wp_error( $resp ) ) {
-			echo 'Error: ' . $resp->get_error_message();
+			static::log( 'Error: ' . $resp->get_error_message() );
 
 		} else {
-			echo '<pre>';
-			echo 'Success: ' . $resp;
-			echo print_r( $resp );
-			echo '</pre>';
+			static::log( 'Success: ' . print_r( $resp['body'], true ) );
+		}
+	}
+
+	private static function log( $msg ) {
+		if ( WP_DEBUG === true ) {
+			$logger = new WC_Logger();
+
+			if ( is_array( $msg ) || is_object( $msg ) ) {
+				$logger->add('woorule', print_r( $msg, true ) );
+
+			} else {
+				$logger->add('woorule', $msg );
+			}
 		}
 	}
 
