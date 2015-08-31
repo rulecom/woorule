@@ -3,8 +3,8 @@ Contributors: lurig
 Tags: rulemailer, woocommerce, newsletter
 Requires at least: 4.2
 Tested up to: 4.2
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl.html
 
 RuleMailer integration with WooCommerce.
 
@@ -25,6 +25,6 @@ Upload and extract to your `/wp-content/plugins/` directory and activate it from
 
 == Changelog ==
 
-= 0.1 =
-* First release. Probably lots of bugs.
+= 0.0.1 =
+* Non-public release.
 
