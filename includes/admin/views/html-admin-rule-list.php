@@ -1,10 +1,5 @@
 <?php
-/**
- *
- */
-
 if ( ! defined( 'ABSPATH' ) ) { exit; }
-
 ?>
 
 <h3>

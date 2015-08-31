@@ -1,10 +1,10 @@
 <?php
-/**
- *
- */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+/**
+ * WooRule
+ */
 class WooRule {
 	public $plugin_path = null;
 

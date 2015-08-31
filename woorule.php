@@ -3,16 +3,19 @@
  * WooRule - RuleMailer integration for WooCommerce.
  *
  * @wordpress-plugin
- * Plugin Name: 		WooRule - RuleMailer Integration for WooCommerce
- * Plugin URI: 			http://rule.se
- * Description: 		RuleMailer integration for WooCommerce.
- * Version: 				0.1.0
- * Author: 					RuleMailer
- * Author URI: 			http://rule.se
- * Developer:     	Jonas Adolfsson
- * Developer URI:		http://lurig.github.io
- * Text Domain:			woorule
- * Domain Path:			/languages
+ * @woocommerce-plugin
+ *
+ * Plugin Name:     WooRule - RuleMailer Integration for WooCommerce
+ * Plugin URI:      http://rule.se
+ * Description:     RuleMailer integration for WooCommerce.
+ * Version:         0.0.1
+ * Author:          RuleMailer
+ * Author URI:      http://rule.se
+ * Developer:       Jonas Adolfsson
+ * Developer URI:   http://lurig.github.io
+ *
+ * Text Domain:     woorule
+ * Domain Path:     /languages
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

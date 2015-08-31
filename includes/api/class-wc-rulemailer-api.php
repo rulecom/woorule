@@ -1,10 +1,12 @@
 <?php
-/**
- * requires: Wordpress
- */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+/**
+ * WP_RuleMailer_API
+ *
+ * requires: Wordpress
+ */
 class WP_RuleMailer_API {
 	private static $instance = null;
 

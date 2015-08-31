@@ -1,10 +1,10 @@
 <?php
-/**
- *
- */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+/**
+ * WC_Admin_Settings_RuleMailer
+ */
 class WC_Admin_Settings_Rulemailer {
 	static $ACTION;
 	static $RULE_ID;

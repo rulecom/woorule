@@ -1,10 +1,10 @@
 <?php
-/**
- *
- */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+/**
+ * WC_Integration_RuleMailer
+ */
 class WC_Integration_RuleMailer extends WC_Integration {
 
 	public function __construct() {
