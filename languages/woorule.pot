@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2015 RuleCommunication
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Jonas Adolfsson <adolfsson@gmail.com>, 2015.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: woocommerce-rulemailer-extension 0.1.0\n"
+"Project-Id-Version: woocommerce-rulemailer-extension 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-07 17:40+0200\n"
+"POT-Creation-Date: 2015-09-03 01:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgid "API Key"
 msgstr ""
 
 #: includes/admin/integrations/class-wc-integrations-rulemailer.php:43
-msgid "Go to RuleMailers settings here to generetate one."
+msgid "Go to RuleMailers settings to generetate one."
 msgstr ""
 
 #: includes/admin/integrations/class-wc-integrations-rulemailer.php:48
@@ -34,78 +34,107 @@ msgstr ""
 msgid "URL to the API."
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:28
+#: includes/admin/integrations/class-wc-integrations-rulemailer.php:58
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:32
 msgid "RuleMailer"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:314
-#: includes/admin/views/html-admin-rule-list.php:30
+#: includes/admin/integrations/class-wc-integrations-rulemailer.php:59
+msgid "Add your API key and a new tab will show up at the top of this page."
+msgstr ""
+
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:322
+#: includes/admin/views/html-admin-rule-list.php:25
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:320
-#: includes/admin/views/html-admin-rule-list.php:20
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:328
+#: includes/admin/views/html-admin-rule-list.php:15
 msgid "Name"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:328
-#: includes/admin/views/html-admin-rule-list.php:21
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:336
+#: includes/admin/views/html-admin-rule-list.php:16
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:335
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:343
+msgid "Show in Checkout"
+msgstr ""
+
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:350
+msgid "Checkout label"
+msgstr ""
+
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:356
 msgid "Update on duplicate"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:342
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:363
 msgid "Auto create tags"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:349
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:370
 msgid "Auto create fields"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:356
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:377
 msgid "Which Event"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:358
-msgid "When should this rule fire?"
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:379
+msgid "On which order event should this rule fire?"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:362
-msgid "Order Created"
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:383
+msgid "Pending Payment"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:363
-msgid "Order Processing"
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:384
+msgid "Processing"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:364
-msgid "Order Completed"
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:385
+msgid "On Hold"
 msgstr ""
 
-#: includes/admin/settings/class-wc-admin-settings-rulemailer.php:369
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:386
+msgid "Completed"
+msgstr ""
+
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:387
+msgid "Cancelled"
+msgstr ""
+
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:388
+msgid "Refunded"
+msgstr ""
+
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:389
+msgid "Failed"
+msgstr ""
+
+#: includes/admin/settings/class-wc-admin-settings-woorule.php:394
 msgid "Tags"
 msgstr ""
 
-#: includes/admin/views/html-admin-buttons.php:13
+#: includes/admin/views/html-admin-buttons.php:9
 msgid "Save Rule"
 msgstr ""
 
-#: includes/admin/views/html-admin-buttons.php:14
+#: includes/admin/views/html-admin-buttons.php:10
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/views/html-admin-rule-list.php:11
+#: includes/admin/views/html-admin-rule-list.php:6
 msgid "Rules"
 msgstr ""
 
-#: includes/admin/views/html-admin-rule-list.php:13
+#: includes/admin/views/html-admin-rule-list.php:8
 msgid "Add new"
 msgstr ""
 
-#: includes/class-wc-rulemailer.php:49
+#: includes/class-wc-woorule.php:45
 msgid "Settings"
 msgstr ""
 
