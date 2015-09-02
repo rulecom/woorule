@@ -13,7 +13,7 @@ A RuleMailer integration for WooCommerce.
 directory or grab it from [Wordpress Plugin
 Directory](http://wordpress.org/plugins/woorule/).
 
-2. Activate the plugin under the Plugins page in wp-admin.
+2. Activate the plugin under the _Plugins_ page in wp-admin.
 
 3. Go to _Woocommerce_ -> _Settings_ -> _Integration_ -> _RuleMailer_ and fill in an `API
    Key` and `API URL`, hit save and a new tab should apear on the top of the page (try
@@ -27,6 +27,11 @@ refresh the page if not).
 2. Press _Edit_ on the new Rule.
 
 3. Give it a good name and fill in the rest according to your _RuleMailer_ setup.
+
+### Resources
+
+- [RuleMailer](https://www.rule.se/support/manual/).
+- [WooCommerce](http://docs.woothemes.com/documentation/plugins/woocommerce/).
 
 ## License
 
