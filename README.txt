@@ -3,8 +3,8 @@ Contributors: lurig
 Tags: rulemailer, woocommerce, newsletter
 Requires at least: 4.2
 Tested up to: 4.2
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl.html
+License: MIT
+License URI: http://opensource.org/licenses/MIT
 
 RuleMailer integration with WooCommerce.
 
