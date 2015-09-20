@@ -122,7 +122,7 @@ class WC_Admin_Settings_Rulemailer {
 						'update_on_duplicate'	=> get_option( $rule['update_on_duplicate']['id'] )	=== 'yes' ? true : false,
 						'auto_create_tags'		=> get_option( $rule['auto_create_tags']['id'] )		=== 'yes' ? true : false,
 						'auto_create_fields'	=> get_option( $rule['auto_create_fields']['id'] )	=== 'yes' ? true : false,
-						'tags'								=> array( get_option( $rule['tags']['id'] )),
+						'tags'								=> explode(',', get_option( $rule['tags']['id'] )),
 
 						'subscribers' => array(
 							'email'					=> $order->billing_email,
