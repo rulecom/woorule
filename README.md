@@ -28,10 +28,10 @@ directory or grab it from [Wordpress Plugin Directory](http://wordpress.org/plug
 3. Give it a good name and fill in the rest according to your _RuleMailer_ setup.
 
 ## Shortcode
-You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode [woorule]
+You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode `[woorule]`
 
 You can also customise the subscribe form with the shorcode options:
-[woorule text="Do you want to become a part of something big?" button="Do it!" success="Thank you!"]
+`[woorule text="Do you want to become a part of something big?" button="Do it!" success="Thank you!"]`
 
 
 ### Resources
