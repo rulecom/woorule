@@ -14,11 +14,10 @@ class WC_Integration_RuleMailer extends WC_Integration {
 
 		$this->init_settings();
 		$this->api_key = $this->get_option( 'woorule_api_key' );
-		$this->api_url = $this->get_option( 'woorule_api_url' );
 		$this->init_form_fields();
 
 		// actions
-		add_action( 'woocommerce_update_options_integration', array( &$this, 'process_admin_options') );
+		//add_action( 'woocommerce_update_options_integration', array( &$this, 'process_admin_options') );
 		add_action( 'woocommerce_update_options_integration_woorule', array( &$this, 'process_admin_options') );
 
 		// filters
@@ -40,14 +39,6 @@ class WC_Integration_RuleMailer extends WC_Integration {
 			'woorule_api_key' => array(
 				'title' 				=> __( 'API Key', 'woorule' ),
 				'type' 					=> 'text',
-				'description'		=> __( 'Go to RuleMailers settings to generetate one.', 'woorule' ),
-				'default' 			=> '' 
-			),
-
-			'woorule_api_url' => array(
-				'title' 				=> __( 'API URL', 'woorule' ),
-				'type' 					=> 'text',
-				'description'		=> __( 'URL to the API.', 'woorule' ),
 				'default' 			=> '' 
 			)
 		);
@@ -56,11 +47,16 @@ class WC_Integration_RuleMailer extends WC_Integration {
 	public function admin_options() {
 		?>
 			<h2><?php _e( 'RuleMailer', 'woorule' ); ?></h2>
-			<p><?php _e( 'Add your API key and a new tab will show up at the top of this page.', 'woorule' ); ?></p>
+			<p><?php _e( 'You may find your RULE API key inside <a href="http://app.rule.io/#/settings/developer">developer tab on user account settings</a>.', 'woorule' ); ?></p>
 
 			<table class="form-table">
 				<?php $this->generate_settings_html(); ?>
 			</table>
+
+
+
+
+
 		<?php
 	}
 }

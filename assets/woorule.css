@@ -1,0 +1,7 @@
+
+.woorule.subscribe.form {position: relative;display: inline-block;
+    width: 100%;}
+.woorule .email {display: inline-block;width: 75%;position: absolute;top: 0; left: 0;}
+.woorule .btn {display: inline-block; width: 25%;position: absolute;top: 0; right: 0;}
+.woorule .success {width:100%; border:1px solid; text-align:center;display: none;    position: absolute;}
+.woorule .error {position: absolute; top: 0; left: 0; width: 100%; z-index: 999; border:1px solid red; display: none;background: white; text-align: center;}

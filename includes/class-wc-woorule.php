@@ -20,9 +20,15 @@ class WooRule {
 	}
 
 	public function run() {
-		if ( ! class_exists( 'WC_Integrations' ) ) {
+
+
+
+		if ( ! class_exists( 'WooCommerce' ) ) {
 			return;
 		}
+
+
+		
 
 		//$plugin_path = plugin_dir_path( dirname( __FILE__ ) );
 		require_once( $this->plugin_path . 'includes/admin/integrations/class-wc-integrations-rulemailer.php' );

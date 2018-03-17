@@ -21,8 +21,9 @@ class WP_RuleMailer_API {
 		return static::$instance;
 	}
 
-	public static function subscribe( $api_url, $body_data ) {
-		$url = $api_url . 'subscribers';
+	public static function subscribe( $body_data ) {
+		
+		$url = 'https://app.rule.io/api/v2/subscribers';
 
 		$data = array(
 			'timeout' => 45,
@@ -40,6 +41,7 @@ class WP_RuleMailer_API {
 
 		} else {
 			static::log( 'Success: ' . print_r( $resp['body'], true ) );
+			static::log( 'Success: ' . print_r( $body_data, true ) );
 		}
 	}
 
@@ -49,9 +51,12 @@ class WP_RuleMailer_API {
 
 			if ( is_array( $msg ) || is_object( $msg ) ) {
 				$logger->add('woorule', print_r( $msg, true ) );
+				//$logger->add('woorule', print_r( json_encode($body_data), true ) );
 
 			} else {
 				$logger->add('woorule', $msg );
+				//$logger->add('woorule', json_encode($body_data) );
+
 			}
 		}
 	}
