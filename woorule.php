@@ -108,8 +108,8 @@ function woorule_wooruleSubmit_func() {
 		die ( 'Busted!' );
 	}
 
-	WC_Admin_Settings_Rulemailer::new_subscribtion($_POST['email']);
-	echo $_POST['email'];
+	WC_Admin_Settings_Rulemailer::new_subscribtion( sanitize_email(  $_POST['email'] ) );
+	echo sanitize_email($_POST['email']);
 	// IMPORTANT: don't forget to "exit"
 	exit;
 }
