@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 	<h3><?php _e( 'WooRule mailing rules', 'woorule' ); ?></h3>
     <div style="margin:10px 0; display: inline-block;width: 100%;">
-	You need to set up an API key on <a href="/wp-admin/admin.php?page=wc-settings&tab=integration" >API settings page</a> before you can use this plugin.
+	You need to set up an API key on <a href="<?php echo admin_url('admin.php?page=wc-settings&tab=integration'); ?>"> API settings page</a> before you can use this plugin.
     </div>
 
 </h3>

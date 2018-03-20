@@ -5,7 +5,7 @@
  * @wordpress-plugin
  * @woocommerce-plugin
  *
- * Plugin Name:     WooRule - RuleMailer Integration for WooCommerce
+ * Plugin Name:     WooRule
  * Plugin URI:      http://github.com/rulecom/woorule
  * Description:     RuleMailer integration for WooCommerce.
  * Version:         0.0.1
