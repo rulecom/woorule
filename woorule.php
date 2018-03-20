@@ -107,9 +107,10 @@ function woorule_wooruleSubmit_func() {
 	if ( ! wp_verify_nonce( $nonce, 'woorule-next-nonce' ) ) {
 		die ( 'Busted!' );
 	}
-
+    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 	WC_Admin_Settings_Rulemailer::new_subscribtion( sanitize_email(  $_POST['email'] ) );
 	echo sanitize_email($_POST['email']);
+    }
 	// IMPORTANT: don't forget to "exit"
 	exit;
 }
