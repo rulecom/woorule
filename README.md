@@ -28,10 +28,10 @@ Directory](http://wordpress.org/plugins/woorule/).
 
 ### Shortcode
 
-You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode [woorule]
+You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode `[woorule]`
  
 You can also customise the subscribe form with the shorcode options:
-[woorule text="This is a new title text" button="New submit button text!" success="New Success message"]
+`[woorule text="This is a new title text" button="New submit button text!" success="New Success message"]`
 
 
 
