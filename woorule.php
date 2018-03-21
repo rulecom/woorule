@@ -8,11 +8,11 @@
  * Plugin Name:     WooRule
  * Plugin URI:      http://github.com/rulecom/woorule
  * Description:     RuleMailer integration for WooCommerce.
- * Version:         0.0.1
- * Author:          RuleMailer
+ * Version:         0.2
+ * Author:          RuleMailer, Neevalex
  * Author URI:      http://rule.se
- * Developer:       Jonas Adolfsson
- * Developer URI:   http://lurig.github.io
+ * Developer:       Jonas Adolfsson, Neev Alex
+ * Developer URI:   http://lurig.github.io,http://neevalex.com
  *
  * Text Domain:     woorule
  * Domain Path:     /languages

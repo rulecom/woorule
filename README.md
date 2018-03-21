@@ -1,11 +1,11 @@
 # WooRule
 
-A RuleMailer integration for WooCommerce.
+A [RuleMailer](https://www.rule.se/) integration with WooCommerce.
 
 ## Requirements
 
-- Wordpress >= 4.2
-- WooCommerce >= 2.3.11
+- Wordpress >= 4.9.2
+- WooCommerce >= 3.0
 
 ## Installation
 
@@ -13,11 +13,9 @@ A RuleMailer integration for WooCommerce.
 directory or grab it from [Wordpress Plugin
 Directory](http://wordpress.org/plugins/woorule/).
 
-2. Activate the plugin under the _Plugins_ page in wp-admin.
+2. Activate the plugin under the _Plugins_  from Wordpress Admin panel.
 
-3. Go to _Woocommerce_ -> _Settings_ -> _Integration_ -> _RuleMailer_ and fill in an `API
-   Key` and `API URL`, hit save and a new tab should apear on the top of the page (try
-refresh the page if not).
+3. Go to _Woocommerce_ -> _Settings_ -> _Integration_ -> _RuleMailer_ and fill in an `API Key`, and click 'save' button. You can find your RULE API key inside developer tab in [user account settings](http://app.rule.io/#/settings/developer)
 
 ## Usage
 
@@ -27,6 +25,15 @@ refresh the page if not).
 2. Press _Edit_ on the new Rule.
 
 3. Give it a good name and fill in the rest according to your _RuleMailer_ setup.
+
+### Shortcode
+
+You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode [woorule]
+ 
+You can also customise the subscribe form with the shorcode options:
+[woorule text="This is a new title text" button="New submit button text!" success="New Success message"]
+
+
 
 ### Resources
 
