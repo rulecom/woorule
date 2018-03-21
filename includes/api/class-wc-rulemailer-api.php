@@ -51,11 +51,9 @@ class WP_RuleMailer_API {
 
 			if ( is_array( $msg ) || is_object( $msg ) ) {
 				$logger->add('woorule', print_r( $msg, true ) );
-				//$logger->add('woorule', print_r( json_encode($body_data), true ) );
 
 			} else {
-				$logger->add('woorule', $msg );
-				//$logger->add('woorule', json_encode($body_data) );
+				$logger->add('woorule', $msg );	
 
 			}
 		}

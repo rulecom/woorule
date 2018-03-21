@@ -108,10 +108,10 @@ function woorule_wooruleSubmit_func() {
 		die ( 'Busted!' );
 	}
     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-	WC_Admin_Settings_Rulemailer::new_subscribtion( sanitize_email(  $_POST['email'] ) );
+	WC_Admin_Settings_Rulemailer::new_subscription( sanitize_email(  $_POST['email'] ) );
 	echo sanitize_email($_POST['email']);
     }
-	// IMPORTANT: don't forget to "exit"
+
 	exit;
 }
 

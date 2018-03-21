@@ -69,7 +69,7 @@ class WC_Admin_Settings_Rulemailer {
 		return $fields;
 	}
 
-	public static function new_subscribtion($email) {
+	public static function new_subscription($email) {
 
                     $subscription = array(
 						'apikey'              => $integration->api_key,

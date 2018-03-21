@@ -16,8 +16,7 @@ class WC_Integration_RuleMailer extends WC_Integration {
 		$this->api_key = $this->get_option( 'woorule_api_key' );
 		$this->init_form_fields();
 
-		// actions
-		//add_action( 'woocommerce_update_options_integration', array( &$this, 'process_admin_options') );
+		// action
 		add_action( 'woocommerce_update_options_integration_woorule', array( &$this, 'process_admin_options') );
 
 		// filters
