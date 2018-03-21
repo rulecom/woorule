@@ -1,14 +1,15 @@
 === WooRule ===
 Contributors: lurig, neevalex
 Tags: rulemailer, woocommerce, newsletter
-Requires at least: 4.9.4
+Requires at least: 4.2
 Tested up to: 4.9.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
-A [RuleMailer](https://www.rule.se/) integration with WooCommerce.
 
 == Description ==
+
+A [RuleMailer](https://www.rule.se/) integration with WooCommerce.
 
 Subscribe your customers on various order events.
 Supports multiple and different events.
@@ -42,3 +43,8 @@ You can also customise the subscribe form with the shorcode options:
 
 = 0.2 =
 * New Version public release
+
+== Screenshots ==
+
+1. Backend
+2. Frontend

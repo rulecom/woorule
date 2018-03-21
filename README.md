@@ -48,3 +48,6 @@ Please see [LICENSE.txt](/LICENSE.txt).
 
 ### 0.0.1
 - Not yet released
+
+### 0.2
+New Version public release. (New API, Shortcode, Settings)
