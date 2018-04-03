@@ -3,10 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 ?>
 
 <h3>
-	<?php _e( 'Rules', 'woorule' ); ?>
-	<a href="<?php echo $create_url; ?>" class="add-new-h2">
-		<?php _e('Add new', 'woorule'); ?>
-	</a>
+
+
+
+	<h3><?php _e( 'WooRule mailing rules', 'woorule' ); ?></h3>
+    <div style="margin:10px 0; display: inline-block;width: 100%;">
+	You need to set up an API key on <a href="<?php echo admin_url('admin.php?page=wc-settings&tab=integration'); ?>"> API settings page</a> before you can use this plugin.
+    </div>
+
 </h3>
 
 <table class="wp-list widefat fixed striped">
@@ -17,6 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 		</tr>
 	</thead>
 	<tbody>
+
+
+
+
+
 		<?php
 		foreach ($rules as $id => $value) {
 			echo '<tr>';
@@ -25,7 +34,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 			echo '<td><a href="' . $edit_url . $id . '">' . __('Edit', 'woorule') . '</a></td>';
 			echo '</tr>';
 		}
+
 		?>
 	</tbody>
 </table>
 
+
+	<a href="<?php echo $create_url; ?>" class="add-new-h2" style="margin:10px 0; display: inline-block;">
+		<?php _e('Add new', 'woorule'); ?>
+	</a>

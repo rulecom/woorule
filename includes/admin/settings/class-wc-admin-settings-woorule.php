@@ -28,10 +28,13 @@ class WC_Admin_Settings_Rulemailer {
 		self::$RULE_ID = empty( $_GET['rule-id'] )         ? '' : sanitize_title( $_GET['rule-id'] );
 	}
 
+
 	public static function add_setting_tab( $tabs ) {
 		$tabs['woorule_settings_tab'] = __( 'RuleMailer', 'woorule' );
 		return $tabs;
 	}
+   
+
 
 	public static function save_checkout_fields( $order_id ) {
 		// @TODO: fix, this is st0pid
@@ -66,6 +69,31 @@ class WC_Admin_Settings_Rulemailer {
 		return $fields;
 	}
 
+	public static function new_subscription($email) {
+
+                    $subscription = array(
+						'apikey'              => $integration->api_key,
+						'update_on_duplicate'	=> true,
+						'auto_create_tags'		=> true,
+						'auto_create_fields'	=> true,
+						'async'  => true,
+						'tags'	=> array('Newsletter'),
+						'subscribers' => array(
+							
+							'email'					=> $email,
+
+							)
+						
+					);
+
+
+	$api = WP_RuleMailer_API::get_instance();
+	$api::subscribe( $subscription );
+
+	}
+
+
+
 	public static function order_status_changed( $id, $status = '', $new_status = '' ) {
 		$rules  = get_option('woorule_rules', array());
 
@@ -93,20 +121,31 @@ class WC_Admin_Settings_Rulemailer {
 					$integration    = new WC_Integration_RuleMailer();
 					$order          = new WC_Order( $id );
 					$user           = $order->get_user();
-					$currency       = $order->get_order_currency();
-					$order_subtotal = $order->order_total - ($order->order_shipping_tax + $order->order_shipping) - $order->cart_discount;
+					$currency       = $order->get_currency();
+					$order_subtotal = $order->get_total() - ($order->get_total_shipping()) - $order->get_total_discount();
 					$items          = $order->get_items();
 					$brands         = array();
+
+					$products        = array();
 					$categories     = array();
 					$tags           = array();
 
 					foreach ( $items as $item ) {
 						$p = new WC_Product_Simple( $item['product_id'] );
 						$brands[] = $p->get_attribute( 'brand' );
+						$p_img = wp_get_attachment_image_src( get_post_thumbnail_id( $p->get_id() ), 'full' );
+						$products[] = array(
+					      'brand' => $p->get_attribute( 'brand' ),
+					      'name' =>$p->get_title(),
+					      'image' => $p_img[0],
+					      'price'=> $p->get_price(),
+					      'qty'=> $item->get_quantity(),
+					      'subtotal' => $item->get_total()
+					      );
 
 						// this is bullshit
-						$cat = strip_tags( $p->get_categories( '' ));
-						$tag = strip_tags( $p->get_tags( '' ));
+						$cat = strip_tags( wc_get_product_category_list( $item['product_id'] ));
+						$tag = strip_tags( wc_get_product_tag_list( $item['product_id'] ));
 
 						if ( ! empty( $cat ) ) {
 							$categories[] = $cat;
@@ -117,53 +156,100 @@ class WC_Admin_Settings_Rulemailer {
 						}
 					}
 
+                     
+
+                       $order_data = $order->get_data();
+
+                     
+                       $phone = $order->get_billing_phone();
+
+
+
+                       $newphone = '';
+                       if ((preg_match( '/\+(0|\+?\d{2})(\d{7,8})/', $phone))){
+                            $newphone = array('key'	=>'Subscriber.Tele', 'value' =>  $phone);
+                       }
+
+                      // I feel bad for this, but no other methods was working.
+                      $newtags = explode(',', get_option( $rule['tags']['id'] ));
+                      if(!(strlen($newtags[0])>1)) {$newtags[0]='OrderComplete';}
+                    
+
+
+                         
 					$subscription = array(
 						'apikey'              => $integration->api_key,
 						'update_on_duplicate'	=> get_option( $rule['update_on_duplicate']['id'] )	=== 'yes' ? true : false,
 						'auto_create_tags'		=> get_option( $rule['auto_create_tags']['id'] )		=== 'yes' ? true : false,
 						'auto_create_fields'	=> get_option( $rule['auto_create_fields']['id'] )	=== 'yes' ? true : false,
-						'tags'								=> explode(',', get_option( $rule['tags']['id'] )),
-
+						'async'  => true,
+						'tags'								=> $newtags,
 						'subscribers' => array(
-							'email'					=> $order->billing_email,
-							'phone_number'	=> $order->billing_phone,
+							
+							'email'					=> $order->get_billing_email(),
+
+						
 
 							'fields' => array(
 								array(
 									'key'			=> 'Order.Number',
 									'value'		=> $order->get_order_number()
 								),
+
 								array(
+									'key'			=> 'Subscriber.FirstName',
+									'value'		=> $order->get_billing_first_name()
+								),
+								array(
+									'key'			=> 'Subscriber.LastName',
+									'value'		=> $order->get_billing_last_name()
+								),
+								array(
+									'key'			=> 'Subscriber.Number',
+									'value'		=> $order->get_user_id()
+								),
+
+								array(
+									'key'			=> 'Subscriber.Street1',
+									'value'		=> $order->get_billing_address_1()
+								),
+								array(
+									'key'			=> 'Subscriber.Street2',
+									'value'		=> $order->get_billing_address_2()
+								),
+								array(
+									'key'			=> 'Subscriber.City',
+									'value'		=> $order->get_billing_city()
+								),
+								array(
+									'key'			=> 'Subscriber.Zipcode',
+									'value'		=> $order->get_billing_postcode()
+								),
+
+				               array(
+									'key'			=> 'Subscriber.State',
+									'value'		=> $order->get_billing_state()
+								),
+
+								array(
+									'key'			=> 'Subscriber.Country',
+									'value'		=> $order->get_billing_country()
+								),
+
+								array(
+									'key'			=> 'Subscriber.Company',
+									'value'		=> $order->get_billing_company()
+								),
+	                            $newphone,
+
+								array(
+									'key'			=> 'Order.Number',
+									'value'		=> $order->get_id()
+								),
+
+ 								array(
 									'key'			=> 'Order.Date',
-									'value'		=> $order->order_date
-								),
-								array(
-									'key'			=> 'Order.FirstName',
-									'value'		=> $order->billing_first_name
-								),
-								array(
-									'key'			=> 'Order.LastName',
-									'value'		=> $order->billing_last_name
-								),
-								array(
-									'key'			=> 'Order.Street1',
-									'value'		=> $order->billing_address_1
-								),
-								array(
-									'key'			=> 'Order.Street2',
-									'value'		=> $order->billing_address_2
-								),
-								array(
-									'key'			=> 'Order.City',
-									'value'		=> $order->billing_city
-								),
-								array(
-									'key'			=> 'Order.Country',
-									'value'		=> $order->billing_country
-								),
-								array(
-									'key'			=> 'Order.State',
-									'value'		=> $order->billing_state
+									'value'		=> date_format($order->get_date_completed(),"Y/m/d H:i:s")
 								),
 
 								array(
@@ -172,27 +258,94 @@ class WC_Admin_Settings_Rulemailer {
 								),
 								array(
 									'key'			=> 'Order.Discount',
-									'value'		=> $order->cart_discount
+									'value'		=> $order->get_total_discount()
 								),
 								array(
 									'key'			=> 'Order.Shipping',
-									'value'		=> $order->order_shipping + $order->order_shipping_tax
+									'value'		=> $order->get_total_shipping()
 								),
 								array(
 									'key'			=> 'Order.Total',
-									'value'		=> $order->order_total
+									'value'		=> $order->get_total()
 								),
 								array(
 									'key'			=> 'Order.Vat',
-									'value'		=> $order->order_tax
+									'value'		=> $order->get_total_tax()
+								),
+								array(
+									'key'			=> 'Order.Currency',
+									'value'		=> $order_data['currency']
+								),
+								array(
+									'key'			=> 'Order.PaymentMethod',
+									'value'		=> $order_data['payment_method'],
+									"type" => "multiple"
+								),
+								array(
+									'key'			=> 'Order.DeliveryMethod',
+									'value'		=> $order_data['delivery_method'],
+									"type" => "multiple"
+								),
+								array(
+									'key'			=> 'Order.BillingFirstname',
+									'value'		=> $order_data['billing']['first_name']
+								),
+								array(
+									'key'			=> 'Order.BillingLastname',
+									'value'		=> $order_data['billing']['last_name']
+								),
+								array(
+									'key'			=> 'Order.BillingStreet',
+									'value'		=> $order_data['billing']['address_1']
+								),
+								array(
+									'key'			=> 'Order.BillingCity',
+									'value'		=> $order_data['billing']['city']
+								),
+								array(
+									'key'			=> 'Order.BillingZipcode',
+									'value'		=> $order_data['billing']['postcode']
+								),
+								array(
+									'key'			=> 'Order.BillingState',
+									'value'		=> $order_data['billing']['state']
+								),
+								array(
+									'key'			=> 'Order.BillingCountry',
+									'value'		=> $order_data['billing']['country']
+								),
+								array(
+									'key'			=> 'Order.BillingTele',
+									'value'		=> $order_data['billing']['phone']
+								),
+								array(
+									'key'			=> 'Order.BillingCompany',
+									'value'		=> $order_data['billing']['company']
 								)
+
+                                
+
+
+
+
 							)
 						)
 					);
 
+
+					if ( ! empty( $brands ) ) {
+						$subscription['subscribers']['fields'][] = array(
+							'key'			=> 'Order.Brands',
+							'value'		=> $brands ,
+							'type'		=> 'multiple'
+						);
+					}
+
+
+
 					if ( ! empty( $categories ) ) {
 						$subscription['subscribers']['fields'][] = array(
-							'key'			=> 'Order.Categories',
+							'key'			=> 'Order.Collections',
 							'value'		=> $categories,
 							'type'		=> 'multiple'
 						);
@@ -206,16 +359,18 @@ class WC_Admin_Settings_Rulemailer {
 						);
 					}
 
-					if ( ! empty( $brands ) ) {
+
+					if ( ! empty( $products) ) {
 						$subscription['subscribers']['fields'][] = array(
-							'key'			=> 'Order.Brands',
-							'value'		=> $brands ,
-							'type'		=> 'multiple'
+							'key'			=> 'Order.Products',
+							'value'		=>  json_encode($products),
+							'type'		=> 'json'
 						);
 					}
 
+
 					$api = WP_RuleMailer_API::get_instance();
-					$api::subscribe( $integration->api_url, $subscription );
+					$api::subscribe( $subscription );
 				}
 			}
 		}
@@ -394,7 +549,8 @@ class WC_Admin_Settings_Rulemailer {
 				'title'		=> __( 'Tags', 'woorule' ),
 				'type'		=> 'text',
 				'id' 			=> 'woorule_tags_'.$id,
-				'desc' 		=> 'Comma separated list of tags'
+				'desc' 		=> 'Comma separated list of tags',
+				'default'		=> 'OrderComplete'
 			),
 
 			'section_end' => array(
