@@ -46,7 +46,7 @@ class WC_Integration_RuleMailer extends WC_Integration {
 	public function admin_options() {
 		?>
 			<h2><?php _e( 'RuleMailer', 'woorule' ); ?></h2>
-			<p><?php _e( 'You may find your RULE API key inside <a href="http://app.rule.io/#/settings/developer">developer tab on user account settings</a>.', 'woorule' ); ?></p>
+			<p><?php _e( 'You can find your RULE API key on the <a href="http://app.rule.io/#/settings/developer">developer tab</a> in your Rule account settings.', 'woorule' ); ?></p>
 
 			<table class="form-table">
 				<?php $this->generate_settings_html(); ?>
