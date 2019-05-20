@@ -4,8 +4,8 @@ A [Rule Communication](https://www.rule.se/) integration with WooCommerce.
 
 ## Requirements
 
-- Wordpress >= 4.9.2
-- WooCommerce >= 3.0
+- Wordpress >= 5.1
+- WooCommerce >= 3.5
 
 ## Installation
 
@@ -18,6 +18,8 @@ Directory](http://wordpress.org/plugins/woorule/).
 3. Go to _Woocommerce_ -> _Settings_ -> _Integration_ -> _RuleMailer_, fill in your `API Key`, and click the 'save' button. You can find your RULE API key on the developer tab in your [Rule account settings](http://app.rule.io/#/settings/developer).
 
 ## Usage
+
+_NOTE: By default WooRule will create the "Defaul Rule" that will trigger the data sync for all new orders, tagged as "New Order"_
 
 1. Go to the _RuleMailer tab_ and click _Add new_ and a new Rule appears in the
    list.

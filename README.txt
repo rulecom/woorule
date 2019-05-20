@@ -29,7 +29,7 @@ You can also customise the subscribe form with the shorcode options:
 
 
 = Usage =
-
+NOTE: By default WooRule will create the "Defaul Rule" that will trigger the data sync for all new orders, tagged as "New Order"
 1. Enable your plugin
 2. Go to WooCommerce -> Settings -> Integrations -> RuleMailer and submit an API key and URL.
 3. A new tab should appear in the WooCommerce Settings called WooRule (if not, try refresh the page).
