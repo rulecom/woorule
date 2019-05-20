@@ -1,67 +1,92 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 /**
  * WP_RuleMailer_API
  *
  * requires: Wordpress
  */
-class WP_RuleMailer_API {
-	private static $instance = null;
+class WP_RuleMailer_API
+{
+    private static $instance = null;
 
-	private static $api_key;
-	private static $api_url;
+    private static $api_key;
+    private static $api_url;
 
-	public static function get_instance() {
-		if ( null === static::$instance ) {
-			static::$instance = new static();
-		}
+    public static function get_instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static();
+        }
 
-		return static::$instance;
-	}
+        return static::$instance;
+    }
 
-	public static function subscribe( $body_data ) {
-		
-		$url = 'https://app.rule.io/api/v2/subscribers';
 
-		$data = array(
-			'timeout' => 45,
-			'blocking' => true,
-			'headers' => array(
-				'Content-Type' => 'application/json'
-			),
-			'body' => json_encode( $body_data )
-		);
+    public static function new_subscription($email)
+    {
+        $subscription = array(
+            'apikey'              => get_option('woocommerce_rulemailer_settings')['woorule_api_key'],
+            'update_on_duplicate'	=> true,
+            'auto_create_tags'		=> true,
+            'auto_create_fields'	=> true,
+            'async'  => true,
+            'tags'	=> array('Newsletter'),
+            'subscribers' => array('email' => $email)
+        );
 
-		$resp = wp_remote_post( $url, $data );
+        static::subscribe($subscription);
+    }
 
-		if ( is_wp_error( $resp ) ) {
-			static::log( 'Error: ' . $resp->get_error_message() );
+    public static function subscribe($body_data)
+    {
+        $url = 'https://app.rule.io/api/v2/subscribers';
 
-		} else {
-			static::log( 'Success: ' . print_r( $resp['body'], true ) );
-			static::log( 'Success: ' . print_r( $body_data, true ) );
-		}
-	}
+        $data = array(
+            'timeout' => 45,
+            'blocking' => true,
+            'headers' => array(
+                'Content-Type' => 'application/json'
+            ),
+            'body' => json_encode($body_data)
+        );
 
-	private static function log( $msg ) {
-		if ( WP_DEBUG === true ) {
-			$logger = new WC_Logger();
+        $resp = wp_remote_post($url, $data);
 
-			if ( is_array( $msg ) || is_object( $msg ) ) {
-				$logger->add('woorule', print_r( $msg, true ) );
+        if (is_wp_error($resp)) {
+            static::log('Error: ' . $resp->get_error_message());
+        } else {
+            static::log('Success: ' . print_r($resp['body'], true));
+            static::log('Success: ' . print_r($body_data, true));
+        }
+    }
 
-			} else {
-				$logger->add('woorule', $msg );	
+    private static function log($msg)
+    {
+        if (WP_DEBUG === true) {
+            $logger = new WC_Logger();
 
-			}
-		}
-	}
+            if (is_array($msg) || is_object($msg)) {
+                $logger->add('woorule', print_r($msg, true));
+            //$logger->add('woorule', print_r( json_encode($body_data), true ) );
+            } else {
+                $logger->add('woorule', $msg);
+                //$logger->add('woorule', json_encode($body_data) );
+            }
+        }
+    }
 
-	// disable
-	protected function __construct() {}
-	protected function __wakeup() {}
-	protected function __clone() {}
+    // disable
+    protected function __construct()
+    {
+    }
+    protected function __wakeup()
+    {
+    }
+    protected function __clone()
+    {
+    }
 }
-

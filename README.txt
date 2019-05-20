@@ -1,15 +1,14 @@
 === WooRule ===
 Contributors: lurig, neevalex
 Tags: rulemailer, woocommerce, newsletter
-Requires at least: 4.2
-Tested up to: 4.9.4
+Requires at least: 5.0.0
+Tested up to: 5.2.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
+A [RuleMailer](https://www.rule.se/) integration with WooCommerce.
 
 == Description ==
-
-A [RuleMailer](https://www.rule.se/) integration with WooCommerce.
 
 Subscribe your customers on various order events.
 Supports multiple and different events.
@@ -20,7 +19,6 @@ Supports multiple and different events.
 Or upload and activate it from wordpress catalog.
 
 2. Go to Woocommerce -> Settings -> Integration -> RuleMailer and fill in an `API Key`, and click 'save' button. You can find your RULE API key inside developer tab in [user account settings](http://app.rule.io/#/settings/developer)
-
 
 == Shortcode ==
 
@@ -44,7 +42,11 @@ You can also customise the subscribe form with the shorcode options:
 = 0.2 =
 * New Version public release
 
-== Screenshots ==
+= 0.3 =
+* Bugfixes
 
-1. Backend
-2. Frontend
+= 0.4 =
+* Bugfix. Missing assets.
+
+= 0.5 =
+* New features. Bugfixes. Newest WP support
