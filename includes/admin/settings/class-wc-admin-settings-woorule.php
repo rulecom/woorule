@@ -129,15 +129,15 @@ class WC_Admin_Settings_Rulemailer
                           );
 
                         // this is bullshit
-                        $category = strip_tags(wc_get_product_category_list($item['product_id']));
-                        $tag = strip_tags(wc_get_product_tag_list($item['product_id']));
+                        $categoriesString = strip_tags(wc_get_product_category_list($item['product_id'], ','));
+                        $tagsString = strip_tags(wc_get_product_tag_list($item['product_id'], ','));
 
-                        if (! empty($category)) {
-                            $categories[] = $category;
+                        if (! empty($categoriesString)) {
+                            $categories = explode(',', $categoriesString);
                         }
 
-                        if (! empty($tag)) {
-                            $tags[] = $tag;
+                        if (! empty($tagsString)) {
+                            $tags = explode(',', $tagsString);
                         }
                     }
 
