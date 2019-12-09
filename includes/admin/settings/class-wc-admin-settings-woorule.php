@@ -497,21 +497,21 @@ class WC_Admin_Settings_Rulemailer
                 'title' 		=> __('Update on duplicate', 'woorule'),
                 'type' 			=> 'checkbox',
                 'id' 				=> 'woorule_update_on_duplicate_'.$id,
-                'default'		=> 'no'
+                'default'		=> 'yes'
             ),
 
             'auto_create_tags' => array(
                 'title' 		=> __('Auto create tags', 'woorule'),
                 'type' 			=> 'checkbox',
                 'id' 				=> 'woorule_auto_create_tags_'.$id,
-                'default'		=> 'no'
+                'default'		=> 'yes'
             ),
 
             'auto_create_fields' => array(
                 'title' 		=> __('Auto create fields', 'woorule'),
                 'type' 			=> 'checkbox',
                 'id' 				=> 'woorule_auto_create_fields_'.$id,
-                'default'		=> 'no'
+                'default'		=> 'yes'
             ),
 
             'occurs' => array(
