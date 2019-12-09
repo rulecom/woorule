@@ -129,11 +129,11 @@ class WC_Admin_Settings_Rulemailer
                           );
 
                         // this is bullshit
-                        $cat = strip_tags(wc_get_product_category_list($item['product_id']));
+                        $category = strip_tags(wc_get_product_category_list($item['product_id']));
                         $tag = strip_tags(wc_get_product_tag_list($item['product_id']));
 
-                        if (! empty($cat)) {
-                            $categories[] = $cat;
+                        if (! empty($category)) {
+                            $categories[] = $category;
                         }
 
                         if (! empty($tag)) {
@@ -327,7 +327,7 @@ class WC_Admin_Settings_Rulemailer
                     if (! empty($tags)) {
                         $subscription['subscribers']['fields'][] = array(
                             'key'			=> 'Order.Tags',
-                            'value'		=> array( $tags ),
+                            'value'		=> $tags,
                             'type'		=> 'multiple'
                         );
                     }
