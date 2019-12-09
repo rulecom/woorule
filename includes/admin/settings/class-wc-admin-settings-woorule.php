@@ -11,6 +11,7 @@ class WC_Admin_Settings_Rulemailer
 {
     public static $ACTION;
     public static $RULE_ID;
+    const DELIMITER = ',';
 
     public static function init()
     {
@@ -129,15 +130,21 @@ class WC_Admin_Settings_Rulemailer
                           );
 
                         // this is bullshit
-                        $categoriesString = strip_tags(wc_get_product_category_list($item['product_id'], ','));
-                        $tagsString = strip_tags(wc_get_product_tag_list($item['product_id'], ','));
+                        $categoriesString = strip_tags(wc_get_product_category_list(
+                            $item['product_id'],
+                            self::DELIMITER
+                        ));
+                        $tagsString = strip_tags(wc_get_product_tag_list(
+                            $item['product_id'],
+                            self::DELIMITER
+                        ));
 
                         if (! empty($categoriesString)) {
-                            $categories = explode(',', $categoriesString);
+                            $categories = explode(self::DELIMITER, $categoriesString);
                         }
 
                         if (! empty($tagsString)) {
-                            $tags = explode(',', $tagsString);
+                            $tags = explode(self::DELIMITER, $tagsString);
                         }
                     }
 
