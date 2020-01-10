@@ -140,11 +140,13 @@ class WC_Admin_Settings_Rulemailer
                         ));
 
                         if (! empty($categoriesString)) {
-                            $categories = explode(self::DELIMITER, $categoriesString);
+                            $itemCategories = explode(self::DELIMITER, $categoriesString);
+                            $categories = array_unique(array_merge($categories, $itemCategories));
                         }
 
                         if (! empty($tagsString)) {
-                            $tags = explode(self::DELIMITER, $tagsString);
+                            $itemTags = explode(self::DELIMITER, $tagsString);
+                            $tags = array_unique(array_merge($tags, $itemTags));
                         }
                     }
 
