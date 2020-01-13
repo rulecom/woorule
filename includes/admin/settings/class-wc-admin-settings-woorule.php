@@ -11,6 +11,7 @@ class WC_Admin_Settings_Rulemailer
 {
     public static $ACTION;
     public static $RULE_ID;
+    const DELIMITER = ',';
 
     public static function init()
     {
@@ -129,15 +130,23 @@ class WC_Admin_Settings_Rulemailer
                           );
 
                         // this is bullshit
-                        $cat = strip_tags(wc_get_product_category_list($item['product_id']));
-                        $tag = strip_tags(wc_get_product_tag_list($item['product_id']));
+                        $categoriesString = strip_tags(wc_get_product_category_list(
+                            $item['product_id'],
+                            self::DELIMITER
+                        ));
+                        $tagsString = strip_tags(wc_get_product_tag_list(
+                            $item['product_id'],
+                            self::DELIMITER
+                        ));
 
-                        if (! empty($cat)) {
-                            $categories[] = $cat;
+                        if (! empty($categoriesString)) {
+                            $itemCategories = explode(self::DELIMITER, $categoriesString);
+                            $categories = array_unique(array_merge($categories, $itemCategories));
                         }
 
-                        if (! empty($tag)) {
-                            $tags[] = $tag;
+                        if (! empty($tagsString)) {
+                            $itemTags = explode(self::DELIMITER, $tagsString);
+                            $tags = array_unique(array_merge($tags, $itemTags));
                         }
                     }
 
@@ -327,7 +336,7 @@ class WC_Admin_Settings_Rulemailer
                     if (! empty($tags)) {
                         $subscription['subscribers']['fields'][] = array(
                             'key'			=> 'Order.Tags',
-                            'value'		=> array( $tags ),
+                            'value'		=> $tags,
                             'type'		=> 'multiple'
                         );
                     }
@@ -490,21 +499,21 @@ class WC_Admin_Settings_Rulemailer
                 'title' 		=> __('Update on duplicate', 'woorule'),
                 'type' 			=> 'checkbox',
                 'id' 				=> 'woorule_update_on_duplicate_'.$id,
-                'default'		=> 'no'
+                'default'		=> 'yes'
             ),
 
             'auto_create_tags' => array(
                 'title' 		=> __('Auto create tags', 'woorule'),
                 'type' 			=> 'checkbox',
                 'id' 				=> 'woorule_auto_create_tags_'.$id,
-                'default'		=> 'no'
+                'default'		=> 'yes'
             ),
 
             'auto_create_fields' => array(
                 'title' 		=> __('Auto create fields', 'woorule'),
                 'type' 			=> 'checkbox',
                 'id' 				=> 'woorule_auto_create_fields_'.$id,
-                'default'		=> 'no'
+                'default'		=> 'yes'
             ),
 
             'occurs' => array(

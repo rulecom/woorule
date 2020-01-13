@@ -50,3 +50,6 @@ NOTE: By default WooRule will create the "Defaul Rule" that will trigger the dat
 
 = 0.5 =
 * New features. Bugfixes. Newest WP support
+
+= 0.6 =
+* New features. Bugfixes.

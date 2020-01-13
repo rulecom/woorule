@@ -82,7 +82,7 @@ class WooRule
                 'title' 		=> __('Auto create fields', 'woorule'),
                 'type' 			=> 'checkbox',
                 'id' 				=> 'woorule_auto_create_fields_'.$id,
-                'default'		=> 'no'
+                'default'		=> 'yes'
             ),
 
             'occurs' => array(
