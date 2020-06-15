@@ -333,8 +333,6 @@ class WC_Admin_Settings_Rulemailer
                         );
                     }
 
-                    $custom_fields = [];
-
                     if(get_option($rule['custom_fields']['id'])) {
                         $cf = json_decode(get_option($rule['custom_fields']['id']));
                         
@@ -355,10 +353,6 @@ class WC_Admin_Settings_Rulemailer
                                 }
                             }
                         }
-                    }
-
-                    if($custom_fields) {
-                        $subscription['subscribers']['fields'][] =  $custom_fields; 
                     }
 
                     $api = WP_RuleMailer_API::get_instance();
