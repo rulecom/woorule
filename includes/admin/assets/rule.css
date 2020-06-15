@@ -1,0 +1,93 @@
+input[name^="woorule_custom_fields"],
+label[for^="woorule_custom_fields"] {
+    display: none !important;
+}
+
+.delete-rule {
+    background: red !important;
+    color: white !important;
+}
+
+.woorule-custom-fields {
+    margin: 20px 0;
+    width: 100%;
+    display: inline-block;
+}
+
+.woorule-custom-fields .source {
+    display: inline-block;
+}
+
+.woorule-custom-fields .source input,
+.woorule-custom-fields .source label {
+    display: inline-block;
+}
+
+.woorule-custom-fields .text {
+    margin-right: 16px;
+}
+
+.woorule-custom-fields .field-row {
+    background: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    display: inline-block;
+    min-width: 60%;
+    line-height: 28px;
+}
+
+.woorule-custom-fields .fields {
+    display: inline-block;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.woorule-custom-fields .field-row .remove {
+    float: right;
+}
+
+.woorule-custom-fields .empty {
+    display: none;
+}
+
+.woorule-custom-fields .metas {
+    display: none;
+    width: 60%;
+    margin-top: 35px;
+}
+
+.woorule-custom-fields .metas h3 {
+    margin-top: 0;
+}
+
+.woorule-custom-fields .metas>div {
+    float: left;
+    width: 45%;
+    padding-right: 20px;
+    box-sizing: border-box;
+    background: #f8f8f8;
+    padding: 20px;
+    margin-right: 30px;
+}
+
+.woorule-custom-fields .metas ul {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.woorule-custom-fields .metas li {
+    list-style: none;
+    cursor: pointer;
+    padding: 2px 0;
+}
+
+.woorule-custom-fields .metas li span {
+    font-size: 10px;
+    margin-left: 6px;
+    display: none;
+}
+
+.woorule-custom-fields .metas li:hover span {
+    display: inline-block;
+}

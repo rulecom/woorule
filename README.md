@@ -65,3 +65,5 @@ New features. Bugfixes. Newest WP support
 
 ### 0.6 
 New features. Bugfixes.
+
+### 0.7

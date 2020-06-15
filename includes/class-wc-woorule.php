@@ -71,6 +71,17 @@ class WooRule
                 'default'		=> 'yes'
             ),
 
+            'automation' => array(
+                'title' 		=> __('Automation', 'woorule'),
+                'type' 			=> 'select',
+                'id' 				=> 'woorule_automation_'.$id,
+                'default'		=> 'reset',
+                'options' 	=> array(
+                    'force'    	=> __('Force', 'woorule'),
+                    'reset'	=> __('Reset', 'woorule')
+                ),
+            ),
+
             'auto_create_tags' => array(
                 'title' 		=> __('Auto create tags', 'woorule'),
                 'type' 			=> 'checkbox',
@@ -110,10 +121,17 @@ class WooRule
                 'default'		=> 'New order'
             ),
 
+            'custom_fields' => array(
+                'title'			=> __('Custom Fields', 'woorule'),
+                'type'			=> 'text',
+                'id'				=> 'woorule_custom_fields_'.$id
+            ),
+
             'section_end' => array(
                 'type'		=> 'sectionend',
                 'id'			=> 'wc_settings_rulemailer_section_end'
             )
+          
         );
 
         return $settings;
@@ -135,7 +153,9 @@ class WooRule
             update_option('woorule_auto_create_tags_1', 'yes');
             update_option('woorule_event_1', 'processing');
             update_option('woorule_tags_1', 'New order');
-
+            update_option('woorule_automation_1', 'reset');
+            update_option('woorule_custom_fields_1', '[{"attribute":"_payment_method","source":"order"},{"attribute":"_payment_method_title","source":"order"},{"attribute":"_customer_ip_address","source":"order"},{"attribute":"nickname","source":"user"},{"attribute":"first_name","source":"user"},{"attribute":"last_name","source":"user"}]');
+            
 
             apply_filters('wc_settings_rulemailer', $settings);
         }

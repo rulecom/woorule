@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 	<tr valign="top">
 		<td colspan="2" scope="row" style="padding-left: 0;">
 			<p class="submit">
-				<a href="<?php echo $delete_url; ?>" style="margin-left: 10px; color: #a00; text-decoration: none;"><?php _e('Delete', 'woorule'); ?></a>
+				<a class="btn button delete-rule" href="<?php echo $delete_url; ?>"><?php _e('Delete this rule', 'woorule'); ?></a>
 			</p>
 		</td>
 	</tr>

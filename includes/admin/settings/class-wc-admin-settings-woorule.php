@@ -33,15 +33,12 @@ class WC_Admin_Settings_Rulemailer
         self::$RULE_ID = empty($_GET['rule-id'])         ? '' : sanitize_title($_GET['rule-id']);
     }
 
-
     public static function add_setting_tab($tabs)
     {
         $tabs['woorule_settings_tab'] = __('RuleMailer', 'woorule');
         return $tabs;
     }
    
-
-
     public static function save_checkout_fields($order_id)
     {
         // @TODO: fix, this is st0pid
@@ -76,8 +73,6 @@ class WC_Admin_Settings_Rulemailer
 
         return $fields;
     }
-
-
 
     public static function order_status_changed($id, $status = '', $new_status = '')
     {
@@ -150,12 +145,8 @@ class WC_Admin_Settings_Rulemailer
                         }
                     }
 
-                     
-
                     $order_data = $order->get_data();
                     $phone = $order->get_billing_phone();
-
-
 
                     $newphone = '';
                     if ((preg_match('/\+(0|\+?\d{2})(\d{7,8})/', $phone))) {
@@ -167,29 +158,29 @@ class WC_Admin_Settings_Rulemailer
                     if (!(strlen($newtags[0])>1)) {
                         $newtags[0]='OrderComplete';
                     }
-                    
 
-
+                    $language = substr( bloginfo ( 'language' ), 0, 2 );
                          
                     $subscription = array(
                         'apikey'              => $integration->api_key,
                         'update_on_duplicate'	=> get_option($rule['update_on_duplicate']['id'])	=== 'yes' ? true : false,
                         'auto_create_tags'		=> get_option($rule['auto_create_tags']['id'])		=== 'yes' ? true : false,
                         'auto_create_fields'	=> get_option($rule['auto_create_fields']['id'])	=== 'yes' ? true : false,
-                        'async'  => true,
-                        'tags'								=> $newtags,
-                        'subscribers' => array(
-                            
-                            'email'					=> $order->get_billing_email(),
+                        'automation'	=> get_option($rule['automation']['id'])	=== 'reset' ? 'reset' : 'force',
 
-                        
+                        'async'  => true,
+                        'tags'	=> $newtags,
+                        'subscribers' => array(
+                
+                            'email'					=> $order->get_billing_email(),
+                            'phone_number'		=> $order_data['billing']['phone'],
+                            'language' => $language,
 
                             'fields' => array(
                                 array(
                                     'key'			=> 'Order.Number',
                                     'value'		=> $order->get_order_number()
                                 ),
-
                                 array(
                                     'key'			=> 'Subscriber.FirstName',
                                     'value'		=> $order->get_billing_first_name()
@@ -202,7 +193,6 @@ class WC_Admin_Settings_Rulemailer
                                     'key'			=> 'Subscriber.Number',
                                     'value'		=> $order->get_user_id()
                                 ),
-
                                 array(
                                     'key'			=> 'Subscriber.Street1',
                                     'value'		=> $order->get_billing_address_1()
@@ -219,27 +209,22 @@ class WC_Admin_Settings_Rulemailer
                                     'key'			=> 'Subscriber.Zipcode',
                                     'value'		=> $order->get_billing_postcode()
                                 ),
-
-                               array(
+                                array(
                                     'key'			=> 'Subscriber.State',
                                     'value'		=> $order->get_billing_state()
                                 ),
-
                                 array(
                                     'key'			=> 'Subscriber.Country',
                                     'value'		=> $order->get_billing_country()
                                 ),
-
                                 array(
                                     'key'			=> 'Subscriber.Company',
                                     'value'		=> $order->get_billing_company()
-                                ),
-                                
+                                ),                
                                 array(
                                     'key'			=> 'Order.Date',
                                     'value'		=> date_format($order->get_date_completed(), "Y/m/d H:i:s")
                                 ),
-
                                 array(
                                     'key'			=> 'Order.Subtotal',
                                     'value'		=> $order_subtotal
@@ -314,7 +299,6 @@ class WC_Admin_Settings_Rulemailer
                         )
                     );
 
-
                     if (! empty($brands)) {
                         $subscription['subscribers']['fields'][] = array(
                             'key'			=> 'Order.Brands',
@@ -322,7 +306,6 @@ class WC_Admin_Settings_Rulemailer
                             'type'		=> 'multiple'
                         );
                     }
-
 
 
                     if (! empty($categories)) {
@@ -350,6 +333,33 @@ class WC_Admin_Settings_Rulemailer
                         );
                     }
 
+                    $custom_fields = [];
+
+                    if(get_option($rule['custom_fields']['id'])) {
+                        $cf = json_decode(get_option($rule['custom_fields']['id']));
+                        
+                        foreach($cf as $field) {
+                            
+                            if($field->attribute){
+
+                                if($field->source == 'user') {
+                                    $v = get_user_meta($order->user_id, $field->attribute, true);
+                                    $k = 'Subscriber.'.$field->attribute;
+                                } else {
+                                    $v = get_post_meta($order->id, $field->attribute, true);
+                                    $k = 'Order.'.$field->attribute;
+                                }
+
+                                if($v) {
+                                    array_push($subscription['subscribers']['fields'], array('key' => $k, 'value' => $v) );
+                                }
+                            }
+                        }
+                    }
+
+                    if($custom_fields) {
+                        $subscription['subscribers']['fields'][] =  $custom_fields; 
+                    }
 
                     $api = WP_RuleMailer_API::get_instance();
                     $api::subscribe($subscription);
@@ -367,11 +377,14 @@ class WC_Admin_Settings_Rulemailer
                 break;
 
             case 'edit':
+                $rule = new WooRule();
                 $GLOBALS['hide_save_button'] = false;
                 $delete_url = admin_url('admin.php?page=wc-settings&tab=woorule_settings_tab&woo-rule-action=delete&rule-id=') . self::$RULE_ID;
 
                 woocommerce_admin_fields(self::edit_rule());
-                include_once((new WooRule())->get_path() . '/includes/admin/views/html-admin-buttons.php');
+                
+                include_once($rule->get_path() . '/includes/admin/views/html-admin-custom-fields.php');
+                include_once($rule->get_path() . '/includes/admin/views/html-admin-buttons.php');
 
                 break;
 
@@ -502,6 +515,17 @@ class WC_Admin_Settings_Rulemailer
                 'default'		=> 'yes'
             ),
 
+            'automation' => array(
+                'title' 		=> __('Automation', 'woorule'),
+                'type' 			=> 'select',
+                'id' 				=> 'woorule_automation_'.$id,
+                'default'		=> 'reset',
+                'options' 	=> array(
+                    'force'    	=> __('Force', 'woorule'),
+                    'reset'	=> __('Reset', 'woorule')
+                ),
+            ),
+
             'auto_create_tags' => array(
                 'title' 		=> __('Auto create tags', 'woorule'),
                 'type' 			=> 'checkbox',
@@ -541,10 +565,17 @@ class WC_Admin_Settings_Rulemailer
                 'default'		=> 'OrderComplete'
             ),
 
+            'custom_fields' => array(
+                'title'			=> __('Custom Fields', 'woorule'),
+                'type'			=> 'text',
+                'id'				=> 'woorule_custom_fields_'.$id
+            ),
+
             'section_end' => array(
                 'type'		=> 'sectionend',
                 'id'			=> 'wc_settings_rulemailer_section_end'
-            )
+            ),
+            
         );
 
         return $settings;
@@ -560,4 +591,28 @@ class WC_Admin_Settings_Rulemailer
 
         include_once((new WooRule())->get_path() . '/includes/admin/views/html-admin-rule-list.php');
     }
+
+    private static function get_latest_order()
+    {
+        global $wpdb;
+        $statuses = array_keys(wc_get_order_statuses());
+        $statuses = implode( "','", $statuses );
+    
+        // Getting last Order ID (max value)
+        $results = $wpdb->get_col( "
+            SELECT MAX(ID) FROM {$wpdb->prefix}posts
+            WHERE post_type LIKE 'shop_order'
+            AND post_status IN ('$statuses')
+        " );
+        return reset($results);
+    }
+
+    public static function render_order_metas(){
+        return get_post_meta(self::get_latest_order());
+    }
+
+    public static function render_user_metas(){
+        return get_user_meta( get_current_user_id() );
+    }
+
 }
