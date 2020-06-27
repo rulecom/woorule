@@ -91,3 +91,8 @@ label[for^="woorule_custom_fields"] {
 .woorule-custom-fields .metas li:hover span {
     display: inline-block;
 }
+
+.woorule-custom-fields li.exists{
+    background: red;
+    color: white;
+}

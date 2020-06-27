@@ -159,7 +159,7 @@ class WC_Admin_Settings_Rulemailer
                         $newtags[0]='OrderComplete';
                     }
 
-                    $language = substr( bloginfo ( 'language' ), 0, 2 );
+                    $language = substr( get_locale(), 0, 2 );
                          
                     $subscription = array(
                         'apikey'              => $integration->api_key,
@@ -606,7 +606,14 @@ class WC_Admin_Settings_Rulemailer
     }
 
     public static function render_user_metas(){
-        return get_user_meta( get_current_user_id() );
+        $user_meta = get_user_meta( get_current_user_id() );
+
+        // JSON Values may break the RULE API, so lets filter them on our end.
+        unset($user_meta['_woocommerce_persistent_cart_1']);
+        unset($user_meta['session_tokens']); 
+        
+        
+        return $user_meta;
     }
 
 }

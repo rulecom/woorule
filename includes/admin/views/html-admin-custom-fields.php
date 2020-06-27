@@ -24,7 +24,7 @@ if (! defined('ABSPATH')) {
 
     <div class="fields"></div>
 
-    <a class="btn button add-one-more" href="#">Add one more field</a> <a class="btn button show-all-metas" href="#">Show all availiable meta fields</a>
+    <a class="btn button show-all-metas" href="#">Show all availiable meta fields</a>
 
 
     <div class="metas">
