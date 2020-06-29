@@ -234,6 +234,11 @@ class WC_Admin_Settings_Rulemailer
                                     'key'			=> 'Subscriber.Company',
                                     'value'		=> $order->get_billing_company()
                                 ),
+
+                                array(
+                                    'key'			=> 'Subscriber.Source',
+                                    'value'		=> 'WooRule'
+                                ),
                                 
                                 array(
                                     'key'			=> 'Order.Date',
