@@ -53,3 +53,9 @@ NOTE: By default WooRule will create the "Defaul Rule" that will trigger the dat
 
 = 0.6 =
 * New features. Bugfixes.
+
+= 1.1 =
+User\order meta fields.
+Default data improvements
+Bugfixes
+Visual Adjustments
