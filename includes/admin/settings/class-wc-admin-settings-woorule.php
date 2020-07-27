@@ -224,7 +224,11 @@ class WC_Admin_Settings_Rulemailer
                                 array(
                                     'key'			=> 'Subscriber.Company',
                                     'value'		=> $order->get_billing_company()
-                                ),                
+                                ),
+                                array(
+                                    'key'			=> 'Subscriber.Source',
+                                    'value'		=> 'WooRule'
+                                ),                   
                                 array(
                                     'key'			=> 'Order.Date',
                                     'value'		=> date_format($order->get_date_completed(), "Y/m/d H:i:s")

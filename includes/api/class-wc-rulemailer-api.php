@@ -28,6 +28,11 @@ class WP_RuleMailer_API
 
     public static function new_subscription($email)
     {
+        $sourceData = array(
+            'key' => 'Subscriber.Source',
+            'value' => 'WooRule'
+        );
+
         $subscription = array(
             'apikey'              => get_option('woocommerce_rulemailer_settings')['woorule_api_key'],
             'update_on_duplicate'	=> true,
@@ -35,7 +40,7 @@ class WP_RuleMailer_API
             'auto_create_fields'	=> true,
             'async'  => true,
             'tags'	=> array('Newsletter'),
-            'subscribers' => array('email' => $email)
+            'subscribers' => array('email' => $email, 'fields' => array($sourceData))
         );
 
         static::subscribe($subscription);
