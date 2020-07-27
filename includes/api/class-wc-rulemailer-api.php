@@ -28,11 +28,6 @@ class WP_RuleMailer_API
 
     public static function new_subscription($email)
     {
-        $sourceData = array(
-            'key' => 'Subscriber.Source',
-            'value' => 'WooRule'
-        );
-
         $subscription = array(
             'apikey'              => get_option('woocommerce_rulemailer_settings')['woorule_api_key'],
             'update_on_duplicate'	=> true,
@@ -40,7 +35,7 @@ class WP_RuleMailer_API
             'auto_create_fields'	=> true,
             'async'  => true,
             'tags'	=> array('Newsletter'),
-            'subscribers' => array('email' => $email, 'fields' => array($sourceData))
+            'subscribers' => array('email' => $email)
         );
 
         static::subscribe($subscription);
@@ -76,10 +71,8 @@ class WP_RuleMailer_API
 
             if (is_array($msg) || is_object($msg)) {
                 $logger->add('woorule', print_r($msg, true));
-            //$logger->add('woorule', print_r( json_encode($body_data), true ) );
             } else {
                 $logger->add('woorule', $msg);
-                //$logger->add('woorule', json_encode($body_data) );
             }
         }
     }

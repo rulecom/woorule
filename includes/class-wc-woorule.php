@@ -72,13 +72,15 @@ class WooRule
             ),
 
             'automation' => array(
-                'title' 		=> __('Automation', 'woorule'),
+                'title' 		=> __(' ', 'woorule'),
                 'type' 			=> 'select',
                 'id' 				=> 'woorule_automation_'.$id,
-                'default'		=> 'reset',
+                'default'		=> 'true',
                 'options' 	=> array(
+                    'none'    	=> __('None', 'woorule'),
                     'force'    	=> __('Force', 'woorule'),
-                    'reset'	=> __('Reset', 'woorule')
+                    'reset'	=> __('Reset', 'woorule'),
+                    'true'    	=> __('True', 'woorule')
                 ),
             ),
 
