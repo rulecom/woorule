@@ -59,3 +59,6 @@ User\order meta fields.
 Default data improvements
 Bugfixes
 Visual Adjustments
+
+= 1.2 =
+Bugfixes

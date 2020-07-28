@@ -159,6 +159,10 @@ class WC_Admin_Settings_Rulemailer
                         $newtags[0]='OrderComplete';
                     }
 
+                    if ( (isset($rule['show_opt_in'])) && (get_option($rule['show_opt_in']['id']) === 'yes') ) {
+                        array_push($newtags, 'Newsletter');
+                    }
+
                     $language = substr( get_locale(), 0, 2 );
                          
                     $subscription = array(
@@ -166,7 +170,7 @@ class WC_Admin_Settings_Rulemailer
                         'update_on_duplicate'	=> get_option($rule['update_on_duplicate']['id'])	=== 'yes' ? true : false,
                         'auto_create_tags'		=> get_option($rule['auto_create_tags']['id'])		=== 'yes' ? true : false,
                         'auto_create_fields'	=> get_option($rule['auto_create_fields']['id'])	=== 'yes' ? true : false,
-                        'automation'	=> get_option($rule['automation']['id'])	=== 'reset' ? 'reset' : 'force',
+                        'automation'	=> get_option($rule['automation']['id']),
 
                         'async'  => true,
                         'tags'	=> $newtags,
@@ -220,12 +224,11 @@ class WC_Admin_Settings_Rulemailer
                                 array(
                                     'key'			=> 'Subscriber.Company',
                                     'value'		=> $order->get_billing_company()
-
                                 ),
                                 array(
                                     'key'			=> 'Subscriber.Source',
                                     'value'		=> 'WooRule'
-                                ),                        
+                                ),                   
                                 array(
                                     'key'			=> 'Order.Date',
                                     'value'		=> date_format($order->get_date_completed(), "Y/m/d H:i:s")
@@ -520,8 +523,9 @@ class WC_Admin_Settings_Rulemailer
                 'id' 				=> 'woorule_automation_'.$id,
                 'default'		=> 'reset',
                 'options' 	=> array(
+                    'default'    	=> __('Default', 'woorule'),
                     'force'    	=> __('Force', 'woorule'),
-                    'reset'	=> __('Reset', 'woorule')
+                    'reset'	=> __('Reset', 'woorule'),
                 ),
             ),
 
