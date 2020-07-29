@@ -77,6 +77,7 @@ class WooRule
                 'id' 				=> 'woorule_automation_'.$id,
                 'default'		=> 'reset',
                 'options' 	=> array(
+                    'default'    	=> __('Default', 'woorule'),
                     'force'    	=> __('Force', 'woorule'),
                     'reset'	=> __('Reset', 'woorule')
                 ),
