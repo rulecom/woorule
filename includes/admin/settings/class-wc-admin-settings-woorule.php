@@ -83,22 +83,22 @@ class WC_Admin_Settings_Rulemailer
 
             if ($enabled) {
                 $which_event    = get_option($rule['occurs']['id']);
-                $is_opt_in_rule = false;
-                $want_in        = true;
+                $optInCheckboxIsShown = false;
+                $acceptsOptIn        = false;
 
                 if (isset($rule['show_opt_in'])) {
-                    $is_opt_in_rule = get_option($rule['show_opt_in']['id']) === 'yes' ? true : false;
+                    $optInCheckboxIsShown = get_option($rule['show_opt_in']['id']) === 'yes' ? true : false;
                 }
 
-                if ($is_opt_in_rule) {
-                    $want_in = get_post_meta($id, 'woorule_opt_in_'.$k, false);
+                if ($optInCheckboxIsShown) {
+                    $acceptsOptIn = get_post_meta($id, 'woorule_opt_in_'.$k, false);
 
-                    if (! empty($want_in)) {
-                        $want_in = $want_in[0] === 'yes' ? true : false;
+                    if (! empty($acceptsOptIn)) {
+                        $acceptsOptIn = $acceptsOptIn[0] === 'yes' ? true : false;
                     }
                 }
 
-                if ($want_in && $new_status === $which_event) {
+                if ($new_status === $which_event) {
                     $integration    = new WC_Integration_RuleMailer();
                     $order          = new WC_Order($id);
                     $user           = $order->get_user();
@@ -148,18 +148,13 @@ class WC_Admin_Settings_Rulemailer
                     $order_data = $order->get_data();
                     $phone = $order->get_billing_phone();
 
-                    $newphone = '';
-                    if ((preg_match('/\+(0|\+?\d{2})(\d{7,8})/', $phone))) {
-                        $newphone = array('key'	=>'Subscriber.Tele', 'value' =>  $phone);
-                    }
-
                     // I feel bad for this, but no other methods was working.
                     $newtags = explode(',', get_option($rule['tags']['id']));
                     if (!(strlen($newtags[0])>1)) {
                         $newtags[0]='OrderComplete';
                     }
 
-                    if ( (isset($rule['show_opt_in'])) && (get_option($rule['show_opt_in']['id']) === 'yes') ) {
+                    if ($acceptsOptIn) {
                         array_push($newtags, 'Newsletter');
                     }
 
