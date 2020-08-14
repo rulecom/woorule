@@ -2,7 +2,7 @@
 Contributors: lurig, neevalex
 Tags: rulemailer, woocommerce, newsletter
 Requires at least: 5.0.0
-Tested up to: 5.2.0
+Tested up to: 5.5.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
