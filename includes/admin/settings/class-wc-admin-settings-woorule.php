@@ -41,7 +41,6 @@ class WC_Admin_Settings_Rulemailer
    
     public static function save_checkout_fields($order_id)
     {
-        // @TODO: fix, this is st0pid
         foreach ($_POST as $k => $v) {
             if (substr($k, 0, 15) === 'woorule_opt_in_') {
                 $rule_id = substr($k, 15, strlen($k));
@@ -124,7 +123,6 @@ class WC_Admin_Settings_Rulemailer
                           'subtotal' => $item->get_total()
                           );
 
-                        // this is bullshit
                         $categoriesString = strip_tags(wc_get_product_category_list(
                             $item['product_id'],
                             self::DELIMITER
@@ -146,7 +144,6 @@ class WC_Admin_Settings_Rulemailer
                     }
 
                     $order_data = $order->get_data();
-                    $phone = $order->get_billing_phone();
 
                     // I feel bad for this, but no other methods was working.
                     $newtags = explode(',', get_option($rule['tags']['id']));
@@ -172,7 +169,7 @@ class WC_Admin_Settings_Rulemailer
                         'subscribers' => array(
                 
                             'email'					=> $order->get_billing_email(),
-                            'phone_number'		=> $order_data['billing']['phone'],
+                            'phone_number'		=> $order_data['billing']['phone'] ?? '',
                             'language' => $language,
 
                             'fields' => array(
@@ -226,7 +223,8 @@ class WC_Admin_Settings_Rulemailer
                                 ),                   
                                 array(
                                     'key'			=> 'Order.Date',
-                                    'value'		=> date_format($order->get_date_completed(), "Y/m/d H:i:s")
+                                    'value'		=> $order->get_date_completed()
+                                        ? date_format($order->get_date_completed(), "Y/m/d H:i:s") : ''
                                 ),
                                 array(
                                     'key'			=> 'Order.Subtotal',
@@ -250,53 +248,53 @@ class WC_Admin_Settings_Rulemailer
                                 ),
                                 array(
                                     'key'			=> 'Order.Currency',
-                                    'value'		=> $order_data['currency']
+                                    'value'		=> $order_data['currency'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.PaymentMethod',
-                                    'value'		=> $order_data['payment_method'],
+                                    'value'		=> $order_data['payment_method'] ?? '',
                                     "type" => "multiple"
                                 ),
                                 array(
                                     'key'			=> 'Order.DeliveryMethod',
-                                    'value'		=> $order_data['delivery_method'],
+                                    'value'		=> $order_data['delivery_method'] ?? '',
                                     "type" => "multiple"
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingFirstname',
-                                    'value'		=> $order_data['billing']['first_name']
+                                    'value'		=> $order_data['billing']['first_name'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingLastname',
-                                    'value'		=> $order_data['billing']['last_name']
+                                    'value'		=> $order_data['billing']['last_name'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingStreet',
-                                    'value'		=> $order_data['billing']['address_1']
+                                    'value'		=> $order_data['billing']['address_1'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingCity',
-                                    'value'		=> $order_data['billing']['city']
+                                    'value'		=> $order_data['billing']['city'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingZipcode',
-                                    'value'		=> $order_data['billing']['postcode']
+                                    'value'		=> $order_data['billing']['postcode'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingState',
-                                    'value'		=> $order_data['billing']['state']
+                                    'value'		=> $order_data['billing']['state'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingCountry',
-                                    'value'		=> $order_data['billing']['country']
+                                    'value'		=> $order_data['billing']['country'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingTele',
-                                    'value'		=> $order_data['billing']['phone']
+                                    'value'		=> $order_data['billing']['phone'] ?? ''
                                 ),
                                 array(
                                     'key'			=> 'Order.BillingCompany',
-                                    'value'		=> $order_data['billing']['company']
+                                    'value'		=> $order_data['billing']['company'] ?? ''
                                 )
                             )
                         )
