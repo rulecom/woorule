@@ -62,3 +62,6 @@ Visual Adjustments
 
 = 1.2 =
 Bugfixes
+
+= 1.3 =
+Bugfixes
