@@ -128,8 +128,8 @@ function woorule_submit_scripts()
 }
 
 // This will add the direct "Settings" link inside wp plugins menu.
-add_filter( 'plugin_action_links_woorule/woorule.php', 'nc_settings_link' );
-function nc_settings_link( $links ) {
+add_filter( 'plugin_action_links_woorule/woorule.php', 'woorule_settings_link' );
+function woorule_settings_link( $links ) {
 
 	$url = esc_url( add_query_arg(
 		'page','wc-settings', get_admin_url() . 'admin.php?page=wc-settings&tab=woorule_settings_tab'
