@@ -22,13 +22,13 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+require_once(plugin_dir_path(__FILE__) . 'includes/class-wc-woorule.php');
+
 function activate_woorule()
 {
     WooRule::check_rules();
 }
-
 register_activation_hook(__FILE__, 'activate_woorule');
-
 
 function woorule_admin_notice_woo_error()
 {
@@ -60,8 +60,6 @@ function woorule_enqueue_admin_script( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'woorule_enqueue_admin_script' );
 
-
-require_once(plugin_dir_path(__FILE__) . 'includes/class-wc-woorule.php');
 
 function run_woorule()
 {
