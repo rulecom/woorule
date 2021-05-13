@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) {
 
     <img src="<?php echo plugin_dir_url(__DIR__); ?>../../assets/woorule.svg" />
 	<h2><?php _e('WooRule mailing rules', 'woorule'); ?></h2>
-	<?php if (!get_option('woocommerce_rulemailer_settings')['woorule_api_key']) { ?>
+	<?php if ((!get_option('woocommerce_rulemailer_settings')) || (!get_option('woocommerce_rulemailer_settings')['woorule_api_key']) ){ ?>
   	  <div style="margin-bottom:10px; display: inline-block;width: 100%;">
 		You need to set up an API key on <a href="<?php echo admin_url('admin.php?page=wc-settings&tab=integration'); ?>"> API settings page</a> before you can use this plugin.
   	  </div>

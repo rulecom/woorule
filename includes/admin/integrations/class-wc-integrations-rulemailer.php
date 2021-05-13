@@ -16,7 +16,7 @@ class WC_Integration_RuleMailer extends WC_Integration
         $this->method_description = 'RuleMailer integration for WooCommerce';
 
         $this->init_settings();
-        $this->api_key = get_option('woocommerce_rulemailer_settings')['woorule_api_key'];
+        $this->api_key = get_option('woocommerce_rulemailer_settings')['woorule_api_key'] ?? '';
         $this->init_form_fields();
 
         // actions

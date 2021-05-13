@@ -49,7 +49,8 @@ if (! class_exists('WooCommerce')) {
     add_action('admin_notices', 'woorule_admin_notice_woo_error');
     return;
 }
-if (!get_option('woocommerce_rulemailer_settings')['woorule_api_key']) {
+
+if ((!get_option('woocommerce_rulemailer_settings') )|| (!get_option('woocommerce_rulemailer_settings')['woorule_api_key']) ){
     add_action('admin_notices', 'woorule_admin_notice_api_error');
 }
 
