@@ -342,10 +342,10 @@ class WC_Admin_Settings_Rulemailer
                             if($field->attribute){
 
                                 if($field->source == 'user') {
-                                    $v = get_user_meta($order->user_id, $field->attribute, true);
+                                    $v = get_user_meta($order->get_id(), $field->attribute, true);
                                     $k = 'Subscriber.'.$field->attribute;
                                 } else {
-                                    $v = get_post_meta($order->id, $field->attribute, true);
+                                    $v = get_post_meta($order->get_id(), $field->attribute, true);
                                     $k = 'Order.'.$field->attribute;
                                 }
 
