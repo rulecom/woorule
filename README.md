@@ -9,9 +9,7 @@ A [Rule Communication](https://www.rule.se/) integration with WooCommerce.
 
 ## Installation
 
-1. Either download the latest release and upload it to your `/wp-content/plugins/`
-directory or grab it from [Wordpress Plugin
-Directory](http://wordpress.org/plugins/woorule/).
+1. Either download the latest release and upload it to your `/wp-content/plugins/` directory or grab it from [Wordpress Plugin Directory](http://wordpress.org/plugins/woorule/).
 
 2. Activate the plugin under the _Plugins_  from Wordpress Admin panel.
 
@@ -19,10 +17,9 @@ Directory](http://wordpress.org/plugins/woorule/).
 
 ## Usage
 
-_NOTE: By default WooRule will create the "Defaul Rule" that will trigger the data sync for all new orders, tagged as "New Order"_
+_NOTE: By default WooRule will create the "Default Rule" that will trigger the data sync for all new orders, tagged as "New Order"_
 
-1. Go to the _RuleMailer tab_ and click _Add new_ and a new Rule appears in the
-   list.
+1. Go to the _RuleMailer tab_ and click _Add new_ and a new Rule appears in the list.
 
 2. Press _Edit_ on the new Rule.
 
@@ -31,8 +28,8 @@ _NOTE: By default WooRule will create the "Defaul Rule" that will trigger the da
 ### Shortcode
 
 You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode `[woorule]`
- 
-You can also customise the subscribe form with the shortcode options:
+
+You can also customize the subscribe form with the shortcode options:
 `[woorule text="This is a new title text" button="New submit button text!" success="New Success message"]`
 
 
@@ -57,13 +54,13 @@ New Version public release. (New API, Shortcode, Settings)
 ### 0.3
 Bugfixes
 
-### 0.4 
+### 0.4
 Missing Assets
 
-### 0.5 
+### 0.5
 New features. Bugfixes. Newest WP support
 
-### 0.6 
+### 0.6
 New features. Bugfixes.
 
 ### 1.1

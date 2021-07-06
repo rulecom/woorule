@@ -38,7 +38,7 @@ class WC_Admin_Settings_Rulemailer
         $tabs['woorule_settings_tab'] = __('RuleMailer', 'woorule');
         return $tabs;
     }
-   
+
     public static function save_checkout_fields($order_id)
     {
         foreach ($_POST as $k => $v) {
@@ -156,7 +156,7 @@ class WC_Admin_Settings_Rulemailer
                     }
 
                     $language = substr( get_locale(), 0, 2 );
-                         
+
                     $subscription = array(
                         'apikey'              => $integration->api_key,
                         'update_on_duplicate'	=> get_option($rule['update_on_duplicate']['id'])	=== 'yes' ? true : false,
@@ -167,7 +167,7 @@ class WC_Admin_Settings_Rulemailer
                         'async'  => true,
                         'tags'	=> $newtags,
                         'subscribers' => array(
-                
+
                             'email'					=> $order->get_billing_email(),
                             'phone_number'		=> $order_data['billing']['phone'] ?? '',
                             'language' => $language,
@@ -220,7 +220,7 @@ class WC_Admin_Settings_Rulemailer
                                 array(
                                     'key'			=> 'Subscriber.Source',
                                     'value'		=> 'WooRule'
-                                ),                   
+                                ),
                                 array(
                                     'key'			=> 'Order.Date',
                                     'value'		=> $order->get_date_completed()
@@ -336,9 +336,9 @@ class WC_Admin_Settings_Rulemailer
 
                     if(get_option($rule['custom_fields']['id'])) {
                         $cf = json_decode(get_option($rule['custom_fields']['id']));
-                        
+
                         foreach($cf as $field) {
-                            
+
                             if($field->attribute){
 
                                 if($field->source == 'user') {
@@ -377,7 +377,7 @@ class WC_Admin_Settings_Rulemailer
                 $delete_url = admin_url('admin.php?page=wc-settings&tab=woorule_settings_tab&woo-rule-action=delete&rule-id=') . self::$RULE_ID;
 
                 woocommerce_admin_fields(self::edit_rule());
-                
+
                 include_once($rule->get_path() . '/includes/admin/views/html-admin-custom-fields.php');
                 include_once($rule->get_path() . '/includes/admin/views/html-admin-buttons.php');
 
@@ -571,7 +571,7 @@ class WC_Admin_Settings_Rulemailer
                 'type'		=> 'sectionend',
                 'id'			=> 'wc_settings_rulemailer_section_end'
             ),
-            
+
         );
 
         return $settings;
@@ -593,7 +593,7 @@ class WC_Admin_Settings_Rulemailer
         global $wpdb;
         $statuses = array_keys(wc_get_order_statuses());
         $statuses = implode( "','", $statuses );
-    
+
         // Getting last Order ID (max value)
         $results = $wpdb->get_col( "
             SELECT MAX(ID) FROM {$wpdb->prefix}posts
@@ -612,9 +612,9 @@ class WC_Admin_Settings_Rulemailer
 
         // JSON Values may break the RULE API, so lets filter them on our end.
         unset($user_meta['_woocommerce_persistent_cart_1']);
-        unset($user_meta['session_tokens']); 
-        
-        
+        unset($user_meta['session_tokens']);
+
+
         return $user_meta;
     }
 

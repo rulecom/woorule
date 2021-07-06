@@ -13,4 +13,3 @@ if (! defined('ABSPATH')) {
 		</td>
 	</tr>
 </table>
-

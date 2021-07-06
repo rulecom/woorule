@@ -14,9 +14,9 @@ jQuery(document).ready(function ($) {
     function exists(arr, search) {
         return arr.some(row => row.includes(search));
     }
-    
+
     if ($('.woorule-custom-fields').length) {
- 
+
         $('body').on('click', '.woorule-custom-fields .field-row .remove', function (e) {
             e.preventDefault();
             $(this).parent().remove();
@@ -41,10 +41,8 @@ jQuery(document).ready(function ($) {
             let field = $('.woorule-custom-fields .fields').append('<li class="field-row f'+key+'">'+$('.woorule-custom-fields .empty li').html()+'</li>');
             $(field).find('.f' + key + ' input[name="attribute"]').val(attr);
             $(field).find('.f'+key+' select[name="source"]').val($(src).attr('type'));
-            
-        });
 
-         
+        });
 
         $('body').on('click', '.woorule-custom-fields .show-all-metas', function (e) {
             e.preventDefault();
@@ -72,6 +70,6 @@ jQuery(document).ready(function ($) {
         }
 
     }
-    
+
 
 });

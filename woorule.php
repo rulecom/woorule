@@ -1,15 +1,15 @@
 <?php
 /**
- * WooRule - RuleMailer integration for WooCommerce.
+ * WooRule - Rule integration for WooCommerce.
  *
  * @wordpress-plugin
  * @woocommerce-plugin
  *
  * Plugin Name:     WooRule
  * Plugin URI:      http://github.com/rulecom/woorule
- * Description:     RuleMailer integration for WooCommerce.
+ * Description:     RuleMailer integration for WooCommerce
  * Version:         1.4
- * Author:          RuleMailer, Neevalex
+ * Author:          RuleMailer
  * Author URI:      http://rule.se
  * Developer:       Jonas Adolfsson, Neev Alex
  * Developer URI:   http://lurig.github.io,http://neevalex.com
@@ -61,7 +61,6 @@ function woorule_enqueue_admin_script( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'woorule_enqueue_admin_script' );
 
-
 function run_woorule()
 {
     $lang_dir = basename(dirname(__FILE__ . '/languages'));
@@ -73,13 +72,12 @@ function run_woorule()
 
 add_action('plugins_loaded', 'run_woorule', 0);
 
-
 // Shortcode stuff
 function woorule_func($atts)
 {
     if (get_option('woocommerce_rulemailer_settings')['woorule_api_key']) {
         wp_enqueue_style('woorule-css', plugin_dir_url(__FILE__) . "/assets/woorule.css");
-    
+
         if (!(empty($atts['text']))) {
             $text = $atts['text'];
         } else {
@@ -111,7 +109,6 @@ function woorule_func($atts)
 
 add_shortcode('woorule', 'woorule_func');
 
-
 add_action('wp_enqueue_scripts', 'woorule_submit_scripts');
 add_action('wp_ajax_ajax-wooruleSubmit', 'woorule_wooruleSubmit_func');
 add_action('wp_ajax_nopriv_ajax-wooruleSubmit', 'woorule_wooruleSubmit_func');
@@ -141,8 +138,6 @@ function woorule_settings_link( $links ) {
 	array_push($links,$settings_link);
 	return $links;
 }
-
-
 
 function woorule_wooruleSubmit_func()
 {

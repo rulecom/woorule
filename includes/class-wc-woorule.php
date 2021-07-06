@@ -132,7 +132,7 @@ class WooRule
                 'type'		=> 'sectionend',
                 'id'			=> 'wc_settings_rulemailer_section_end'
             )
-          
+
         );
 
         return $settings;
@@ -156,7 +156,7 @@ class WooRule
             update_option('woorule_tags_1', 'New order');
             update_option('woorule_automation_1', 'reset');
             update_option('woorule_custom_fields_1', '[{"attribute":"_payment_method","source":"order"},{"attribute":"_payment_method_title","source":"order"},{"attribute":"_customer_ip_address","source":"order"},{"attribute":"nickname","source":"user"},{"attribute":"first_name","source":"user"},{"attribute":"last_name","source":"user"}]');
-            
+
 
             apply_filters('wc_settings_rulemailer', $settings);
         }
