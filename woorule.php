@@ -8,7 +8,7 @@
  * Plugin Name:     WooRule
  * Plugin URI:      http://github.com/rulecom/woorule
  * Description:     RuleMailer integration for WooCommerce.
- * Version:         1.3
+ * Version:         1.4
  * Author:          RuleMailer, Neevalex
  * Author URI:      http://rule.se
  * Developer:       Jonas Adolfsson, Neev Alex
@@ -22,13 +22,13 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+require_once(plugin_dir_path(__FILE__) . 'includes/class-wc-woorule.php');
+
 function activate_woorule()
 {
     WooRule::check_rules();
 }
-
 register_activation_hook(__FILE__, 'activate_woorule');
-
 
 function woorule_admin_notice_woo_error()
 {
@@ -49,7 +49,8 @@ if (! class_exists('WooCommerce')) {
     add_action('admin_notices', 'woorule_admin_notice_woo_error');
     return;
 }
-if (!get_option('woocommerce_rulemailer_settings')['woorule_api_key']) {
+
+if ((!get_option('woocommerce_rulemailer_settings') )|| (!get_option('woocommerce_rulemailer_settings')['woorule_api_key']) ){
     add_action('admin_notices', 'woorule_admin_notice_api_error');
 }
 
@@ -60,8 +61,6 @@ function woorule_enqueue_admin_script( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'woorule_enqueue_admin_script' );
 
-
-require_once(plugin_dir_path(__FILE__) . 'includes/class-wc-woorule.php');
 
 function run_woorule()
 {
@@ -130,8 +129,8 @@ function woorule_submit_scripts()
 }
 
 // This will add the direct "Settings" link inside wp plugins menu.
-add_filter( 'plugin_action_links_woorule/woorule.php', 'nc_settings_link' );
-function nc_settings_link( $links ) {
+add_filter( 'plugin_action_links_woorule/woorule.php', 'woorule_settings_link' );
+function woorule_settings_link( $links ) {
 
 	$url = esc_url( add_query_arg(
 		'page','wc-settings', get_admin_url() . 'admin.php?page=wc-settings&tab=woorule_settings_tab'
