@@ -36,20 +36,20 @@ You can also customize the subscribe form with the shortcode options:
 
 ### Resources
 
-- [Rule documentation](https://docs.rule.se/).
-- [WooCommerce](http://docs.woothemes.com/documentation/plugins/woocommerce/).
+- [Rule documentation](https://docs.rule.se/)
+- [WooCommerce](http://docs.woothemes.com/documentation/plugins/woocommerce/)
 
 ## License
 
-Please see [LICENSE.txt](/LICENSE.txt).
+Please see [LICENSE.txt](/LICENSE.txt)
 
 ## Changelog
 
 ### 0.0.1
-- Not yet released
+Non-public release.
 
 ### 0.2
-New Version public release. (New API, Shortcode, Settings)
+New Version public release (New API, Shortcode, Settings)
 
 ### 0.3
 Bugfixes
