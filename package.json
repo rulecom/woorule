@@ -1,9 +1,0 @@
-{
-  "name": "woocommerce-rulemailer-extension",
-  "version": "0.0.1",
-  "devDependencies": {
-    "grunt-po2mo": "^0.1.2",
-    "grunt-pot": "~0.2.0"
-  }
-}
-
