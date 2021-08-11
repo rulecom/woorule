@@ -6,9 +6,10 @@ class Woorule
 
     public static function init()
     {
-        add_action( 'admin_menu', __CLASS__ . '::settings_page_init' );
+        add_action('admin_menu', __CLASS__ . '::settings_page_init' );
+        add_action('admin_head', __CLASS__ . '::admin_css');
         // This will add the direct "Settings" link inside wp plugins menu.
-        add_filter( 'plugin_action_links_woorule/woorule.php', __CLASS__ . '::settings_link' );
+        add_filter('plugin_action_links_woorule/woorule.php', __CLASS__ . '::settings_link' );
         // Orders hook
         add_action('woocommerce_order_status_changed', __CLASS__ . '::order_status_changed', 10, 4);
         // newsletter subscribe button on checkout
@@ -28,14 +29,17 @@ class Woorule
         return $links;
     }
 
-    public function settings_page_init() {
-        add_submenu_page(
-            'options-general.php',
-            'WooRule Settings',
+    public static function settings_page_init() {
+        add_menu_page(
+            __( 'Woorule', 'woorule' ),
             'WooRule',
-            'administrator',
+            'manage_options',
             'woorule-settings',
-            __CLASS__ . '::settings_page' );
+            __CLASS__ . '::settings_page',
+            plugins_url( 'woorule/assets/fav.png' ),
+            6
+        );
+        return;
     }
 
     public function custom_checkout_field()
@@ -333,15 +337,36 @@ class Woorule
         if(( (isset($_GET['save'])) && ($_GET['save'] == 'woorule') )) update_option('woocommerce_rulemailer_settings', $woorule_api);
     }
 
+    public static function admin_css() {
+        echo 
+        '<style>
+          form.woorule {
+            margin-top: 20px;
+          }
+          .woorule .description {
+              display: inline-block;
+              width: 100%; margin-top: 5px;
+          }
+
+          .woorule tr.line {
+              border-bottom: 1px solid #ddd;
+          }
+
+          .woorule h2 {
+              margin: 0;
+          }
+
+        </style>';
+      }
+
     public static function settings_page()
     {
         self::checkInput();
         //print_r(get_option('woocommerce_rulemailer_settings'));
 
     ?>
-    <form method="get" action="/wp-admin/options-general.php">
-        <h2 class="title">Woorule Settings</h2>
-        <img width="123" height="32" src="//624068-2026521-2-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2020/12/logo.png" alt="" class="lazyloaded" data-ll-status="loaded">
+    <form method="get" class="woorule" action="/wp-admin/options-general.php">
+        <img width="123" height="32" src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/logo.png" alt="" class="lazyloaded" data-ll-status="loaded">
         <input type="hidden" name="page" value="woorule-settings" />
         <input type="hidden" name="save" value="woorule" />
 
@@ -349,12 +374,11 @@ class Woorule
         <table class="form-table" role="presentation">
             <tbody>
                 <tr>
-                    <th><label for="woorule_api">Rule API Key</label></th>
-                    <td>
-                        <input name="woorule_api" id="woorule_api" type="text" class="regular-text code" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_api_key']; ?>">
-                        <span class="description"><?php _e('You can find your RULE API key inside <a href="http://app.rule.io/#/settings/developer">developer tab on user account settings</a>.', 'woorule'); ?></span>
-                    </td>
+                    <th>
+                        <h2><?php echo _e('Checkout form', 'woorule'); ?></h2>
+                    </th>
                 </tr>
+
                 <tr>
                     <th><label for="woorule_checkout_show">Show checkout checkbox</label></th>
                     <td>
@@ -365,15 +389,31 @@ class Woorule
                 <tr>
                     <th><label for="category_base">Checkout Label</label></th>
                     <td>
-                        <input name="woorule_checkout_label" id="woorule_checkout_label" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_label']; ?>" class="regular-text code">
+                        <input name="woorule_checkout_label" id="woorule_checkout_label" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] ? get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] : 'Sign up to the newsletter'; ?>" class="regular-text code">
                         <span class="description"><?php _e('Text to display next to the signup form', 'woorule'); ?></span>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="woorule_checkout_tags">Tags</label></th>
                     <td>
-                        <input name="woorule_checkout_tags" id="woorule_checkout_tags" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags']; ?>" class="regular-text code">
+                        <input name="woorule_checkout_tags" id="woorule_checkout_tags" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags'] ? get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags'] : 'Newsletter'; ?>" class="regular-text code">
                         <span class="description"><?php _e('Default tags (Comma separated)', 'woorule'); ?></span>
+                    </td>
+                </tr>
+                
+                <tr class="line"><th></th><td></td></tr>
+
+                <tr>
+                    <th>
+                        <h2><?php echo _e('Configuration', 'woorule'); ?></h2>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th><label for="woorule_api">Rule API Key</label></th>
+                    <td>
+                        <input name="woorule_api" id="woorule_api" type="text" class="regular-text code" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_api_key']; ?>">
+                        <span class="description"><?php _e('You can find your RULE API key inside <a href="http://app.rule.io/#/settings/developer">developer tab on user account settings</a>.', 'woorule'); ?></span>
                     </td>
                 </tr>
             </tbody>
