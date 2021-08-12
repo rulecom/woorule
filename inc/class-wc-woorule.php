@@ -22,9 +22,9 @@ class Woorule
         $url = esc_url( add_query_arg(
             'page','woorule-settings', get_admin_url() . 'options-general.php'
         ) );
-    
+
         $settings_link = "<a href='$url'>" . __( 'Settings' ) . '</a>';
-    
+
         array_push($links,$settings_link);
         return $links;
     }
@@ -190,7 +190,8 @@ class Woorule
                     array(
                         'key'            => 'Order.Date',
                         'value'        => $order->get_date_completed()
-                            ? date_format($order->get_date_completed(), "Y/m/d H:i:s") : ''
+                            ? date_format($order->get_date_completed(), "Y/m/d H:i:s") : '',
+                        'type' => 'datetime'
                     ),
                     array(
                         'key'            => 'Order.Subtotal',
@@ -219,12 +220,12 @@ class Woorule
                     array(
                         'key'            => 'Order.PaymentMethod',
                         'value'        => $order_data['payment_method'] ?? '',
-                        "type" => "multiple"
+                        'type' => 'multiple'
                     ),
                     array(
                         'key'            => 'Order.DeliveryMethod',
                         'value'        => $order_data['delivery_method'] ?? '',
-                        "type" => "multiple"
+                        'type' => 'multiple'
                     ),
                     array(
                         'key'            => 'Order.BillingFirstname',
@@ -338,7 +339,7 @@ class Woorule
     }
 
     public static function admin_css() {
-        echo 
+        echo
         '<style>
           form.woorule {
             margin-top: 20px;
@@ -400,7 +401,7 @@ class Woorule
                         <span class="description"><?php _e('Default tags (Comma separated)', 'woorule'); ?></span>
                     </td>
                 </tr>
-                
+
                 <tr class="line"><th></th><td></td></tr>
 
                 <tr>
@@ -423,7 +424,7 @@ class Woorule
     </form>
     <?php
 
-    
+
 
     }
 }
