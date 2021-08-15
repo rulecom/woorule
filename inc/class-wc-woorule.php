@@ -3,6 +3,7 @@ class Woorule
 {
 
     const DELIMITER = ',';
+    const ALLOWED_STATUSES = ['processing', 'completed', 'shipped']; // Order statuses in this array will trigger the data transfer with Rule.se
 
     public static function init()
     {
@@ -68,6 +69,8 @@ class Woorule
     public static function order_status_changed($id, $status = '', $new_status = '')
     {
 
+        if(!in_array($new_status, self::ALLOWED_STATUSES)) return;
+
         $order          = new WC_Order($id);
         $order_subtotal = $order->get_total() - ($order->get_total_shipping()) - $order->get_total_discount();
         $items          = $order->get_items();
@@ -85,8 +88,8 @@ class Woorule
                 'brand' => $p->get_attribute('brand'),
                 'name' => $p->get_title(),
                 'image' => $p_img[0],
-                'price' => $p->get_price_excluding_tax(),
-                'vat' => ($p->get_price_including_tax() - $p->get_price_excluding_tax()),
+                'price' => round($p->get_price_excluding_tax(), 2),
+                'vat' => round(($p->get_price_including_tax() - $p->get_price_excluding_tax()),2),
                 'qty' => $item->get_quantity(),
                 'subtotal' => $item->get_total()
             );
@@ -112,7 +115,7 @@ class Woorule
         }
 
         $order_data = $order->get_data();
-        array_push($tags, $new_status ? $new_status : 'new'); // $new_status is empty on new orders.
+        array_push($tags, $new_status ? 'Order'.ucfirst($new_status) : 'NewOrder'); // $new_status is empty on new orders.
         if(get_post_meta($id, 'woorule_opt_in', true) == 'true')  array_push($tags, 'newsletter');
 
         if(!empty(get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags'])) {
