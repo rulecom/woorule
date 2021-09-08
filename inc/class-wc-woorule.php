@@ -70,7 +70,9 @@ class Woorule
     {
 
         $custom_tags = [ // You can put any custom tags inside this array.
-            // "processing"     => "test_status"
+            "processing"     => "OrderProcessing",
+            "completed"     => "OrderCompleted",
+            "shipped"      => "OrderShipped"       
         ];
 
         if(!in_array($new_status, self::ALLOWED_STATUSES)) return;
@@ -103,7 +105,7 @@ class Woorule
                 self::DELIMITER
             ));
 
-            $tagsString = strip_tags(wc_get_product_tag_list(
+            $tagsStringOrder = strip_tags(wc_get_product_tag_list(
                 $item['product_id'],
                 self::DELIMITER
             ));
@@ -113,10 +115,6 @@ class Woorule
                 $categories = array_unique(array_merge($categories, $itemCategories));
             }
 
-            if (!empty($tagsString)) {
-                $itemTags = explode(self::DELIMITER, $tagsString);
-                $tags = array_unique(array_merge($tags, $itemTags));
-            }
         }
 
         if(isset($custom_tags[$new_status])) {
@@ -124,14 +122,6 @@ class Woorule
         }
 
         $order_data = $order->get_data();
-        array_push($tags, $new_status ? 'Order'.ucfirst($new_status) : 'NewOrder'); // $new_status is empty on new orders.
-        if(get_post_meta($id, 'woorule_opt_in', true) == 'true')  array_push($tags, 'newsletter');
-
-        if(!empty(get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags'])) {
-            foreach(explode(",", get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags']) as $t) {
-                array_push($tags, $t);
-            }
-        }
 
         $tags = array_unique($tags); // API will give an error on duplicate tags. Making sure there wont be any.
 
@@ -298,10 +288,10 @@ class Woorule
             );
         }
 
-        if (!empty($tags)) {
+        if (!empty($tagsStringOrder)) {
             $subscription['subscribers']['fields'][] = array(
                 'key'            => 'Order.Tags',
-                'value'        => $tags,
+                'value'        => $tagsStringOrder,
                 'type'        => 'multiple'
             );
         }
