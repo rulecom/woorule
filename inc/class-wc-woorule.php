@@ -38,7 +38,7 @@ class Woorule
             'woorule-settings',
             __CLASS__ . '::settings_page',
             plugins_url( 'woorule/assets/fav.png' ),
-            6
+            100
         );
         return;
     }
@@ -69,6 +69,10 @@ class Woorule
     public static function order_status_changed($id, $status = '', $new_status = '')
     {
 
+        $custom_tags = [ // You can put any custom tags inside this array.
+            // "processing"     => "test_status"
+        ];
+
         if(!in_array($new_status, self::ALLOWED_STATUSES)) return;
 
         $order          = new WC_Order($id);
@@ -98,6 +102,7 @@ class Woorule
                 $item['product_id'],
                 self::DELIMITER
             ));
+
             $tagsString = strip_tags(wc_get_product_tag_list(
                 $item['product_id'],
                 self::DELIMITER
@@ -114,6 +119,10 @@ class Woorule
             }
         }
 
+        if(isset($custom_tags[$new_status])) {
+            array_push( $tags, $custom_tags[$new_status] );
+        }
+
         $order_data = $order->get_data();
         array_push($tags, $new_status ? 'Order'.ucfirst($new_status) : 'NewOrder'); // $new_status is empty on new orders.
         if(get_post_meta($id, 'woorule_opt_in', true) == 'true')  array_push($tags, 'newsletter');
@@ -123,6 +132,8 @@ class Woorule
                 array_push($tags, $t);
             }
         }
+
+        $tags = array_unique($tags); // API will give an error on duplicate tags. Making sure there wont be any.
 
         $language = substr(get_locale(), 0, 2);
 
@@ -384,6 +395,12 @@ class Woorule
                 </tr>
 
                 <tr>
+                    <th>
+                        Plugin Documentation: <a href="https://wordpress.org/plugins/woorule/">https://wordpress.org/plugins/woorule/</a>
+                    </th>
+                </tr>
+
+                <tr>
                     <th><label for="woorule_checkout_show">Show checkout checkbox</label></th>
                     <td>
                         <input type="checkbox" name="woorule_checkout_show" id="woorule_checkout_show" <?php echo (get_option('woocommerce_rulemailer_settings')['woorule_checkout_show'] == 'on') ? 'checked' : ''; ?> />
@@ -420,6 +437,7 @@ class Woorule
                         <span class="description"><?php _e('You can find your RULE API key inside <a href="http://app.rule.io/#/settings/developer">developer tab on user account settings</a>.', 'woorule'); ?></span>
                     </td>
                 </tr>
+
             </tbody>
         </table>
 
