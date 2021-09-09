@@ -3,7 +3,11 @@ class Woorule
 {
 
     const DELIMITER = ',';
-    const ALLOWED_STATUSES = ['processing', 'completed', 'shipped']; // Order statuses in this array will trigger the data transfer with Rule.se
+    const ALLOWED_STATUSES = ['processing', 'completed', 'shipped'];
+    // This array lists all the event triggers that will trigger data transfer to Rule
+    // The following array is a list of all the possible default order event triggers:
+    // [ 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed' ]
+    // Note that all active event triggers must have an associated tag name defined in the $custom_tags array
 
     public static function init()
     {
@@ -69,10 +73,10 @@ class Woorule
     public static function order_status_changed($id, $status = '', $new_status = '')
     {
 
-        $custom_tags = [ // You can put any custom tags inside this array.
-            "processing"     => "OrderProcessing",
-            "completed"     => "OrderCompleted",
-            "shipped"      => "OrderShipped"       
+        $custom_tags = [ // Here you can define the tag names that are applied to a subscriber upon an event trigger. The format is "eventName" => "tagName". Note that all active event triggers MUST have a tag name associated with it.
+            "processing" => "OrderProcessing",
+            "completed"  => "OrderCompleted",
+            "shipped"    => "OrderShipped"
         ];
 
         if(!in_array($new_status, self::ALLOWED_STATUSES)) return;
@@ -345,24 +349,21 @@ class Woorule
     public static function admin_css() {
         echo
         '<style>
-          form.woorule {
+        form.woorule {
             margin-top: 20px;
-          }
-          .woorule .description {
-              display: inline-block;
-              width: 100%; margin-top: 5px;
-          }
-
-          .woorule tr.line {
-              border-bottom: 1px solid #ddd;
-          }
-
-          .woorule h2 {
-              margin: 0;
-          }
-
+        }
+        .woorule .description {
+            display: inline-block;
+            width: 100%; margin-top: 5px;
+        }
+        .woorule tr.line {
+            border-bottom: 1px solid #ddd;
+        }
+        .woorule h2 {
+            margin: 0;
+        }
         </style>';
-      }
+    }
 
     public static function settings_page()
     {
@@ -371,7 +372,9 @@ class Woorule
 
     ?>
     <form method="get" class="woorule" action="/wp-admin/options-general.php">
-        <img width="123" height="32" src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/logo.png" alt="" class="lazyloaded" data-ll-status="loaded">
+        <a href="https://app.rule.io">
+            <img width="128" src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/logo.png" alt="" class="lazyloaded" data-ll-status="loaded">
+        </a>
         <input type="hidden" name="page" value="woorule-settings" />
         <input type="hidden" name="save" value="woorule" />
 
@@ -385,20 +388,14 @@ class Woorule
                 </tr>
 
                 <tr>
-                    <th>
-                        Plugin Documentation: <a href="https://wordpress.org/plugins/woorule/">https://wordpress.org/plugins/woorule/</a>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th><label for="woorule_checkout_show">Show checkout checkbox</label></th>
+                    <th><label for="woorule_checkout_show">Show signup form on checkout</label></th>
                     <td>
                         <input type="checkbox" name="woorule_checkout_show" id="woorule_checkout_show" <?php echo (get_option('woocommerce_rulemailer_settings')['woorule_checkout_show'] == 'on') ? 'checked' : ''; ?> />
                         <span class="description"><?php _e('Display a signup form on the checkout page', 'woorule'); ?></span>
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="category_base">Checkout Label</label></th>
+                    <th><label for="category_base">Signup form label</label></th>
                     <td>
                         <input name="woorule_checkout_label" id="woorule_checkout_label" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] ? get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] : 'Sign up to the newsletter'; ?>" class="regular-text code">
                         <span class="description"><?php _e('Text to display next to the signup form', 'woorule'); ?></span>
@@ -408,7 +405,7 @@ class Woorule
                     <th><label for="woorule_checkout_tags">Tags</label></th>
                     <td>
                         <input name="woorule_checkout_tags" id="woorule_checkout_tags" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags'] ? get_option('woocommerce_rulemailer_settings')['woorule_checkout_tags'] : 'Newsletter'; ?>" class="regular-text code">
-                        <span class="description"><?php _e('Default tags (Comma separated)', 'woorule'); ?></span>
+                        <span class="description"><?php _e('Signup form tags (Comma separated)', 'woorule'); ?></span>
                     </td>
                 </tr>
 
@@ -424,9 +421,15 @@ class Woorule
                     <th><label for="woorule_api">Rule API Key</label></th>
                     <td>
                         <input name="woorule_api" id="woorule_api" type="text" class="regular-text code" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_api_key']; ?>">
-                        <span class="description"><?php _e('You can find your RULE API key inside <a href="http://app.rule.io/#/settings/developer">developer tab on user account settings</a>.', 'woorule'); ?></span>
+                        <span class="description"><?php _e('You can find your Rule API key in the <a href="http://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.', 'woorule'); ?></span>
                     </td>
                 </tr>
+
+                <!-- <tr>
+                    <th>
+                        Plugin Documentation: <a href="https://wordpress.org/plugins/woorule/">https://wordpress.org/plugins/woorule/</a>
+                    </th>
+                </tr> -->
 
             </tbody>
         </table>
