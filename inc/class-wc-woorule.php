@@ -372,7 +372,7 @@ class Woorule
 
     ?>
     <form method="get" class="woorule" action="/wp-admin/options-general.php">
-        <a href="https://app.rule.io">
+        <a href="https://app.rule.io" target="_blank">
             <img width="128" src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/logo.png" alt="" class="lazyloaded" data-ll-status="loaded">
         </a>
         <input type="hidden" name="page" value="woorule-settings" />
