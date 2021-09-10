@@ -397,7 +397,7 @@ class Woorule
                 <tr>
                     <th><label for="category_base">Signup form label</label></th>
                     <td>
-                        <input name="woorule_checkout_label" id="woorule_checkout_label" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] ? get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] : 'Sign up to the newsletter'; ?>" class="regular-text code">
+                        <input name="woorule_checkout_label" id="woorule_checkout_label" type="text" value="<?php echo get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] ? get_option('woocommerce_rulemailer_settings')['woorule_checkout_label'] : 'Please sign me up to the newsletter!'; ?>" class="regular-text code">
                         <span class="description"><?php _e('Text to display next to the signup form', 'woorule'); ?></span>
                     </td>
                 </tr>

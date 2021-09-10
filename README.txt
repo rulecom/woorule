@@ -1,46 +1,106 @@
 === WooRule ===
-Contributors: lurig, neevalex
-Tags: rulemailer, woocommerce, newsletter
+Contributors: lurig, neevalex, rulecom
+Tags: rule, woocommerce, newsletter
 Requires at least: 5.0.0
 Tested up to: 5.8.0
+Requires PHP: 5.6+
+Stable tag: 2.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
-A [RuleMailer](https://www.rule.se/) integration with WooCommerce.
+A [Rule](https://www.rule.io/) integration with WooCommerce.
 
 == Description ==
 
-Subscribe your customers on various order events.
-Supports multiple and different events.
+The WooRule plugin is developed by Rule as an integration between WooCommerce and the Rule marketing automation platform.
 
-== Installation ==
+The Rule platform is an intuitive and user-friendly digital communication service that streamlines the external communication for companies and organization of any size. Rule enables you to send hyper-personalized and automated digital communications via email and SMS to your customers.
 
-1. Either download the latest release and upload it to your `/wp-content/plugins/` directory or grab it from [Wordpress Plugin Directory](http://wordpress.org/plugins/woorule/).
-
-2. Activate the plugin under the _Plugins_  from Wordpress Admin panel.
-
-3. Go to _Woocommerce_ -> _Settings_ -> _Integration_ -> _RuleMailer_, fill in your `API Key`, and click the 'save' button. You can find your RULE API key on the developer tab in your [Rule account settings](http://app.rule.io/#/settings/developer).
+After installing this integration, your WooCommerce data will start sending to Rule. With this data you can enable many e-commerce communication flows such as: newsletters, order followup, shipping followup, customer retention, customer winback, welcome communications, and much more!
 
 = Usage =
-NOTE: By default WooRule will create the "Default Rule" that will trigger the data sync for all new orders, tagged as "New Order"
 
-1. Go to the _RuleMailer tab_ and click _Add new_ and a new Rule appears in the list.
+WooRule has automatic event triggers that send data to Rule when a customer places an order. Tags will be applied to the customer within the Rule platform, which can then be used to send automated communications to subscribers (your customers). Data is saved as custom fields, and include information about the subscriber (e.g. name, address, email, phone number), and their order (products ordered, order date, price, discounts, collection, and much more!).
 
-2. Press _Edit_ on the new Rule.
+The following events are used to apply the following tags in the customer order flow:
 
-3. Give it a good name and fill in the rest according to your _RuleMailer_ setup.
+`
+#  Event Trigger   Tag Name          Event Description
+1  processing      OrderProcessing   Order is paid and awaiting fulfillment
+2  completed       OrderCompleted    Order fulfilled and complete
+3  shipped         OrderShipped      Order was shipped*
+`
+*This is a custom event trigger that will not trigger unless added by the merchant.
+More information regarding order events in WooCommerce can be read [here](https://docs.woocommerce.com/document/managing-orders/).
 
-== Shortcode ==
+WooRule also includes an optional checkout signup form where customers can easily opt-in to automated marketing communications, such as newsletters.
+
+= Shortcode =
 
 You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode `[woorule]`
 
 You can also customize the subscribe form with the shortcode options:
-`[woorule text="This is a new title text" button="New submit button text!" success="New Success message"]`
+`
+[woorule text="This is a new title text" button="New submit button text!" success="New Success message"]
+`
+
+== Frequently Asked Questions ==
+
+= Does it cost anything to use this plugin? =
+
+All of Rule’s integrations are offered for free!
+
+= Do I need an account in Rule? =
+
+In order to take advantage of this integration you will need an account in Rule. You can [sign up for a free account](https://www.rule.io/sign-up-free/) and start using Rule in just a few minutes!
+
+= Is it difficult to integrate? =
+
+No, just follow the simple setup steps and you’re up and running in minutes! We have [extensive documentation](https://en.docs.rule.se/) and support staff to help get you started with automating your digital marketing and communications.
+
+= How do I migrate from version 1.x? =
+
+In versions 2.0+, all manual mailing rules are removed and are replaced with automatic event triggers. The same data is sent to Rule, however the event tag names may differ from the tags you originally set up. Refer to the [Usage](https://wordpress.org/plugins/woorule/#details) section for more information on the exact events and tags that are used.
+
+To make sure your automations in Rule are not interrupted with the updated tag names, make sure to either update the tags associated with your automation, or [create a tag filter](https://en.docs.rule.se/article/172-filter-sa-fungerar-det) to trigger an automation based on both the old tag names and the new tag names.
+
+Do not hesitate to [contact support](https://www.rule.io/contact/) if you have questions or require assistance with upgrading.
+
+== Installation ==
+
+= Before You Start =
+
+* This plugin requires an API key from an active Rule account to correctly function. If you don't have an account with Rule, you can [sign up free](https://www.rule.io/sign-up-free/) in just a few clicks.
+* This plugin requires you to have [WooCommerce](https://woocommerce.com/) installed and activated on your WordPress site.
+
+= Installing The Plugin =
+
+Search for "WooRule" under "Plugins" → "Add New" in your WordPress dashboard to install the plugin.
+
+Or follow these steps to install the plugin manually:
+
+1. Download the [plugin zip file](https://downloads.wordpress.org/plugin/woorule.zip)
+2. In your WordPress dashboard, navigate to "Plugins" → "Add New" → "Upload Plugin"
+3. Select the downloaded .zip file and click on "Install Plugin"
+4. Activate the plugin
+
+= Getting Started =
+
+To connect WooCommerce to your Rule account go to the WooRule plugin and paste in your API key and click "Save Changes". You can find your Rule API key on the developer tab in your [Rule account settings](http://app.rule.io/#/settings/developer).
+
+If you are just getting started with Rule, you can visit Rule's [Documentation Page](https://en.docs.rule.se/) which guides you through creating automated communications for your subscribers using the data sent from WooRule.
+
+== Screenshots ==
+
+1. Main WooRule plugin settings page
+2. Example shortcode signup form
 
 == Changelog ==
 
+For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
 = 0.0.1 =
-* Non-public release.
+* Non-public release
 
 = 0.2 =
 * New Version public release
@@ -49,28 +109,38 @@ You can also customize the subscribe form with the shortcode options:
 * Bugfixes
 
 = 0.4 =
-* Bugfix. Missing assets.
+* Fixed missing assets
 
 = 0.5 =
-* New features. Bugfixes. Newest WP support
+* New features
+* Bugfixes
 
 = 0.6 =
-* New features. Bugfixes.
+* New features
+* Bugfixes
 
 = 1.1 =
-User\order meta fields.
-Default data improvements
-Bugfixes
-Visual Adjustments
+* User\order meta fields
+* Default data improvements
+* Bugfixes
+* Visual Adjustments
 
 = 1.2 =
-Bugfixes
+* Bugfixes
 
 = 1.3 =
-Bugfixes
+* Bugfixes
 
 = 1.4 =
-Bugfixes
+* Bugfixes
 
-= 1.5 =
-UI improvements.
+= 2.0 =
+This is a major release with a focus on streamlining the user experience and setup process. If you are upgrading from an earlier version, refer to the [FAQ](https://wordpress.org/plugins/woorule/#faq) to avoid any disruptions in service.
+
+* Moved WooRule settings page to the menu bar
+* Moved API key entry to main plugin page
+* Removed configurable mailing events. Events will now automatically trigger without any setup. Refer to the plugin documentation for more details.
+* Moved checkout signup form for newsletters to the main plugin page
+* Overhauled UI and added field descriptors
+* Per-product VAT amount is now included in the order data
+* Other small bug fixes
