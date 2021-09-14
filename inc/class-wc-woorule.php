@@ -41,7 +41,7 @@ class Woorule
             'manage_options',
             'woorule-settings',
             __CLASS__ . '::settings_page',
-            plugins_url( 'woorule/assets/fav.png' ),
+            plugins_url( 'woorule/assets/fav.svg' ),
             100
         );
         return;
