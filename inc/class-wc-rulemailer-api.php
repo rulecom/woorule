@@ -13,9 +13,6 @@ class WP_RuleMailer_API
 {
     private static $instance = null;
 
-    private static $api_key;
-    private static $api_url;
-
     public static function get_instance()
     {
         if (null === static::$instance) {
@@ -23,27 +20,6 @@ class WP_RuleMailer_API
         }
 
         return static::$instance;
-    }
-
-
-    public static function new_subscription($email)
-    {
-        $sourceData = array(
-            'key' => 'Subscriber.Source',
-            'value' => 'WooRule'
-        );
-
-        $subscription = array(
-            'apikey'              => get_option('woocommerce_rulemailer_settings')['woorule_api_key'],
-            'update_on_duplicate'	=> true,
-            'auto_create_tags'		=> true,
-            'auto_create_fields'	=> true,
-            'async'  => true,
-            'tags'	=> array('Newsletter'),
-            'subscribers' => array('email' => $email, 'fields' => array($sourceData))
-        );
-
-        static::subscribe($subscription);
     }
 
     public static function subscribe($body_data)
@@ -64,8 +40,8 @@ class WP_RuleMailer_API
         if (is_wp_error($resp)) {
             static::log('Error: ' . $resp->get_error_message());
         } else {
-            static::log('Success: ' . print_r($resp['body'], true));
-            static::log('Success: ' . print_r($body_data, true));
+            static::log('Subscribe Success: ' . print_r($resp['body'], true));
+            static::log('Subscribe Success: ' . print_r($body_data, true));
         }
     }
 
