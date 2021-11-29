@@ -1,10 +1,10 @@
 === WooRule ===
 Contributors: lurig, neevalex, rulecom
-Tags: rule, woocommerce, newsletter
+Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 5.8.0
 Requires PHP: 5.6+
-Stable tag: 2.0
+Stable tag: 2.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -144,3 +144,6 @@ This is a major release with a focus on streamlining the user experience and set
 * Overhauled UI and added field descriptors
 * Per-product VAT amount is now included in the order data
 * Other small bug fixes
+
+= 2.1 =
+* Bugfix affecting PHP 8.0
