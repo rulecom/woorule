@@ -9,17 +9,17 @@ class Woorule
     // [ 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed' ]
     // Note that all active event triggers must have an associated tag name defined in the $custom_tags array
 
-    public static function init()
+    public function __construct()
     {
-        add_action('admin_menu', __CLASS__ . '::settings_page_init' );
-        add_action('admin_head', __CLASS__ . '::admin_css');
+        add_action('admin_menu', array($this, 'settings_page_init' ));
+        add_action('admin_head', array($this, 'admin_css'));
         // This will add the direct "Settings" link inside wp plugins menu.
-        add_filter('plugin_action_links_woorule/woorule.php', __CLASS__ . '::settings_link' );
+        add_filter('plugin_action_links_woorule/woorule.php', array($this, 'settings_link' ));
         // Orders hook
-        add_action('woocommerce_order_status_changed', __CLASS__ . '::order_status_changed', 10, 4);
+        add_action('woocommerce_order_status_changed', array($this, 'order_status_changed', 10, 4));
         // newsletter subscribe button on checkout
-        add_action('woocommerce_review_order_before_submit', __CLASS__ . '::custom_checkout_field');
-        add_action('woocommerce_checkout_update_order_meta', __CLASS__ . '::custom_checkout_field_update_order_meta');
+        add_action('woocommerce_review_order_before_submit', array($this, 'custom_checkout_field'));
+        add_action('woocommerce_checkout_update_order_meta', array($this, 'custom_checkout_field_update_order_meta'));
     }
 
     public function settings_link( $links ) {
