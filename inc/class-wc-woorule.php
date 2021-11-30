@@ -16,7 +16,7 @@ class Woorule
         // This will add the direct "Settings" link inside wp plugins menu.
         add_filter('plugin_action_links_woorule/woorule.php', array($this, 'settings_link' ));
         // Orders hook
-        add_action('woocommerce_order_status_changed', array($this, 'order_status_changed', 10, 4));
+        add_action('woocommerce_order_status_changed', array($this, 'order_status_changed'), 10, 3);
         // newsletter subscribe button on checkout
         add_action('woocommerce_review_order_before_submit', array($this, 'custom_checkout_field'));
         add_action('woocommerce_checkout_update_order_meta', array($this, 'custom_checkout_field_update_order_meta'));
@@ -70,9 +70,8 @@ class Woorule
         return;
     }
 
-    public static function order_status_changed($id, $status = '', $new_status = '')
+    public function order_status_changed($id, $status = '', $new_status = '')
     {
-
         $custom_tags = [ // Here you can define the tag names that are applied to a subscriber upon an event trigger. The format is "eventName" => "tagName". Note that all active event triggers MUST have a tag name associated with it.
             "processing" => "OrderProcessing",
             "completed"  => "OrderCompleted",
@@ -128,6 +127,7 @@ class Woorule
         $order_data = $order->get_data();
 
         $tags = array_unique($tags); // API will give an error on duplicate tags. Making sure there wont be any.
+        if(empty($tags)) array_push( $tags, 'WooRule'); // Making sure the tags array will never be empty as the API will not like this.
 
         $language = substr(get_locale(), 0, 2);
 
