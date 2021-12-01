@@ -99,40 +99,11 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
 
-= 0.0.1 =
-* Non-public release
+= 2.2 =
+* Bugfix affecting Newsletter tags on checkout form
 
-= 0.2 =
-* New Version public release
-
-= 0.3 =
-* Bugfixes
-
-= 0.4 =
-* Fixed missing assets
-
-= 0.5 =
-* New features
-* Bugfixes
-
-= 0.6 =
-* New features
-* Bugfixes
-
-= 1.1 =
-* User\order meta fields
-* Default data improvements
-* Bugfixes
-* Visual Adjustments
-
-= 1.2 =
-* Bugfixes
-
-= 1.3 =
-* Bugfixes
-
-= 1.4 =
-* Bugfixes
+= 2.1 =
+* Bugfix affecting PHP 8.0
 
 = 2.0 =
 This is a major release with a focus on streamlining the user experience and setup process. If you are upgrading from an earlier version, refer to the [FAQ](https://wordpress.org/plugins/woorule/#faq) to avoid any disruptions in service.
@@ -145,5 +116,37 @@ This is a major release with a focus on streamlining the user experience and set
 * Per-product VAT amount is now included in the order data
 * Other small bug fixes
 
-= 2.1 =
-* Bugfix affecting PHP 8.0
+= 1.4 =
+* Bugfixes
+
+= 1.3 =
+* Bugfixes
+
+= 1.2 =
+* Bugfixes
+
+= 1.1 =
+* User\order meta fields
+* Default data improvements
+* Bugfixes
+* Visual Adjustments
+
+= 0.6 =
+* New features
+* Bugfixes
+
+= 0.5 =
+* New features
+* Bugfixes
+
+= 0.4 =
+* Fixed missing assets
+
+= 0.3 =
+* Bugfixes
+
+= 0.2 =
+* New Version public release
+
+= 0.0.1 =
+* Non-public release
