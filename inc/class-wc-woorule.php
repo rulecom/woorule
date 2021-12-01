@@ -126,7 +126,12 @@ class Woorule
 
         $order_data = $order->get_data();
 
+        if ( get_post_meta($id,'woorule_opt_in') ) {
+            array_push( $tags, 'Newsletter'); // Check for a newsletter (checkout) chekbox
+        }
+
         $tags = array_unique($tags); // API will give an error on duplicate tags. Making sure there wont be any.
+
         if(empty($tags)) array_push( $tags, 'WooRule'); // Making sure the tags array will never be empty as the API will not like this.
 
         $language = substr(get_locale(), 0, 2);
