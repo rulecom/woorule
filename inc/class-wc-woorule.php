@@ -20,6 +20,85 @@ class Woorule
         // newsletter subscribe button on checkout
         add_action('woocommerce_review_order_before_submit', array($this, 'custom_checkout_field'));
         add_action('woocommerce_checkout_update_order_meta', array($this, 'custom_checkout_field_update_order_meta'));
+
+        // Shortcode
+        add_action('wp_enqueue_scripts', array($this, 'register_assets'));
+        add_shortcode('woorule',  array($this, 'woorule_func'));
+        add_action('wp_ajax_woorule_subscribe_user', array($this, 'subscribe_user')); // Admins only
+        add_action('wp_ajax_nopriv_woorule_subscribe_user', array($this, 'subscribe_user')); // Users only
+    }
+
+    // Plugin Stylesheet
+    public function register_assets()
+    {
+        wp_enqueue_style('woorule', plugin_dir_url(__FILE__) . '../assets/woorule.css', 10, '1.0');
+        wp_register_script('woorule', plugin_dir_url(__FILE__) . '../assets/woorule.js');
+        wp_enqueue_script('woorule', plugin_dir_url(__FILE__) . '../assets/woorule.js', array('woorule'));
+
+        wp_localize_script('woorule', 'ajax_var', array(
+            'url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('woorule'),
+        ));
+    }
+
+    public function woorule_func($atts)
+    {
+        //print_r($atts);
+        $title = (isset($atts['title'])) ? $atts['title'] : __('Newsletter subscribtion', 'woorule');
+        $submit = (isset($atts['button'])) ? $atts['button'] : __('Submit', 'woorule');
+        $success = (isset($atts['success'])) ? $atts['success'] : __('Thank you!', 'woorule');
+        $placeholder = (isset($atts['placeholder'])) ? $atts['placeholder'] :  __('Your e-mail', 'woorule');
+        $error = __('Oops, something is wrong..', 'woorule');
+
+        $return = '<div class="woorule-subscribe">';
+        $return .= '<form>';
+            $return .= '<label for="semail" class="form_elem">' . $title . '</label>';
+            $return .= '<input type="text" id="semail" name="email" class="form_elem" placeholder="' . $placeholder . '">';
+            $return .= '<input type="submit" value="' . $submit . '" class="form_elem">';
+
+            if(isset($atts['tag'])) $return .= '<input value="' . $atts['tag'] . '" name="tags" class="tag hidden form_elem">';
+
+            $return .= '<p class="hidden success">' . $success . '</p>';
+            $return .= '<p class="hidden error">' . $error . '</p>';
+        $return .= '</form>';
+        $return .= '</div>';
+
+        return $return;
+    }
+
+    public function subscribe_user()
+    {
+        // Check for nonce security
+        if ((!wp_verify_nonce($_POST['nonce'], 'woorule')) || (!isset($_POST['email']))) {
+            die('err');
+        }
+
+        $email = $_POST['email'];
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            die('err');
+        }
+
+        // Default tag should exist. Otherwise there will be an error from RULE API.
+        $tags = [];
+        // Add custom tags if set
+        if (isset($_POST['tags'])) foreach(explode(',', $_POST['tags']) as $tag ) array_push($tags, $tag);
+
+        $subscription = array(
+            'apikey'              => get_option('woocommerce_rulemailer_settings')['woorule_api_key'],
+            'update_on_duplicate' => true,
+            'auto_create_tags'    => true,
+            'auto_create_fields'  => true,
+            'async'               => true,
+            'tags'                => $tags,
+            'subscribers'         => array(
+                'email'           => $email
+            )
+        );
+
+        $api = WP_RuleMailer_API::get_instance();
+        $api::subscribe($subscription);
+        die('ok');
     }
 
     public function settings_link( $links ) {

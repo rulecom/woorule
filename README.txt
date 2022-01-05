@@ -39,10 +39,11 @@ WooRule also includes an optional checkout signup form where customers can easil
 
 You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode `[woorule]`
 
-You can also customize the subscribe form with the shortcode options:
+You can also customize the sign-up form with any of the following shortcode options:
 `
-[woorule text="This is a new title text" button="New submit button text!" success="New Success message"]
+[woorule title="Custom Title" placeholder="Custom Placeholder Text" button="Custom Button Text" success="Custom Success Message" tag="Custom Tag"]
 `
+The `tag` field will be applied to the subscriber when the form is submitted. If no tag field is used a `Newsletter` tag will be applied by default.
 
 == Frequently Asked Questions ==
 
