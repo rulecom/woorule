@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 5.8.0
 Requires PHP: 5.6+
-Stable tag: 2.1
+Stable tag: 2.2
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -102,6 +102,8 @@ For more information, check out our [releases](https://github.com/rulecom/woorul
 
 = 2.2 =
 * Bugfix affecting Newsletter tags on checkout form
+* Added field: Order.Names
+* Added "tag" field to WooRule shortcode
 
 = 2.1 =
 * Bugfix affecting PHP 8.0
