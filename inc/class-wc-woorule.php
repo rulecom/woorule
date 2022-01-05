@@ -391,6 +391,20 @@ class Woorule
                 'value'        =>  json_encode($products),
                 'type'        => 'json'
             );
+
+            $products_names = [];
+
+            foreach ($products as $product) {
+                array_push($products_names, $product['name']);
+            }
+
+            if (!empty($products_names)) {
+                $subscription['subscribers']['fields'][] = array(
+                    'key'   => 'Order.Names',
+                    'value' =>  $products_names,
+                    'type'  => 'multiple'
+                );
+            }
         }
 
         if (get_option($rule['custom_fields']['id'])) {
