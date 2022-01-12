@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 6.1.0
 Requires PHP: 5.6+
-Stable tag: 2.2
+Stable tag: 2.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -101,11 +101,12 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
 
 = 2.3 =
-* Added Order.Date for "processing" event
+* Added Order.Date for event `processing`
+* Added fields to products line items: `Products.price_vat` (price incl. vat) and `Products.total` (line item total incl. vat)
 
 = 2.2 =
 * Bugfix affecting Newsletter tags on checkout form
-* Added field: Order.Names
+* Added field: `Order.Names`
 * Added "tag" field to WooRule shortcode
 
 = 2.1 =
