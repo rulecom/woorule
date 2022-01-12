@@ -141,7 +141,8 @@ class Woorule {
     }
 
     public function order_status_changed($id, $status = '', $new_status = '') {
-        $custom_tags = [ // Here you can define the tag names that are applied to a subscriber upon an event trigger. The format is "eventName" => "tagName". Note that all active event triggers MUST have a tag name associated with it.
+        // Here you can define the tag names that are applied to a subscriber upon an event trigger. The format is "eventName" => "tagName". Note that all active event triggers MUST have a tag name associated with it.
+        $custom_tags = [
             "processing" => "OrderProcessing",
             "completed"  => "OrderCompleted",
             "shipped"    => "OrderShipped"
@@ -153,8 +154,7 @@ class Woorule {
         $order_subtotal = $order->get_total() - ($order->get_total_shipping()) - $order->get_total_discount();
         $items          = $order->get_items();
         $brands         = array();
-
-        $products        = array();
+        $products       = array();
         $categories     = array();
         $tags           = array();
 
@@ -200,7 +200,7 @@ class Woorule {
 
         $tags = array_unique($tags); // API will give an error on duplicate tags. Making sure there wont be any.
 
-        if(empty($tags)) array_push( $tags, 'WooRule'); // Making sure the tags array will never be empty as the API will not like this.
+        if(empty($tags)) array_push($tags, 'WooRule'); // Making sure the tags array will never be empty as the API will not like this.
 
         $language = substr(get_locale(), 0, 2);
 
@@ -213,12 +213,10 @@ class Woorule {
             'async'               => true,
             'tags'                => $tags,
             'subscribers'         => array(
-
                 'email'        => $order->get_billing_email(),
                 'phone_number' => $order_data['billing']['phone'] ?? '',
                 'language'     => $language,
                 'fields'       => array(
-
                     array(
                         'key'   => 'Order.Number',
                         'value' => $order->get_order_number()
@@ -348,33 +346,33 @@ class Woorule {
 
         if (!empty($brands)) {
             $subscription['subscribers']['fields'][] = array(
-                'key'            => 'Order.Brands',
-                'value'        => $brands,
-                'type'        => 'multiple'
+                'key'   => 'Order.Brands',
+                'value' => $brands,
+                'type'  => 'multiple'
             );
         }
 
         if (!empty($categories)) {
             $subscription['subscribers']['fields'][] = array(
-                'key'            => 'Order.Collections',
-                'value'        => $categories,
-                'type'        => 'multiple'
+                'key'   => 'Order.Collections',
+                'value' => $categories,
+                'type'  => 'multiple'
             );
         }
 
         if (!empty($tagsStringOrder)) {
             $subscription['subscribers']['fields'][] = array(
-                'key'            => 'Order.Tags',
-                'value'        => $tagsStringOrder,
-                'type'        => 'multiple'
+                'key'   => 'Order.Tags',
+                'value' => $tagsStringOrder,
+                'type'  => 'multiple'
             );
         }
 
         if (!empty($products)) {
             $subscription['subscribers']['fields'][] = array(
-                'key'            => 'Order.Products',
-                'value'        =>  json_encode($products),
-                'type'        => 'json'
+                'key'   => 'Order.Products',
+                'value' =>  json_encode($products),
+                'type'  => 'json'
             );
 
             $products_names = [];
