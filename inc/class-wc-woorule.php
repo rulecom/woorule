@@ -267,7 +267,7 @@ class Woorule {
                     ),
                     array(
                         'key'   => 'Order.Date',
-                        'value' => $order->get_date_completed() ? date_format($order->get_date_completed(), "Y/m/d H:i:s") : '',
+                        'value' => $new_status == 'processing' ? date_format($order->get_date_created(), "Y/m/d H:i:s") : ($new_status == 'completed' ? date_format($order->get_date_completed(), "Y/m/d H:i:s") : ''),
                         'type'  => 'datetime'
                     ),
                     array(
