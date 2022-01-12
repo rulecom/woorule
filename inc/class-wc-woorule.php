@@ -1,7 +1,5 @@
 <?php
-class Woorule
-{
-
+class Woorule {
     const DELIMITER = ',';
     const ALLOWED_STATUSES = ['processing', 'completed', 'shipped'];
     // This array lists all the event triggers that will trigger data transfer to Rule
@@ -9,8 +7,7 @@ class Woorule
     // [ 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed' ]
     // Note that all active event triggers must have an associated tag name defined in the $custom_tags array
 
-    public function __construct()
-    {
+    public function __construct() {
         add_action('admin_menu', array($this, 'settings_page_init' ));
         add_action('admin_head', array($this, 'admin_css'));
         // This will add the direct "Settings" link inside wp plugins menu.
@@ -29,8 +26,7 @@ class Woorule
     }
 
     // Plugin Stylesheet
-    public function register_assets()
-    {
+    public function register_assets() {
         wp_enqueue_style('woorule', plugin_dir_url(__FILE__) . '../assets/woorule.css', 10, '1.0');
         wp_register_script('woorule', plugin_dir_url(__FILE__) . '../assets/woorule.js');
         wp_enqueue_script('woorule', plugin_dir_url(__FILE__) . '../assets/woorule.js', array('woorule'));
@@ -41,8 +37,7 @@ class Woorule
         ));
     }
 
-    public function woorule_func($atts)
-    {
+    public function woorule_func($atts) {
         //print_r($atts);
         $title = (isset($atts['title'])) ? $atts['title'] : __('Newsletter subscribtion', 'woorule');
         $submit = (isset($atts['button'])) ? $atts['button'] : __('Submit', 'woorule');
@@ -66,8 +61,7 @@ class Woorule
         return $return;
     }
 
-    public function subscribe_user()
-    {
+    public function subscribe_user() {
         // Check for nonce security
         if ((!wp_verify_nonce($_POST['nonce'], 'woorule')) || (!isset($_POST['email']))) {
             die('err');
@@ -102,7 +96,6 @@ class Woorule
     }
 
     public function settings_link( $links ) {
-
         $url = esc_url( add_query_arg(
             'page','woorule-settings', get_admin_url() . 'options-general.php'
         ) );
@@ -126,8 +119,7 @@ class Woorule
         return;
     }
 
-    public function custom_checkout_field()
-    {
+    public function custom_checkout_field() {
         if (get_option('woocommerce_rulemailer_settings')['woorule_checkout_show'] == 'on') {
             echo '<div id="my_custom_checkout_field">';
 
@@ -141,16 +133,14 @@ class Woorule
         }
     }
 
-    public function custom_checkout_field_update_order_meta($order_id)
-    {
+    public function custom_checkout_field_update_order_meta($order_id) {
         if (!empty($_POST['woorule_opt_in'])) {
             update_post_meta($order_id,'woorule_opt_in', 'true');
         }
         return;
     }
 
-    public function order_status_changed($id, $status = '', $new_status = '')
-    {
+    public function order_status_changed($id, $status = '', $new_status = '') {
         $custom_tags = [ // Here you can define the tag names that are applied to a subscriber upon an event trigger. The format is "eventName" => "tagName". Note that all active event triggers MUST have a tag name associated with it.
             "processing" => "OrderProcessing",
             "completed"  => "OrderCompleted",
@@ -173,12 +163,12 @@ class Woorule
             $brands[] = $p->get_attribute('brand');
             $p_img = wp_get_attachment_image_src(get_post_thumbnail_id($p->get_id()), 'full');
             $products[] = array(
-                'brand' => $p->get_attribute('brand'),
-                'name' => $p->get_title(),
-                'image' => $p_img[0],
-                'price' => round($p->get_price_excluding_tax(), 2),
-                'vat' => round(($p->get_price_including_tax() - $p->get_price_excluding_tax()),2),
-                'qty' => $item->get_quantity(),
+                'brand'    => $p->get_attribute('brand'),
+                'name'     => $p->get_title(),
+                'image'    => $p_img[0],
+                'price'    => round($p->get_price_excluding_tax(), 2),
+                'vat'      => round(($p->get_price_including_tax() - $p->get_price_excluding_tax()),2),
+                'qty'      => $item->get_quantity(),
                 'subtotal' => $item->get_total()
             );
 
@@ -196,7 +186,6 @@ class Woorule
                 $itemCategories = explode(self::DELIMITER, $categoriesString);
                 $categories = array_unique(array_merge($categories, $itemCategories));
             }
-
         }
 
         if(isset($custom_tags[$new_status])) {
@@ -217,143 +206,141 @@ class Woorule
 
         $subscription = array(
             'apikey'              => get_option('woocommerce_rulemailer_settings')['woorule_api_key'],
-            'update_on_duplicate'    => true,
-            'auto_create_tags'        => true,
-            'auto_create_fields'    => true,
-            'automation'    => get_option($rule['automation']['id']),
+            'update_on_duplicate' => true,
+            'auto_create_tags'    => true,
+            'auto_create_fields'  => true,
+            'automation'          => get_option($rule['automation']['id']),
+            'async'               => true,
+            'tags'                => $tags,
+            'subscribers'         => array(
 
-            'async'  => true,
-            'tags'    => $tags,
-            'subscribers' => array(
+                'email'        => $order->get_billing_email(),
+                'phone_number' => $order_data['billing']['phone'] ?? '',
+                'language'     => $language,
+                'fields'       => array(
 
-                'email'                    => $order->get_billing_email(),
-                'phone_number'        => $order_data['billing']['phone'] ?? '',
-                'language' => $language,
-
-                'fields' => array(
                     array(
-                        'key'            => 'Order.Number',
-                        'value'        => $order->get_order_number()
+                        'key'   => 'Order.Number',
+                        'value' => $order->get_order_number()
                     ),
                     array(
-                        'key'            => 'Subscriber.FirstName',
-                        'value'        => $order->get_billing_first_name()
+                        'key'   => 'Subscriber.FirstName',
+                        'value' => $order->get_billing_first_name()
                     ),
                     array(
-                        'key'            => 'Subscriber.LastName',
-                        'value'        => $order->get_billing_last_name()
+                        'key'   => 'Subscriber.LastName',
+                        'value' => $order->get_billing_last_name()
                     ),
                     array(
-                        'key'            => 'Subscriber.Number',
-                        'value'        => $order->get_user_id()
+                        'key'   => 'Subscriber.Number',
+                        'value' => $order->get_user_id()
                     ),
                     array(
-                        'key'            => 'Subscriber.Street1',
-                        'value'        => $order->get_billing_address_1()
+                        'key'   => 'Subscriber.Street1',
+                        'value' => $order->get_billing_address_1()
                     ),
                     array(
-                        'key'            => 'Subscriber.Street2',
-                        'value'        => $order->get_billing_address_2()
+                        'key'   => 'Subscriber.Street2',
+                        'value' => $order->get_billing_address_2()
                     ),
                     array(
-                        'key'            => 'Subscriber.City',
-                        'value'        => $order->get_billing_city()
+                        'key'   => 'Subscriber.City',
+                        'value' => $order->get_billing_city()
                     ),
                     array(
-                        'key'            => 'Subscriber.Zipcode',
-                        'value'        => $order->get_billing_postcode()
+                        'key'   => 'Subscriber.Zipcode',
+                        'value' => $order->get_billing_postcode()
                     ),
                     array(
-                        'key'            => 'Subscriber.State',
-                        'value'        => $order->get_billing_state()
+                        'key'   => 'Subscriber.State',
+                        'value' => $order->get_billing_state()
                     ),
                     array(
-                        'key'            => 'Subscriber.Country',
-                        'value'        => $order->get_billing_country()
+                        'key'   => 'Subscriber.Country',
+                        'value' => $order->get_billing_country()
                     ),
                     array(
-                        'key'            => 'Subscriber.Company',
-                        'value'        => $order->get_billing_company()
+                        'key'   => 'Subscriber.Company',
+                        'value' => $order->get_billing_company()
                     ),
                     array(
-                        'key'            => 'Subscriber.Source',
-                        'value'        => 'WooRule'
+                        'key'   => 'Subscriber.Source',
+                        'value' => 'WooRule'
                     ),
                     array(
-                        'key'            => 'Order.Date',
-                        'value'        => $order->get_date_completed()
-                            ? date_format($order->get_date_completed(), "Y/m/d H:i:s") : '',
-                        'type' => 'datetime'
+                        'key'   => 'Order.Date',
+                        'value' => $order->get_date_completed() ? date_format($order->get_date_completed(), "Y/m/d H:i:s") : '',
+                        'type'  => 'datetime'
                     ),
                     array(
-                        'key'            => 'Order.Subtotal',
-                        'value'        => $order_subtotal
+                        'key'   => 'Order.Subtotal',
+                        'value' => $order_subtotal
                     ),
                     array(
-                        'key'            => 'Order.Discount',
-                        'value'        => $order->get_total_discount()
+                        'key'   => 'Order.Discount',
+                        'value' => $order->get_total_discount()
                     ),
                     array(
-                        'key'            => 'Order.Shipping',
-                        'value'        => $order->get_total_shipping()
+                        'key'   => 'Order.Shipping',
+                        'value' => $order->get_total_shipping()
                     ),
                     array(
-                        'key'            => 'Order.Total',
-                        'value'        => $order->get_total()
+                        'key'   => 'Order.Total',
+                        'value' => $order->get_total()
                     ),
                     array(
-                        'key'            => 'Order.Vat',
-                        'value'        => $order->get_total_tax()
+                        'key'   => 'Order.Vat',
+                        'value' => $order->get_total_tax()
                     ),
                     array(
-                        'key'            => 'Order.Currency',
-                        'value'        => $order_data['currency'] ?? ''
+                        'key'   => 'Order.Currency',
+                        'value' => $order_data['currency'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.PaymentMethod',
-                        'value'        => $order_data['payment_method'] ?? '',
-                        'type' => 'multiple'
+                        'key'   => 'Order.PaymentMethod',
+                        'value' => $order_data['payment_method'] ?? '',
+                        'type'  => 'multiple'
                     ),
                     array(
-                        'key'            => 'Order.DeliveryMethod',
-                        'value'        => $order_data['delivery_method'] ?? '',
-                        'type' => 'multiple'
+                        'key'   => 'Order.DeliveryMethod',
+                        'value' => $order_data['delivery_method'] ?? '',
+                        'type'  => 'multiple'
                     ),
                     array(
-                        'key'            => 'Order.BillingFirstname',
-                        'value'        => $order_data['billing']['first_name'] ?? ''
+                        'key'   => 'Order.BillingFirstname',
+                        'value' => $order_data['billing']['first_name'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingLastname',
-                        'value'        => $order_data['billing']['last_name'] ?? ''
+                        'key'   => 'Order.BillingLastname',
+                        'value' => $order_data['billing']['last_name'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingStreet',
-                        'value'        => $order_data['billing']['address_1'] ?? ''
+                        'key'   => 'Order.BillingStreet',
+                        'value' => $order_data['billing']['address_1'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingCity',
-                        'value'        => $order_data['billing']['city'] ?? ''
+                        'key'   => 'Order.BillingCity',
+                        'value' => $order_data['billing']['city'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingZipcode',
-                        'value'        => $order_data['billing']['postcode'] ?? ''
+                        'key'   => 'Order.BillingZipcode',
+                        'value' => $order_data['billing']['postcode'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingState',
-                        'value'        => $order_data['billing']['state'] ?? ''
+                        'key'   => 'Order.BillingState',
+                        'value' => $order_data['billing']['state'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingCountry',
-                        'value'        => $order_data['billing']['country'] ?? ''
+                        'key'   => 'Order.BillingCountry',
+                        'value' => $order_data['billing']['country'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingTele',
-                        'value'        => $order_data['billing']['phone'] ?? ''
+                        'key'   => 'Order.BillingTele',
+                        'value' => $order_data['billing']['phone'] ?? ''
                     ),
                     array(
-                        'key'            => 'Order.BillingCompany',
-                        'value'        => $order_data['billing']['company'] ?? ''
+                        'key'   => 'Order.BillingCompany',
+                        'value' => $order_data['billing']['company'] ?? ''
                     )
                 )
             )
@@ -366,7 +353,6 @@ class Woorule
                 'type'        => 'multiple'
             );
         }
-
 
         if (!empty($categories)) {
             $subscription['subscribers']['fields'][] = array(
@@ -383,7 +369,6 @@ class Woorule
                 'type'        => 'multiple'
             );
         }
-
 
         if (!empty($products)) {
             $subscription['subscribers']['fields'][] = array(
@@ -434,7 +419,6 @@ class Woorule
     }
 
     public static function checkInput() {
-
         $woorule_api = [];
         $woorule_api['woorule_api_key'] = isset($_GET['woorule_api']) ? $_GET['woorule_api'] : '';
         $woorule_api['woorule_checkout_tags'] = isset($_GET['woorule_checkout_tags']) ? $_GET['woorule_checkout_tags'] : '';
@@ -463,8 +447,7 @@ class Woorule
         </style>';
     }
 
-    public static function settings_page()
-    {
+    public static function settings_page() {
         self::checkInput();
         //print_r(get_option('woocommerce_rulemailer_settings'));
 
@@ -475,7 +458,6 @@ class Woorule
         </a>
         <input type="hidden" name="page" value="woorule-settings" />
         <input type="hidden" name="save" value="woorule" />
-
 
         <table class="form-table" role="presentation">
             <tbody>
@@ -535,8 +517,5 @@ class Woorule
         <?php submit_button(); ?>
     </form>
     <?php
-
-
-
     }
 }

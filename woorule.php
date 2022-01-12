@@ -19,17 +19,14 @@
  * Domain Path:     /languages
  */
 
-
-function woorule_admin_notice_woo_error()
-{
+function woorule_admin_notice_woo_error() {
     $class = 'notice notice-error';
     $message = __('Woorule requires Woocomerce plugin to be installed and activated.', 'woorule');
 
     printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
 }
 
-function woorule_admin_notice_api_error()
-{
+function woorule_admin_notice_api_error() {
     $class = 'notice notice-error';
     $message = __('It looks like your Rule API Key are empty. Please do not forget to add it <a href="'.get_admin_url().'admin.php?page=wc-settings&tab=integration">inside the settings</a>.', 'woorule');
     printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
