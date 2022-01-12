@@ -2,7 +2,7 @@
 Contributors: lurig, neevalex, rulecom
 Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
-Tested up to: 5.8.0
+Tested up to: 6.1.0
 Requires PHP: 5.6+
 Stable tag: 2.2
 License: MIT
@@ -99,6 +99,9 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 2.3 =
+* Added Order.Date for "processing" event
 
 = 2.2 =
 * Bugfix affecting Newsletter tags on checkout form
