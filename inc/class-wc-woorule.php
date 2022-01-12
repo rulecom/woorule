@@ -163,13 +163,15 @@ class Woorule {
             $brands[] = $p->get_attribute('brand');
             $p_img = wp_get_attachment_image_src(get_post_thumbnail_id($p->get_id()), 'full');
             $products[] = array(
-                'brand'    => $p->get_attribute('brand'),
-                'name'     => $p->get_title(),
-                'image'    => $p_img[0],
-                'price'    => round($p->get_price_excluding_tax(), 2),
-                'vat'      => round(($p->get_price_including_tax() - $p->get_price_excluding_tax()),2),
-                'qty'      => $item->get_quantity(),
-                'subtotal' => $item->get_total()
+                'brand'     => $p->get_attribute('brand'),
+                'name'      => $p->get_title(),
+                'image'     => $p_img[0],
+                'price'     => round($p->get_price_excluding_tax(), 2),
+                'price_vat' => round($p->get_price_including_tax(), 2),
+                'vat'       => round($p->get_price_including_tax() - $p->get_price_excluding_tax(),2),
+                'qty'       => $item->get_quantity(),
+                'subtotal'  => round($item->get_total(), 2),
+                'total'     => round($p->get_price_including_tax() * $item->get_quantity(), 2)
             );
 
             $categoriesString = strip_tags(wc_get_product_category_list(
