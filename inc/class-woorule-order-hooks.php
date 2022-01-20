@@ -351,7 +351,7 @@ class Woorule_Order_Hooks {
 			$products[] = array(
 				'brand'     => $product->get_attribute( 'brand' ),
 				'name'      => $product->get_title(),
-				'image'     => $p_img[0],
+				'image'     => isset( $p_img[0] ) ? $p_img[0] : '',
 				'price'     => round( $price_excluding_tax, 2 ),
 				'price_vat' => round( $price_including_tax, 2 ),
 				'vat'       => round( $price_including_tax - $price_excluding_tax, 2 ),
