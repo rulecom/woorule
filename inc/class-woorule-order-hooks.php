@@ -30,7 +30,6 @@ class Woorule_Order_Hooks {
 			10,
 			3
 		);
-
 	}
 
 	/**
@@ -342,8 +341,8 @@ class Woorule_Order_Hooks {
 		$tags       = array();
 
 		foreach ( $items as $item ) {
-			$product    = new WC_Product_Simple( $item->get_product_id() );
-			$p_img      = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'full' );
+			$product = new WC_Product_Simple( $item->get_product_id() );
+			$p_img   = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'full' );
 
 			$price_excluding_tax = wc_get_price_excluding_tax( $product );
 			$price_including_tax = wc_get_price_including_tax( $product );
