@@ -197,6 +197,10 @@ class Woorule_Order_Hooks {
 			),
 			array(
 				'key'   => 'Order.Subtotal',
+				'value' => $order->get_subtotal(),
+			),
+			array(
+				'key'   => 'Order.SubtotalVat',
 				'value' => $order->get_subtotal() + $order->get_cart_tax(),
 			),
 			array(
