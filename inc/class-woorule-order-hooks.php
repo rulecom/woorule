@@ -284,7 +284,7 @@ class Woorule_Order_Hooks {
 
 		$order_items_fields = array();
 
-		$brands = array_filter( wp_list_pluck( $items_data['products'], 'brands' ) );
+		$brands = array_filter( wp_list_pluck( $items_data['products'], 'brand' ) );
 		if ( ! empty( $brands ) ) {
 			$order_items_fields[] = array(
 				'key'   => 'Order.Brands',
