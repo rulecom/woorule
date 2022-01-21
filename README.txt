@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 5.8.3
 Requires PHP: 5.6+
-Stable tag: 2.3
+Stable tag: 2.4.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -99,6 +99,11 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 2.4.0 =
+* Refactored plugin to adhere to best practices and improve plugin stability
+* Fixed `Order.Subtotal` calculation (now excludes order tax)
+* Added Field: `Order.SubtotalVat` (subtotal incl. cart tax)
 
 = 2.3 =
 * Added Order.Date for event `processing`
