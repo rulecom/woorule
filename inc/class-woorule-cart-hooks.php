@@ -33,14 +33,6 @@ class Woorule_Cart_Hooks {
 			'woocommerce_cart_item_removed',
 			array( $this, 'cart_updated' )
 		);
-		add_action(
-			'woocommerce_applied_coupon',
-			array( $this, 'cart_updated' )
-		);
-		add_action(
-			'woocommerce_removed_coupon',
-			array( $this, 'cart_updated' )
-		);
 		add_filter(
 			'woocommerce_update_cart_action_cart_updated',
 			array( $this, 'filter_cart_updated' ),
