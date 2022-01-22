@@ -58,6 +58,7 @@ defined( 'ABSPATH' ) || exit;
 				</span>
 			</td>
 		</tr>
+		<?php do_action( 'woorule_admin_settings_after_checkout' ); ?>
 		<tr class="line">
 			<th></th>
 			<td></td>
