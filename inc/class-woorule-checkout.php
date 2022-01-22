@@ -41,7 +41,7 @@ class Woorule_Checkout {
 					'type'    => 'checkbox',
 					'default' => 'checked',
 					'class'   => array( 'input-checkbox' ),
-					'label'   => get_option( 'woocommerce_rulemailer_settings' )['woorule_checkout_label'],
+					'label'   => Woorule_Options::get_checkout_label(),
 				),
 				1
 			);
@@ -58,9 +58,11 @@ class Woorule_Checkout {
 	 * @return void
 	 */
 	public function custom_checkout_field_update_order_meta( $order_id ) {
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( ! empty( $_POST['woorule_opt_in'] ) ) {
-			update_post_meta( $order_id, 'woorule_opt_in', 'true' );
-		}
+		update_post_meta(
+			$order_id,
+			'woorule_opt_in',
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			empty( $_POST['woorule_opt_in'] ) ? '' : 'true'
+		);
 	}
 }

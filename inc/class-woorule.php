@@ -63,9 +63,7 @@ class Woorule {
 	 * @return bool
 	 */
 	protected function is_api_key_set() {
-		$options = get_option( 'woocommerce_rulemailer_settings', array() );
-
-		return ! empty( $options['woorule_api_key'] );
+		return ! empty( Woorule_Options::get_api_key() );
 	}
 
 	/**

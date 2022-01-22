@@ -74,12 +74,7 @@ defined( 'ABSPATH' ) || exit;
 				<input name="woorule_api" id="woorule_api" type="text" class="regular-text code"
 				       value="<?php echo esc_attr( $args['api_key'] ); ?>"/>
 				<span class="description">
-					<?php
-					esc_html_e(
-						'You can find your Rule API key in the <a href="https://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.',
-						'woorule'
-					);
-					?>
+					You can find your Rule API key in the <a href="https://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.
 				</span>
 			</td>
 		</tr>
