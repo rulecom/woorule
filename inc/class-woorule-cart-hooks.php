@@ -192,27 +192,27 @@ class Woorule_Cart_Hooks {
 			),
 			array(
 				'key'   => 'Order.Subtotal',
-				'value' => WC()->cart->get_subtotal(),
+				'value' => Woorule_Utils::round( WC()->cart->get_subtotal() ),
 			),
 			array(
 				'key'   => 'Order.SubtotalVat',
-				'value' => WC()->cart->get_subtotal() + WC()->cart->get_cart_contents_tax(),
+				'value' => Woorule_Utils::round( WC()->cart->get_subtotal() + WC()->cart->get_cart_contents_tax() ),
 			),
 			array(
 				'key'   => 'Order.Discount',
-				'value' => WC()->cart->get_discount_total(),
+				'value' => Woorule_Utils::round( WC()->cart->get_discount_total() ),
 			),
 			array(
 				'key'   => 'Order.Shipping',
-				'value' => WC()->cart->get_shipping_total(),
+				'value' => Woorule_Utils::round( WC()->cart->get_shipping_total() ),
 			),
 			array(
 				'key'   => 'Order.Total',
-				'value' => WC()->cart->get_total( null ),
+				'value' => Woorule_Utils::round( WC()->cart->get_total( null ) ),
 			),
 			array(
 				'key'   => 'Order.Vat',
-				'value' => WC()->cart->get_total_tax(),
+				'value' => Woorule_Utils::round( WC()->cart->get_total_tax() ),
 			),
 			array(
 				'key'   => 'Order.Currency',
@@ -342,12 +342,12 @@ class Woorule_Cart_Hooks {
 				'brand'     => $item['data']->get_attribute( 'brand' ),
 				'name'      => $item['data']->get_title(),
 				'image'     => $p_img[0],
-				'price'     => round( $price_excluding_tax, 2 ),
-				'price_vat' => round( $price_including_tax, 2 ),
-				'vat'       => round( $price_including_tax - $price_excluding_tax, 2 ),
+				'price'     => Woorule_Utils::round( $price_excluding_tax, 2 ),
+				'price_vat' => Woorule_Utils::round( $price_including_tax, 2 ),
+				'vat'       => Woorule_Utils::round( $price_including_tax - $price_excluding_tax, 2 ),
 				'qty'       => $item['quantity'],
-				'subtotal'  => round( $price_excluding_tax * $item['quantity'], 2 ),
-				'total'     => round( $price_including_tax * $item['quantity'], 2 ),
+				'subtotal'  => Woorule_Utils::round( $price_excluding_tax * $item['quantity'], 2 ),
+				'total'     => Woorule_Utils::round( $price_including_tax * $item['quantity'], 2 ),
 			);
 
 			$categories_string = wp_strip_all_tags( wc_get_product_category_list( $item['data']->get_id() ) );

@@ -202,27 +202,27 @@ class Woorule_Order_Hooks {
 			),
 			array(
 				'key'   => 'Order.Subtotal',
-				'value' => $order->get_subtotal(),
+				'value' => Woorule_Utils::round( $order->get_subtotal() ),
 			),
 			array(
 				'key'   => 'Order.SubtotalVat',
-				'value' => $order->get_subtotal() + $order->get_cart_tax(),
+				'value' => Woorule_Utils::round( $order->get_subtotal() + $order->get_cart_tax() ),
 			),
 			array(
 				'key'   => 'Order.Discount',
-				'value' => $order->get_total_discount(),
+				'value' => Woorule_Utils::round( $order->get_total_discount() ),
 			),
 			array(
 				'key'   => 'Order.Shipping',
-				'value' => $order->get_shipping_total(),
+				'value' => Woorule_Utils::round( $order->get_shipping_total() ),
 			),
 			array(
 				'key'   => 'Order.Total',
-				'value' => $order->get_total(),
+				'value' => Woorule_Utils::round( $order->get_total() ),
 			),
 			array(
 				'key'   => 'Order.Vat',
-				'value' => $order->get_total_tax(),
+				'value' => Woorule_Utils::round( $order->get_total_tax() ),
 			),
 			array(
 				'key'   => 'Order.Currency',
@@ -357,12 +357,12 @@ class Woorule_Order_Hooks {
 				'brand'     => $product->get_attribute( 'brand' ),
 				'name'      => $product->get_title(),
 				'image'     => isset( $p_img[0] ) ? $p_img[0] : '',
-				'price'     => round( $price_excluding_tax, 2 ),
-				'price_vat' => round( $price_including_tax, 2 ),
-				'vat'       => round( $price_including_tax - $price_excluding_tax, 2 ),
+				'price'     => Woorule_Utils::round( $price_excluding_tax ),
+				'price_vat' => Woorule_Utils::round( $price_including_tax ),
+				'vat'       => Woorule_Utils::round( $price_including_tax - $price_excluding_tax ),
 				'qty'       => $item->get_quantity(),
-				'subtotal'  => round( $item->get_total(), 2 ),
-				'total'     => round( $price_including_tax * $item->get_quantity(), 2 ),
+				'subtotal'  => Woorule_Utils::round( $item->get_total() ),
+				'total'     => Woorule_Utils::round( $price_including_tax * $item->get_quantity() ),
 			);
 
 			$categories_string = wp_strip_all_tags( wc_get_product_category_list( $item->get_product_id() ) );
