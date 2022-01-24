@@ -43,6 +43,30 @@ class RuleMailer_API {
 	}
 
 	/**
+	 * Delete subscriber tag.
+	 *
+	 * @param string $email Subscriber email.
+	 * @param string $tag Tag.
+	 *
+	 * @return void
+	 */
+	public static function delete_subscriber_tag( $email, $tag ) {
+		$data = array(
+			'method'   => 'DELETE',
+			'timeout'  => 45,
+			'blocking' => true,
+		);
+
+		$resp = wp_remote_post( self::URL . "/{$email}/tags/{$tag}", $data );
+
+		if ( is_wp_error( $resp ) ) {
+			static::log( 'Error delete subscriber tag: ' . $resp->get_error_message() );
+		} else {
+			static::log( 'Subscriber tag deleted successfully: ' . print_r( $resp['body'], true ) );
+		}
+	}
+
+	/**
 	 * Log.
 	 *
 	 * @param mixed $msg Message.
