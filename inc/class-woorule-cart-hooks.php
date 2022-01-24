@@ -342,12 +342,12 @@ class Woorule_Cart_Hooks {
 				'brand'     => $item['data']->get_attribute( 'brand' ),
 				'name'      => $item['data']->get_title(),
 				'image'     => $p_img[0],
-				'price'     => Woorule_Utils::round( $price_excluding_tax, 2 ),
-				'price_vat' => Woorule_Utils::round( $price_including_tax, 2 ),
-				'vat'       => Woorule_Utils::round( $price_including_tax - $price_excluding_tax, 2 ),
+				'price'     => Woorule_Utils::round( $price_excluding_tax ),
+				'price_vat' => Woorule_Utils::round( $price_including_tax ),
+				'vat'       => Woorule_Utils::round( $price_including_tax - $price_excluding_tax ),
 				'qty'       => $item['quantity'],
-				'subtotal'  => Woorule_Utils::round( $price_excluding_tax * $item['quantity'], 2 ),
-				'total'     => Woorule_Utils::round( $price_including_tax * $item['quantity'], 2 ),
+				'subtotal'  => Woorule_Utils::round( $price_excluding_tax * $item['quantity'] ),
+				'total'     => Woorule_Utils::round( $price_including_tax * $item['quantity'] ),
 			);
 
 			$categories_string = wp_strip_all_tags( wc_get_product_category_list( $item['data']->get_id() ) );
