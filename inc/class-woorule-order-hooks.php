@@ -101,7 +101,7 @@ class Woorule_Order_Hooks {
 			$tags[] = $custom_tags[ $status_to ];
 		}
 
-		if ( $order->get_meta( 'woorule_opt_in' ) ) {
+		if ( 'true' === $order->get_meta( 'woorule_opt_in' ) ) {
 			$tags[] = 'Newsletter'; // Check for a newsletter (checkout) chekbox.
 		}
 
