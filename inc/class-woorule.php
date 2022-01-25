@@ -5,8 +5,10 @@
  * @package Woorule
  */
 
+require_once WOORULE_PATH . 'inc/class-woorule-utils.php';
 require_once WOORULE_PATH . 'inc/class-woorule-checkout.php';
 require_once WOORULE_PATH . 'inc/class-woorule-order-hooks.php';
+require_once WOORULE_PATH . 'inc/class-woorule-cart-hooks.php';
 require_once WOORULE_PATH . 'inc/class-woorule-shortcode.php';
 require_once WOORULE_PATH . 'inc/class-woorule-options.php';
 require_once WOORULE_PATH . 'inc/class-rulemailer-api.php';
@@ -26,6 +28,7 @@ class Woorule {
 		if ( $this->is_woocommerce_activated() ) {
 			new Woorule_Checkout();
 			new Woorule_Order_Hooks();
+			new Woorule_Cart_Hooks();
 			new Woorule_Shortcode();
 		} else {
 			add_action( 'admin_notices', array( $this, 'notice_woo_error' ) );
