@@ -1,10 +1,10 @@
 === WooRule ===
-Contributors: lurig, neevalex, rulecom
+Contributors: neevalex, rulecom
 Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 5.8.3
 Requires PHP: 5.6+
-Stable tag: 2.4.0
+Stable tag: 2.5.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -16,7 +16,7 @@ The WooRule plugin is developed by Rule as an integration between WooCommerce an
 
 The Rule platform is an intuitive and user-friendly digital communication service that streamlines the external communication for companies and organization of any size. Rule enables you to send hyper-personalized and automated digital communications via email and SMS to your customers.
 
-After installing this integration, your WooCommerce data will start sending to Rule. With this data you can enable many e-commerce communication flows such as: newsletters, order followup, shipping followup, customer retention, customer winback, welcome communications, and much more!
+After installing this integration, your WooCommerce data will start sending to Rule. With this data you can enable many e-commerce communication flows such as: newsletters, abandoned cart, order followup, shipping followup, customer retention, customer winback, welcome communications, and much more!
 
 = Usage =
 
@@ -26,9 +26,10 @@ The following events are used to apply the following tags in the customer order 
 
 `
 #  Event Trigger   Tag Name          Event Description
-1  processing      OrderProcessing   Order is paid and awaiting fulfillment
-2  completed       OrderCompleted    Order fulfilled and complete
-3  shipped         OrderShipped      Order was shipped*
+1  cart updated    CartInProgress    Cart contents are updated
+2  processing      OrderProcessing   Order is paid and awaiting fulfillment
+3  completed       OrderCompleted    Order fulfilled and complete
+4  shipped         OrderShipped      Order was shipped*
 `
 *This is a custom event trigger that will not trigger unless added by the merchant.
 More information regarding order events in WooCommerce can be read [here](https://docs.woocommerce.com/document/managing-orders/).
@@ -99,6 +100,10 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 2.5.0 =
+* Added new event trigger: Cart In Progress
+* Prices sent to Rule will now match the current store's currency decimal setting
 
 = 2.4.0 =
 * Refactored plugin to adhere to best practices and improve plugin stability

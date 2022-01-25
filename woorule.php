@@ -7,12 +7,10 @@
  *
  * Plugin Name:     WooRule
  * Plugin URI:      http://github.com/rulecom/woorule
- * Description:     RuleMailer integration for WooCommerce
- * Version:         2.4.0
+ * Description:     Rule integration for WooCommerce
+ * Version:         2.5.0
  * Author:          RuleMailer
  * Author URI:      http://rule.se
- * Developer:       Jonas Adolfsson, Neev Alex
- * Developer URI:   http://lurig.github.io,http://neevalex.com
  *
  * Text Domain:     woorule
  * Domain Path:     /languages
@@ -20,7 +18,7 @@
  * @package WooRule
  */
 
-define( 'WOORULE_VERSION', '2.4.0' );
+define( 'WOORULE_VERSION', '2.5.0' );
 define( 'WOORULE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOORULE_URL', plugin_dir_url( __FILE__ ) );
 
