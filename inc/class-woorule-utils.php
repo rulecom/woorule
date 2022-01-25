@@ -16,9 +16,9 @@ class Woorule_Utils {
 	 *
 	 * @param float|int|string $value Value.
 	 *
-	 * @return float
+	 * @return string
 	 */
 	public static function round( $value ) {
-		return round( (float) $value, wc_get_price_decimals() );
+		return number_format( (float) $value, wc_get_price_decimals(), '.', '' );
 	}
 }
