@@ -103,12 +103,14 @@ For more information, check out our [releases](https://github.com/rulecom/woorul
 
 = 2.5.0 =
 * Added new event trigger: Cart In Progress
-* Prices sent to Rule will now match the current store's currency decimal setting
+* Added Klarna Checkout integration
+* Added field: Order.ShippingVat (shipping incl. tax)
+* Prices sent to Rule will now match the store's currency decimal setting
 
 = 2.4.0 =
 * Refactored plugin to adhere to best practices and improve plugin stability
 * Fixed `Order.Subtotal` calculation (now excludes order tax)
-* Added Field: `Order.SubtotalVat` (subtotal incl. cart tax)
+* Added field: `Order.SubtotalVat` (subtotal incl. cart tax)
 
 = 2.3 =
 * Added Order.Date for event `processing`
