@@ -207,6 +207,10 @@ class Woorule_Cart_Hooks {
 				'value' => Woorule_Utils::round( WC()->cart->get_shipping_total() ),
 			),
 			array(
+				'key'   => 'Order.ShippingVat',
+				'value' => Woorule_Utils::round( WC()->cart->get_shipping_total() + WC()->cart->get_shipping_tax() ),
+			),
+			array(
 				'key'   => 'Order.Total',
 				'value' => Woorule_Utils::round( WC()->cart->get_total( null ) ),
 			),
