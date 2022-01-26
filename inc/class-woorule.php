@@ -26,6 +26,8 @@ class Woorule {
 		add_action( 'init', array( $this, 'update_options' ) );
 
 		if ( $this->is_woocommerce_activated() ) {
+			$this->load_integrations();
+
 			new Woorule_Checkout();
 			new Woorule_Order_Hooks();
 			new Woorule_Cart_Hooks();
@@ -64,9 +66,7 @@ class Woorule {
 	 * @return bool
 	 */
 	protected function is_api_key_set() {
-		$options = get_option( 'woocommerce_rulemailer_settings', array() );
-
-		return ! empty( $options['woorule_api_key'] );
+		return ! empty( Woorule_Options::get_api_key() );
 	}
 
 	/**
@@ -197,18 +197,48 @@ EOT;
 			check_admin_referer( 'woorule-settings' );
 
 			Woorule_Options::set_options(
-				array_map(
-					'sanitize_text_field',
-					array(
-						// phpcs:disable WordPress.Security.ValidatedSanitizedInput
-						'woorule_api_key'        => isset( $_POST['woorule_api'] ) ? $_POST['woorule_api'] : '',
-						'woorule_checkout_tags'  => isset( $_POST['woorule_checkout_tags'] ) ? $_POST['woorule_checkout_tags'] : '',
-						'woorule_checkout_label' => isset( $_POST['woorule_checkout_label'] ) ? $_POST['woorule_checkout_label'] : '',
-						'woorule_checkout_show'  => isset( $_POST['woorule_checkout_show'] ) ? $_POST['woorule_checkout_show'] : '',
-						// phpcs:enable WordPress.Security.ValidatedSanitizedInput
+				apply_filters(
+					'woorule_update_options',
+					array_map(
+						'sanitize_text_field',
+						array(
+							// phpcs:disable WordPress.Security.ValidatedSanitizedInput
+							'woorule_api_key'        => isset( $_POST['woorule_api'] ) ? $_POST['woorule_api'] : '',
+							'woorule_checkout_tags'  => isset( $_POST['woorule_checkout_tags'] ) ? $_POST['woorule_checkout_tags'] : '',
+							'woorule_checkout_label' => isset( $_POST['woorule_checkout_label'] ) ? $_POST['woorule_checkout_label'] : '',
+							'woorule_checkout_show'  => isset( $_POST['woorule_checkout_show'] ) ? $_POST['woorule_checkout_show'] : '',
+							// phpcs:enable WordPress.Security.ValidatedSanitizedInput
+						)
 					)
 				)
 			);
+		}
+	}
+
+	/**
+	 * 3rd party plugins integrations loader.
+	 *
+	 * @return void
+	 */
+	protected function load_integrations() {
+		/**
+		 * Each integration must be in a separate subdirectory under the "integrations" directory.
+		 * Integration directory name will be the name of a bootstrap file and integration class name.
+		 * For example: WoCommerce integration
+		 * |-integrations
+		 * |    |-woocommerce
+		 * |    |   |-class-woorule-woocommerce.php Class Woorule_Woocommerce
+		 */
+		$dir_list = glob( WOORULE_PATH . 'inc/integrations/*', GLOB_ONLYDIR );
+		foreach ( $dir_list as $dir ) {
+			$dir_name   = basename( $dir );
+			$class_name = 'woorule_' . str_replace( '-', '_', $dir_name );
+			$file_name  = 'class-woorule-' . $dir_name . '.php';
+			$file_path  = $dir . '/' . $file_name;
+			if ( is_readable( $file_path ) ) {
+				require_once $file_path;
+				new $class_name();
+			}
 		}
 	}
 }
