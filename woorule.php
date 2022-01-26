@@ -9,7 +9,7 @@
  * Plugin URI:      http://github.com/rulecom/woorule
  * Description:     Rule integration for WooCommerce
  * Version:         2.5.0
- * Author:          RuleMailer
+ * Author:          Rule
  * Author URI:      http://rule.se
  *
  * Text Domain:     woorule
