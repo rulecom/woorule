@@ -67,11 +67,11 @@ class Woorule_Cart_Hooks {
 			try {
 				$this->current_customer = new WC_Customer( $current_user_id );
 			} catch ( Exception $e ) {
-				return 0;
+				$current_user_id = 0;
 			}
 		}
 
-		return $this->current_customer->get_id();
+		return $current_user_id;
 	}
 
 	/**
