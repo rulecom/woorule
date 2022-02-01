@@ -29,7 +29,11 @@ defined( 'ABSPATH' ) || exit;
 			</th>
 		</tr>
 		<tr>
-			<th><label for="woorule_checkout_show">Show signup form on checkout</label></th>
+			<th>
+				<label for="woorule_checkout_show">
+					<?php esc_html_e( 'Show signup form on checkout', 'woorule' ); ?>
+				</label>
+			</th>
 			<td>
 				<input type="checkbox" name="woorule_checkout_show"
 				       id="woorule_checkout_show" <?php checked( $args['show'], 'on' ); ?> />
@@ -39,7 +43,11 @@ defined( 'ABSPATH' ) || exit;
 			</td>
 		</tr>
 		<tr>
-			<th><label for="woorule_checkout_label">Signup form label</label></th>
+			<th>
+				<label for="woorule_checkout_label">
+					<?php esc_html_e( 'Signup form label', 'woorule' ); ?>
+				</label>
+			</th>
 			<td>
 				<input name="woorule_checkout_label" id="woorule_checkout_label" type="text"
 				       value="<?php echo esc_attr( $args['label'] ); ?>" class="regular-text code"/>
@@ -49,7 +57,11 @@ defined( 'ABSPATH' ) || exit;
 			</td>
 		</tr>
 		<tr>
-			<th><label for="woorule_checkout_tags">Tags</label></th>
+			<th>
+				<label for="woorule_checkout_tags">
+					<?php esc_html_e( 'Tags', 'woorule' ); ?>
+				</label>
+			</th>
 			<td>
 				<input name="woorule_checkout_tags" id="woorule_checkout_tags" type="text"
 				       value="<?php echo esc_attr( $args['tags'] ); ?>" class="regular-text code"/>
@@ -69,12 +81,23 @@ defined( 'ABSPATH' ) || exit;
 			</th>
 		</tr>
 		<tr>
-			<th><label for="woorule_api">Rule API Key</label></th>
+			<th>
+				<label for="woorule_api">
+					<?php esc_html_e( 'Rule API Key', 'woorule' ); ?>
+				</label>
+			</th>
 			<td>
 				<input name="woorule_api" id="woorule_api" type="text" class="regular-text code"
 				       value="<?php echo esc_attr( $args['api_key'] ); ?>"/>
 				<span class="description">
-					You can find your Rule API key in the <a href="https://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.
+					<?php
+					echo wp_kses_post(
+						__(
+							'You can find your Rule API key in the <a href="https://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.',
+							'woorule'
+						),
+					);
+					?>
 				</span>
 			</td>
 		</tr>

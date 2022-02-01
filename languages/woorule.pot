@@ -1,0 +1,125 @@
+# Copyright (C) 2022 Rule
+# This file is distributed under the same license as the WooRule plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooRule 2.5.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woorule\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-02-02T11:13:33+03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: woorule\n"
+
+#. Plugin Name of the plugin
+msgid "WooRule"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://github.com/rulecom/woorule"
+msgstr ""
+
+#. Description of the plugin
+msgid "Rule integration for WooCommerce"
+msgstr ""
+
+#. Author of the plugin
+msgid "Rule"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://rule.se"
+msgstr ""
+
+#: inc/class-woorule-shortcode.php:74
+msgid "Newsletter subscription"
+msgstr ""
+
+#: inc/class-woorule-shortcode.php:75
+msgid "Submit"
+msgstr ""
+
+#: inc/class-woorule-shortcode.php:76
+msgid "Your e-mail"
+msgstr ""
+
+#: inc/class-woorule-shortcode.php:77
+msgid "Thank you!"
+msgstr ""
+
+#: inc/class-woorule-shortcode.php:78
+msgid "Oops, something is wrong.."
+msgstr ""
+
+#: inc/class-woorule.php:81
+msgid "Woorule requires WooCommerce plugin to be installed and activated."
+msgstr ""
+
+#. translators: %s: setting page URL.
+#: inc/class-woorule.php:94
+msgid "It looks like your Rule API Key are empty. Please do not forget to add it <a href=\"%s\">inside the settings</a>."
+msgstr ""
+
+#: inc/class-woorule.php:116
+msgid "Settings"
+msgstr ""
+
+#: inc/class-woorule.php:138
+#: inc/class-woorule.php:139
+msgid "Woorule"
+msgstr ""
+
+#: inc/class-woorule.php:188
+msgid "Please sign me up to the newsletter!"
+msgstr ""
+
+#: inc/integrations/klarna-checkout-for-woocommerce/partials/admin-settings.php:16
+msgid "Show signup form on Klarna checkout"
+msgstr ""
+
+#: inc/integrations/klarna-checkout-for-woocommerce/partials/admin-settings.php:23
+msgid "Display a signup form on the Klarna checkout form"
+msgstr ""
+
+#: inc/partials/admin-settings.php:28
+msgid "Checkout form"
+msgstr ""
+
+#: inc/partials/admin-settings.php:34
+msgid "Show signup form on checkout"
+msgstr ""
+
+#: inc/partials/admin-settings.php:41
+msgid "Display a signup form on the checkout page"
+msgstr ""
+
+#: inc/partials/admin-settings.php:48
+msgid "Signup form label"
+msgstr ""
+
+#: inc/partials/admin-settings.php:55
+msgid "Text to display next to the signup form"
+msgstr ""
+
+#: inc/partials/admin-settings.php:62
+msgid "Tags"
+msgstr ""
+
+#: inc/partials/admin-settings.php:69
+msgid "Signup form tags (Comma separated)"
+msgstr ""
+
+#: inc/partials/admin-settings.php:80
+msgid "Configuration"
+msgstr ""
+
+#: inc/partials/admin-settings.php:86
+msgid "Rule API Key"
+msgstr ""
+
+#: inc/partials/admin-settings.php:95
+msgid "You can find your Rule API key in the <a href=\"https://app.rule.io/#/settings/developer\">developer tab in your Rule account</a>."
+msgstr ""
