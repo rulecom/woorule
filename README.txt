@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 5.8.3
 Requires PHP: 5.6+
-Stable tag: 2.5.2
+Stable tag: 2.6.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -101,6 +101,10 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
 
+= 2.6.0 =
+* Add fields: `Order.CartUrl` (for Cart in Progress) and `Order.OrderUrl` (for orders)
+* Added localization support to plugin
+
 = 2.5.2 =
 * Fix for Cart In Progress
 
@@ -110,7 +114,7 @@ For more information, check out our [releases](https://github.com/rulecom/woorul
 = 2.5.0 =
 * Added new event trigger: Cart In Progress
 * Added Klarna Checkout integration
-* Added field: Order.ShippingVat (shipping incl. tax)
+* Added field: `Order.ShippingVat` (shipping incl. tax)
 * Prices sent to Rule will now match the store's currency decimal setting
 
 = 2.4.0 =
