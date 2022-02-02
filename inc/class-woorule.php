@@ -30,7 +30,7 @@ class Woorule {
 
 			new Woorule_Checkout();
 			new Woorule_Order_Hooks();
-			// new Woorule_Cart_Hooks();
+			new Woorule_Cart_Hooks();
 			new Woorule_Shortcode();
 		} else {
 			add_action( 'admin_notices', array( $this, 'notice_woo_error' ) );
