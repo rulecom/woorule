@@ -268,6 +268,10 @@ class Woorule_Cart_Hooks {
 				'key'   => 'Order.BillingCompany',
 				'value' => $this->current_customer->get_billing_company(),
 			),
+			array(
+				'key'   => 'Order.CartUrl',
+				'value' => wc_get_cart_url(),
+			),
 		);
 	}
 
