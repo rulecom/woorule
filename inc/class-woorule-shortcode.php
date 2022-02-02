@@ -71,7 +71,7 @@ class Woorule_Shortcode {
 	public function output( $atts ) {
 		$atts = shortcode_atts(
 			array(
-				'title'       => __( 'Newsletter subscribtion', 'woorule' ),
+				'title'       => __( 'Newsletter subscription', 'woorule' ),
 				'submit'      => __( 'Submit', 'woorule' ),
 				'placeholder' => __( 'Your e-mail', 'woorule' ),
 				'success'     => __( 'Thank you!', 'woorule' ),

@@ -1,0 +1,22 @@
+<wpml-config>
+  <custom-fields>
+    <custom-field action="ignore">woorule_opt_in</custom-field>
+  </custom-fields>
+  <admin-texts>
+    <key name="woocommerce_rulemailer_settings">
+      <key name="woorule_checkout_label"/>
+    </key>
+  </admin-texts>
+  <shortcodes>
+    <shortcode>
+      <tag>woorule</tag>
+      <attributes>
+        <attribute>title</attribute>
+        <attribute>submit</attribute>
+        <attribute>placeholder</attribute>
+        <attribute>success</attribute>
+        <attribute>error</attribute>
+      </attributes>
+    </shortcode>
+  </shortcodes>
+</wpml-config>

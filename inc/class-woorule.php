@@ -89,9 +89,13 @@ class Woorule {
 	 */
 	public function notice_api_error() {
 		$class   = 'notice notice-error';
-		$message = __(
-			'It looks like your Rule API Key are empty. Please do not forget to add it <a href="' . $this->get_settings_page_url() . '">inside the settings</a>.',
-			'woorule'
+		$message = sprintf(
+		// translators: %s: setting page URL.
+			__(
+				'It looks like your Rule API Key are empty. Please do not forget to add it <a href="%s">inside the settings</a>.',
+				'woorule'
+			),
+			esc_url( $this->get_settings_page_url() )
 		);
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -109,7 +113,7 @@ class Woorule {
 		$links[] = sprintf(
 			'<a href="%s">%s</a>',
 			$this->get_settings_page_url(),
-			__( 'Settings' )
+			__( 'Settings', 'woorule' )
 		);
 
 		return $links;
@@ -132,7 +136,7 @@ class Woorule {
 	public function settings_page_init() {
 		add_menu_page(
 			__( 'Woorule', 'woorule' ),
-			'WooRule',
+			__( 'Woorule', 'woorule' ),
 			'manage_options',
 			'woorule-settings',
 			array( $this, 'settings_page' ),
@@ -179,7 +183,9 @@ EOT;
 			true,
 			array(
 				'logo_url' => WOORULE_URL . 'assets/logo.png',
-				'label'    => Woorule_Options::get_checkout_label() ? Woorule_Options::get_checkout_label() : 'Please sign me up to the newsletter!',
+				'label'    => Woorule_Options::get_checkout_label()
+					? Woorule_Options::get_checkout_label() :
+					__( 'Please sign me up to the newsletter!', 'woorule' ),
 				'tags'     => Woorule_Options::get_checkout_tags() ? Woorule_Options::get_checkout_tags() : 'Newsletter',
 				'show'     => Woorule_Options::get_checkout_show() ? Woorule_Options::get_checkout_show() : '',
 				'api_key'  => Woorule_Options::get_api_key() ? Woorule_Options::get_api_key() : '',
@@ -224,7 +230,7 @@ EOT;
 		/**
 		 * Each integration must be in a separate subdirectory under the "integrations" directory.
 		 * Integration directory name will be the name of a bootstrap file and integration class name.
-		 * For example: WoCommerce integration
+		 * For example: WooCommerce integration
 		 * |-integrations
 		 * |    |-woocommerce
 		 * |    |   |-class-woorule-woocommerce.php Class Woorule_Woocommerce
