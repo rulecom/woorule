@@ -278,6 +278,10 @@ class Woorule_Order_Hooks {
 				'key'   => 'Order.BillingCompany',
 				'value' => $order->get_billing_company(),
 			),
+			array(
+				'key'   => 'Order.OrderUrl',
+				'value' => $order->get_view_order_url(),
+			),
 		);
 	}
 
