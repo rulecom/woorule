@@ -37,8 +37,13 @@ class RuleMailer_API {
 		if ( is_wp_error( $resp ) ) {
 			static::log( 'Error: ' . $resp->get_error_message() );
 		} else {
-			static::log( 'Subscribe Success: ' . print_r( $resp['body'], true ) );
-			static::log( 'Subscribe Success: ' . print_r( $body_data, true ) );
+			$resp = json_decode( $resp['body'], true );
+			if ( isset( $resp['error'] ) ) {
+				static::log( 'Error: ' . wc_print_r( $resp ) );
+			} else {
+				static::log( 'Subscribe Success: ' . wc_print_r( $resp['body'], true ) );
+				static::log( 'Subscribe Success: ' . wc_print_r( $body_data, true ) );
+			}
 		}
 	}
 
