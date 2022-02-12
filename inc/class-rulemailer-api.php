@@ -37,11 +37,12 @@ class RuleMailer_API {
 		if ( is_wp_error( $resp ) ) {
 			static::log( 'Error: ' . $resp->get_error_message() );
 		} else {
-			$resp = json_decode( $resp['body'], true );
+			$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
 			if ( isset( $resp['error'] ) ) {
-				static::log( 'Error: ' . wc_print_r( $resp ) );
+				static::log( 'Error: ' . wc_print_r( $resp, true ) );
+				static::log( 'Error: ' . wc_print_r( $body_data, true ) );
 			} else {
-				static::log( 'Subscribe Success: ' . wc_print_r( $resp['body'], true ) );
+				static::log( 'Subscribe Success: ' . wc_print_r( $resp, true ) );
 				static::log( 'Subscribe Success: ' . wc_print_r( $body_data, true ) );
 			}
 		}
@@ -67,7 +68,13 @@ class RuleMailer_API {
 		if ( is_wp_error( $resp ) ) {
 			static::log( 'Error delete subscriber tag: ' . $resp->get_error_message() );
 		} else {
-			static::log( 'Subscriber tag deleted successfully: ' . print_r( $resp['body'], true ) );
+			$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
+			if ( isset( $resp['error'] ) ) {
+				static::log( 'Error: ' . wc_print_r( $resp, true ) );
+				static::log( 'Error: ' . wc_print_r( compact( 'email', 'tag' ), true ) );
+			} else {
+				static::log( 'Subscriber tag deleted successfully: ' . wc_print_r( $resp, true ) );
+			}
 		}
 	}
 
@@ -83,8 +90,7 @@ class RuleMailer_API {
 			$logger = new WC_Logger();
 
 			if ( is_array( $msg ) || is_object( $msg ) ) {
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-				$logger->add( 'woorule', print_r( $msg, true ) );
+				$logger->add( 'woorule', wc_print_r( $msg, true ) );
 			} else {
 				$logger->add( 'woorule', $msg );
 			}
