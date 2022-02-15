@@ -16,6 +16,7 @@ defined( 'ABSPATH' ) || exit;
 		<input type="text" id="semail" name="email" class="form_elem" placeholder="<?php echo esc_html( $args['placeholder'] ); ?>"/>
 		<input type="submit" value="<?php echo esc_html( $args['submit'] ); ?>" class="form_elem"/>
 		<input type="hidden" value="<?php echo esc_html( $args['tag'] ); ?>" name="tags" class="tag"/>
+		<input type="hidden" value="<?php echo esc_html( $args['require_opt_in'] ); ?>" name="require-opt-in"/>
 		<p class="hidden success"><?php echo esc_html( $args['success'] ); ?></p>
 		<p class="hidden error"><?php echo esc_html( $args['error'] ); ?></p>
 	</form>

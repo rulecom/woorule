@@ -71,12 +71,13 @@ class Woorule_Shortcode {
 	public function output( $atts ) {
 		$atts = shortcode_atts(
 			array(
-				'title'       => __( 'Newsletter subscription', 'woorule' ),
-				'submit'      => __( 'Submit', 'woorule' ),
-				'placeholder' => __( 'Your e-mail', 'woorule' ),
-				'success'     => __( 'Thank you!', 'woorule' ),
-				'error'       => __( 'Oops, something is wrong..', 'woorule' ),
-				'tag'         => '',
+				'title'          => __( 'Newsletter subscription', 'woorule' ),
+				'submit'         => __( 'Submit', 'woorule' ),
+				'placeholder'    => __( 'Your e-mail', 'woorule' ),
+				'success'        => __( 'Thank you!', 'woorule' ),
+				'error'          => __( 'Oops, something is wrong..', 'woorule' ),
+				'tag'            => '',
+				'require_opt_in' => false,
 			),
 			$atts,
 			'woorule'
@@ -121,6 +122,9 @@ class Woorule_Shortcode {
 			}
 		}
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		$require_opt_in = filter_var( $_POST['requireOptIn'], FILTER_VALIDATE_BOOLEAN );
+
 		$subscription = array(
 			'apikey'              => Woorule_Options::get_api_key(),
 			'update_on_duplicate' => true,
@@ -131,6 +135,7 @@ class Woorule_Shortcode {
 			'subscribers'         => array(
 				'email' => $email,
 			),
+			'require_opt_in'      => $require_opt_in,
 		);
 
 		RuleMailer_API::subscribe( $subscription );
