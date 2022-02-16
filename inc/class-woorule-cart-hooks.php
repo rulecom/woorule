@@ -84,6 +84,11 @@ class Woorule_Cart_Hooks {
 			return;
 		}
 
+		$email = $this->current_customer->get_billing_email();
+		if ( empty( $email ) ) {
+			$email = $this->current_customer->get_email();
+		}
+
 		WC()->cart->calculate_shipping();
 		WC()->cart->calculate_fees();
 		WC()->cart->calculate_totals();
@@ -97,7 +102,7 @@ class Woorule_Cart_Hooks {
 			'async'               => true,
 			'tags'                => $this->get_subscription_tags(),
 			'subscribers'         => array(
-				'email'        => $this->current_customer->get_billing_email(),
+				'email'        => $email,
 				'phone_number' => $this->current_customer->get_billing_phone(),
 				'language'     => substr( get_locale(), 0, 2 ),
 				'fields'       => array_merge(
