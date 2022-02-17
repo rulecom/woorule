@@ -4,6 +4,10 @@ jQuery(document).ready(function ($) {
         $('.woorule-subscribe .error').show();
     }
 
+    $('.woorule-subscribe__checkbox', '.woorule-subscribe').on('change', ({ target }) => {
+        $('input[type="submit"]', '.woorule-subscribe form').prop('disabled', !target.checked)
+    })
+
     $('.woorule-subscribe form').submit(function (e) {
         e.preventDefault();
         $('.woorule-subscribe .error').hide();

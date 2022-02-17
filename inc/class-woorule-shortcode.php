@@ -71,13 +71,14 @@ class Woorule_Shortcode {
 	public function output( $atts ) {
 		$atts = shortcode_atts(
 			array(
-				'title'          => __( 'Newsletter subscription', 'woorule' ),
-				'submit'         => __( 'Submit', 'woorule' ),
-				'placeholder'    => __( 'Your e-mail', 'woorule' ),
-				'success'        => __( 'Thank you!', 'woorule' ),
-				'error'          => __( 'Oops, something is wrong..', 'woorule' ),
-				'tag'            => '',
-				'require_opt_in' => false,
+				'title'       => __( 'Newsletter subscription', 'woorule' ),
+				'submit'      => __( 'Submit', 'woorule' ),
+				'placeholder' => __( 'Your e-mail', 'woorule' ),
+				'success'     => __( 'Thank you!', 'woorule' ),
+				'error'       => __( 'Oops, something is wrong..', 'woorule' ),
+				'tag'         => '',
+				'checkbox'    => '',
+        'require_opt_in' => false,
 			),
 			$atts,
 			'woorule'

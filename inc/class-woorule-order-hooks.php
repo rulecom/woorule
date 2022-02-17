@@ -70,9 +70,9 @@ class Woorule_Order_Hooks {
 
 		RuleMailer_API::subscribe( $subscription );
 
-		if ( $order->meta_exists( '_cart_in_progress_deleted' ) ) {
+		if ( ! $order->meta_exists( '_cart_in_progress_deleted' ) ) {
 			RuleMailer_API::delete_subscriber_tag( $order->get_billing_email(), 'CartInProgress' );
-			$order->add_meta_data( '_cart_in_progress_deleted', true );
+			$order->add_meta_data( '_cart_in_progress_deleted', true, true );
 			$order->save();
 		}
 	}
