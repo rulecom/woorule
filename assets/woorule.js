@@ -14,6 +14,7 @@ jQuery(document).ready(function ($) {
 
         let email = $('.woorule-subscribe #semail').val();
         let tags = $('.woorule-subscribe .tag').val();
+        const requireOptIn = $('.woorule-subscribe [name="require-opt-in"]').val();
 
         if ((!email) || (email.length < 4)) {
             woorule_error();
@@ -31,7 +32,8 @@ jQuery(document).ready(function ($) {
                 action: 'woorule_subscribe_user',
                 nonce: ajax_var.nonce,
                 email,
-                tags
+                tags,
+                requireOptIn
             },
             success(data) {
 

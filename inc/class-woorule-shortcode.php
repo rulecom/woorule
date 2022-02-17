@@ -78,6 +78,7 @@ class Woorule_Shortcode {
 				'error'       => __( 'Oops, something is wrong..', 'woorule' ),
 				'tag'         => '',
 				'checkbox'    => '',
+        'require_opt_in' => false,
 			),
 			$atts,
 			'woorule'
@@ -122,6 +123,9 @@ class Woorule_Shortcode {
 			}
 		}
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		$require_opt_in = filter_var( $_POST['requireOptIn'], FILTER_VALIDATE_BOOLEAN );
+
 		$subscription = array(
 			'apikey'              => Woorule_Options::get_api_key(),
 			'update_on_duplicate' => true,
@@ -132,6 +136,7 @@ class Woorule_Shortcode {
 			'subscribers'         => array(
 				'email' => $email,
 			),
+			'require_opt_in'      => $require_opt_in,
 		);
 
 		RuleMailer_API::subscribe( $subscription );
