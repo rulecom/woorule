@@ -77,6 +77,7 @@ class Woorule_Shortcode {
 				'success'     => __( 'Thank you!', 'woorule' ),
 				'error'       => __( 'Oops, something is wrong..', 'woorule' ),
 				'tag'         => '',
+				'checkbox'    => '',
 			),
 			$atts,
 			'woorule'
