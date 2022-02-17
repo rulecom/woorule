@@ -2,9 +2,9 @@
 Contributors: neevalex, rulecom
 Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
-Tested up to: 5.8.3
+Tested up to: 5.9
 Requires PHP: 5.6+
-Stable tag: 2.6.0
+Stable tag: 2.7.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -40,11 +40,18 @@ WooRule also includes an optional checkout signup form where customers can easil
 
 You can embed a Newsletter sign-up form in your posts, or on any page with a simple shortcode `[woorule]`
 
-You can also customize the sign-up form with any of the following shortcode options:
+You can also customize the sign-up form with any of the following shortcode attributes:
+
 `
-[woorule title="Custom Title" placeholder="Custom Placeholder Text" button="Custom Button Text" success="Custom Success Message" tag="Custom Tag"]
+[woorule title="Custom Title" placeholder="Custom Placeholder Text" button="Custom Button Text" checkbox="Custom Text Next To Checkbox" success="Custom Success Message" tag="Custom Tag" require_opt_in=false]
 `
-The `tag` field will be applied to the subscriber when the form is submitted. If no tag field is used a `Newsletter` tag will be applied by default.
+
+The `checkbox` attribute will add a checkbox below the signup form. If this attribute is present then checking the checkbox is required before the form can be submitted. This is useful for ensuring the subscriber agrees to your terms before being added to a mailing list.
+
+The `tag` attribute will be applied to the subscriber when the form is submitted. If no tag field is used a `Newsletter` tag will be applied by default.
+
+The `require_opt_in` attribute, if set to `true`, will require the subscriber to accept an opt-in email before further marketing emails can be sent. The opt-in flow requires you to have a [subscriber form](https://app.rule.io/#/subscriber/subscriber-form) setup in your Rule account in order for the opt-in email to be sent to the subscriber. Note that the `tag` attribute should be the same as the form tag.
+
 
 == Frequently Asked Questions ==
 
@@ -100,6 +107,12 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 2.7.0 =
+* Added an optional `checkbox` attribute to the woorule shortcode, which must be checked before the form can be submitted
+* Added an optional `require_opt_in` attribute to the woorule shortcode, which sends the subscriber an opt-in email before they can received additional marketing emails
+* Fixed Cart In Progress bug
+* Improved logging
 
 = 2.6.0 =
 * Add fields: `Order.CartUrl` (for Cart in Progress) and `Order.OrderUrl` (for orders)
