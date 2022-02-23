@@ -95,7 +95,7 @@ defined( 'ABSPATH' ) || exit;
 						__(
 							'You can find your Rule API key in the <a href="https://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.',
 							'woorule'
-						),
+						)
 					);
 					?>
 				</span>
