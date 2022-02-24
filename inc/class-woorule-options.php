@@ -109,6 +109,8 @@ class Woorule_Options {
 	 * @throws BadMethodCallException Exception.
 	 */
 	protected function get( $option_name ) {
+		$this->options = get_option( self::OPTIONS_KEY, array() );
+
 		if ( 'options' === $option_name ) {
 			return $this->options;
 		} elseif ( isset( $this->options[ 'woorule_' . $option_name ] ) ) {
