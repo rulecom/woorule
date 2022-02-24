@@ -103,7 +103,7 @@ class Woorule_Cart_Hooks {
 			'tags'                => $this->get_subscription_tags(),
 			'subscribers'         => array(
 				'email'        => $email,
-				'phone_number' => $this->current_customer->get_billing_phone(),
+				'phone_number' => Woorule_Utils::get_customer_phone_number( $this->current_customer ),
 				'language'     => substr( get_locale(), 0, 2 ),
 				'fields'       => array_merge(
 					$this->get_subscriber_fields(),
@@ -267,7 +267,7 @@ class Woorule_Cart_Hooks {
 			),
 			array(
 				'key'   => 'Order.BillingTele',
-				'value' => $this->current_customer->get_billing_phone(),
+				'value' => Woorule_Utils::get_customer_phone_number( $this->current_customer ),
 			),
 			array(
 				'key'   => 'Order.BillingCompany',

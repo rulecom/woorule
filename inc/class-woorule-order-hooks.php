@@ -58,7 +58,7 @@ class Woorule_Order_Hooks {
 			'tags'                => $this->get_subscription_tags( $order, $status_to ),
 			'subscribers'         => array(
 				'email'        => $order->get_billing_email(),
-				'phone_number' => $order->get_billing_phone(),
+				'phone_number' => Woorule_Utils::get_order_phone_number( $order ),
 				'language'     => substr( get_locale(), 0, 2 ),
 				'fields'       => array_merge(
 					$this->get_subscriber_fields( $order ),
@@ -272,7 +272,7 @@ class Woorule_Order_Hooks {
 			),
 			array(
 				'key'   => 'Order.BillingTele',
-				'value' => $order->get_billing_phone(),
+				'value' => Woorule_Utils::get_order_phone_number( $order ),
 			),
 			array(
 				'key'   => 'Order.BillingCompany',
