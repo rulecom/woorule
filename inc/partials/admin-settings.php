@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 <form class="woorule" method="post">
 	<a href="https://app.rule.io" target="_blank">
 		<img width="128" src="<?php echo esc_url( $args['logo_url'] ); ?>" alt="" class="lazyloaded"
-		     data-ll-status="loaded"/>
+			data-ll-status="loaded"/>
 	</a>
 	<input type="hidden" name="page" value="woorule-settings"/>
 	<input type="hidden" name="save" value="woorule"/>
@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit;
 			</th>
 			<td>
 				<input type="checkbox" name="woorule_checkout_show"
-				       id="woorule_checkout_show" <?php checked( $args['show'], 'on' ); ?> />
+					id="woorule_checkout_show" <?php checked( $args['show'], 'on' ); ?> />
 				<span class="description">
 					<?php esc_html_e( 'Display a signup form on the checkout page', 'woorule' ); ?>
 				</span>
@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) || exit;
 			</th>
 			<td>
 				<input name="woorule_checkout_label" id="woorule_checkout_label" type="text"
-				       value="<?php echo esc_attr( $args['label'] ); ?>" class="regular-text code"/>
+					value="<?php echo esc_attr( $args['label'] ); ?>" class="regular-text code"/>
 				<span class="description">
 					<?php esc_html_e( 'Text to display next to the signup form', 'woorule' ); ?>
 				</span>
@@ -64,7 +64,7 @@ defined( 'ABSPATH' ) || exit;
 			</th>
 			<td>
 				<input name="woorule_checkout_tags" id="woorule_checkout_tags" type="text"
-				       value="<?php echo esc_attr( $args['tags'] ); ?>" class="regular-text code"/>
+					value="<?php echo esc_attr( $args['tags'] ); ?>" class="regular-text code"/>
 				<span class="description">
 					<?php esc_html_e( 'Signup form tags (Comma separated)', 'woorule' ); ?>
 				</span>
@@ -87,11 +87,10 @@ defined( 'ABSPATH' ) || exit;
 				</label>
 			</th>
 			<td>
-				<input name="woorule_api" id="woorule_api" type="text" class="regular-text code"
-				       value="<?php echo esc_attr( $args['api_key'] ); ?>"/>
+				<input name="woorule_api" id="woorule_api" type="text" class="regular-text code" value="
+					<?php echo esc_attr( $args['api_key'] ); ?>"/>
 				<span class="description">
-					<?php
-					echo wp_kses_post(
+					<?php echo wp_kses_post(
 						__(
 							'You can find your Rule API key in the <a href="https://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.',
 							'woorule'
