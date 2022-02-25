@@ -27,22 +27,6 @@ class Woorule_Options {
 	const OPTIONS_KEY = 'woocommerce_rulemailer_settings';
 
 	/**
-	 * Plugin options.
-	 *
-	 * @var array
-	 */
-	protected $options = array();
-
-	/**
-	 * Woorule_Options constructor.
-	 *
-	 * @return void
-	 */
-	protected function __construct() {
-		$this->options = get_option( self::OPTIONS_KEY, array() );
-	}
-
-	/**
 	 * Prevent unserializing.
 	 *
 	 * @return void
@@ -61,7 +45,7 @@ class Woorule_Options {
 	/**
 	 * Get class instance.
 	 *
-	 * @return object Instance.
+	 * @return $this Instance.
 	 */
 	protected static function get_instance() {
 		static $instance = null;
@@ -86,8 +70,6 @@ class Woorule_Options {
 	public static function __callStatic( $name, $arguments ) {
 		$instance = self::get_instance();
 
-		$instance->filter_options();
-
 		if ( 0 === strpos( $name, 'get_' ) ) {
 			return $instance->get( substr( $name, 4 ) );
 		} elseif ( 0 === strpos( $name, 'set_' ) ) {
@@ -105,19 +87,15 @@ class Woorule_Options {
 	 * @param string $option_name Option name.
 	 *
 	 * @return mixed
-	 *
-	 * @throws BadMethodCallException Exception.
 	 */
 	protected function get( $option_name ) {
-		//$this->options = get_option( self::OPTIONS_KEY, array() );
+		$options = self::load_options();
 
 		if ( 'options' === $option_name ) {
-			return $this->options;
-		} elseif ( isset( $this->options[ 'woorule_' . $option_name ] ) ) {
-			return $this->options[ 'woorule_' . $option_name ];
-		} else {
-			throw new BadMethodCallException( $option_name . ' is not defined in ' . __CLASS__ );
+			return $options;
 		}
+
+		return isset( $options[ 'woorule_' . $option_name ] ) ? $options[ 'woorule_' . $option_name ] : null;
 	}
 
 	/**
@@ -127,34 +105,21 @@ class Woorule_Options {
 	 * @param mixed $value Value.
 	 *
 	 * @return void
-	 *
-	 * @throws BadMethodCallException Exception.
 	 */
 	protected function set( $option_name, $value ) {
-		static $updated = null;
+		$options = self::load_options();
 
-		if ( 'options' === $option_name && is_array( $value ) ) {
-			// Merge new options with existent object's options.
-			$value = wp_parse_args( $value, $this->options );
-			$this->filter_options( $value );
-		} elseif ( isset( $this->options[ 'woorule_' . $option_name ] ) ) {
-			$this->options[ 'woorule_' . $option_name ] = $value;
+		if ( 'options' === $option_name ) {
+			if ( is_array( $value ) ) {
+				// Merge new options with existent object's options.
+				$value = wp_parse_args( $value, $options );
+
+				update_option( self::OPTIONS_KEY, $value, false );
+			}
 		} else {
-			throw new BadMethodCallException( $option_name . ' is not defined in ' . __CLASS__ );
-		}
+			$options[ 'woorule_' . $option_name ] = $value;
 
-		if ( is_null( $updated ) ) {
-			$updated = true;
-
-			// Save options to DB on shutdown.
-			add_action(
-				'shutdown',
-				// Anonymous function is used because we do want to have public DB update function.
-				function () {
-					$this->filter_options();
-					update_option( self::OPTIONS_KEY, $this->options, false );
-				}
-			);
+			update_option( self::OPTIONS_KEY, $options, false );
 		}
 	}
 
@@ -163,7 +128,7 @@ class Woorule_Options {
 	 *
 	 * @return array
 	 */
-	protected function get_options_defaults() {
+	private function get_options_defaults() {
 		return (array) apply_filters(
 			'woorule_options_defaults',
 			array(
@@ -180,12 +145,21 @@ class Woorule_Options {
 	 *
 	 * @param array $options Options.
 	 *
-	 * @return void
+	 * @return array
 	 */
-	protected function filter_options( $options = null ) {
-		$this->options = shortcode_atts(
+	private static function filter_options( $options ) {
+		return shortcode_atts(
 			self::get_options_defaults(),
-			is_null( $options ) ? $this->options : $options
+			$options
 		);
+	}
+
+	/**
+	 * Load options.
+	 *
+	 * @return array
+	 */
+	private static function load_options() {
+		return self::filter_options( get_option( self::OPTIONS_KEY, array() ) );
 	}
 }

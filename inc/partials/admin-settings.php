@@ -87,8 +87,7 @@ defined( 'ABSPATH' ) || exit;
 				</label>
 			</th>
 			<td>
-				<input name="woorule_api" id="woorule_api" type="text" class="regular-text code" value="
-					<?php echo esc_attr( $args['api_key'] ); ?>"/>
+				<input name="woorule_api" id="woorule_api" type="text" class="regular-text code" value="<?php echo esc_attr( $args['api_key'] ); ?>"/>
 				<span class="description">
 					<?php echo wp_kses_post(
 						__(
