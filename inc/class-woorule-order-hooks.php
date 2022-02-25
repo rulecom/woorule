@@ -68,7 +68,13 @@ class Woorule_Order_Hooks {
 			),
 		);
 
-		RuleMailer_API::subscribe( $subscription );
+		$result = RuleMailer_API::subscribe( $subscription );
+		if ( is_wp_error( $result ) && 400 === $result->get_error_code() ) {
+			// New attempt without phone number
+			unset( $subscription['subscribers']['phone_number'] );
+
+			RuleMailer_API::subscribe( $subscription );
+		}
 
 		if ( ! $order->meta_exists( '_cart_in_progress_deleted' ) ) {
 			RuleMailer_API::delete_subscriber_tag( $order->get_billing_email(), 'CartInProgress' );

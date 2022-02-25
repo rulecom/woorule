@@ -113,7 +113,13 @@ class Woorule_Cart_Hooks {
 			),
 		);
 
-		RuleMailer_API::subscribe( $subscription );
+		$result = RuleMailer_API::subscribe( $subscription );
+		if ( is_wp_error( $result ) && 400 === $result->get_error_code() ) {
+			// New attempt without phone number
+			unset( $subscription['subscribers']['phone_number'] );
+
+			RuleMailer_API::subscribe( $subscription );
+		}
 	}
 
 	/**
