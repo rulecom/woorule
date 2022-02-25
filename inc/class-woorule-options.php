@@ -128,7 +128,7 @@ class Woorule_Options {
 	 *
 	 * @return array
 	 */
-	private function get_options_defaults() {
+	private static function get_options_defaults() {
 		return (array) apply_filters(
 			'woorule_options_defaults',
 			array(
