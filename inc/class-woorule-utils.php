@@ -29,15 +29,10 @@ class Woorule_Utils {
 	 * @return string
 	 */
 	public static function get_order_phone_number( WC_Order $order ) {
-		$phone = preg_replace( '/[^0-9\+]/', '', $order->get_billing_phone() );
-
-		if ( '+' !== substr( $phone, 0, 1 ) ) {
-			$code = WC()->countries->get_country_calling_code( $order->get_billing_country() );
-
-			return '+' . $code . $phone;
-		}
-
-		return $phone;
+		return self::add_phone_calling_code(
+			$order->get_billing_phone(),
+			$order->get_billing_country()
+		);
 	}
 
 	/**
@@ -47,10 +42,24 @@ class Woorule_Utils {
 	 * @return string
 	 */
 	public static function get_customer_phone_number( WC_Customer $customer ) {
-		$phone = preg_replace( '/[^0-9\+]/', '', $customer->get_billing_phone() );
+		return self::add_phone_calling_code(
+			$customer->get_billing_phone(),
+			$customer->get_billing_country()
+		);
+	}
+
+	/**
+	 * Format phone number.
+	 *
+	 * @param string $phone
+	 * @param string $country
+	 * @return string
+	 */
+	private static function add_phone_calling_code( $phone, $country ) {
+		$phone = preg_replace( '/[^0-9\+]/', '', $phone );
 
 		if ( '+' !== substr( $phone, 0, 1 ) ) {
-			$code = WC()->countries->get_country_calling_code( $customer->get_billing_country() );
+			$code = WC()->countries->get_country_calling_code( $country );
 
 			return '+' . $code . $phone;
 		}
