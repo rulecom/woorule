@@ -55,20 +55,20 @@ class Woorule_Utils {
 	 * @param string $country
 	 * @return string
 	 */
-	private static function add_phone_calling_code( $phone, $country ) {
-		$phone = preg_replace( '/[^0-9\+]/', '', $phone );
+		private static function add_phone_calling_code( $phone, $country ) {
+			$phone = preg_replace( '/[^0-9\+]/', '', $phone );
 
-		if ( '+' !== substr( $phone, 0, 1 ) ) {
-			// Check for a calling code
-			$code = WC()->countries->get_country_calling_code( $country );
+			if ( '+' !== substr( $phone, 0, 1 ) ) {
+				// Check for a calling code
+				$code = ltrim( WC()->countries->get_country_calling_code( $country ), '+' );
 
-			if ( $code !== substr( $phone, 0, strlen( $code ) ) ) {
-				$phone = $code . $phone;
+				if ( $code !== substr( $phone, 0, strlen( $code ) ) ) {
+					$phone = $code . $phone;
+				}
+
+				return '+' . $phone;
 			}
 
-			return '+' . $phone;
+			return $phone;
 		}
-
-		return $phone;
-	}
 }
