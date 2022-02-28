@@ -118,6 +118,19 @@ class Woorule_Cart_Hooks {
 			// New attempt without phone number
 			unset( $subscription['subscribers']['phone_number'] );
 
+			// Remove phone number from fields
+			if ( isset( $subscription['subscribers'] ) && isset( $subscription['subscribers']['fields'] ) ) {
+				$fields = $subscription['subscribers']['fields'];
+
+				foreach ($fields as $key => $field) {
+					if ( 'Order.BillingTele' === $field['key'] ) {
+						unset( $fields[ $key ] );
+					}
+				}
+
+				$subscription['subscribers']['fields'] = $fields;
+			}
+
 			RuleMailer_API::subscribe( $subscription );
 		}
 	}
