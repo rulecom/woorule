@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 5.9
 Requires PHP: 5.6+
-Stable tag: 2.7.2
+Stable tag: 2.7.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -107,6 +107,13 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 2.7.4 =
+* Added automatic phone number country codes (if not provided)
+* Improved invalid phone number handling
+
+= 2.7.3 =
+* Fix for bug affecting Klarna Checkout form
 
 = 2.7.2 =
 * Temporary rollback for bug affecting Klarna Checkout
