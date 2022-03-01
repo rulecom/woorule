@@ -45,14 +45,15 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/woocommerce/plugins/woocommerce
           composer install
+          #npm install --g pnpm
           pnpm install
-          pnpm nx build woocommerce
+          #pnpm nx build woocommerce
           pnpm nx composer-install woocommerce
           zip -q -r /tmp/woocommerce.zip ./
 
       - name: Build WordPress Test Enviroment
         run: |
-          cd $GITHUB_WORKSPACE/woocommerce
+          cd $GITHUB_WORKSPACE/woocommerce/plugins/woocommerce
           bash tests/bin/install.sh woocommerce_test root 'root' localhost latest
           cd /tmp/wordpress
           curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -68,7 +69,7 @@ jobs:
           WP_RUN_CORE_TESTS: 1
         run: |
           cd $GITHUB_WORKSPACE/woorule
-          WOOCOMMERCE_DIR=$GITHUB_WORKSPACE/woocommerce phpunit --configuration=./tests/phpunit.xml --bootstrap=./tests/bootstrap.php --coverage-clover=coverage.xml
+          WOOCOMMERCE_DIR=$GITHUB_WORKSPACE/woocommerce $GITHUB_WORKSPACE/woocommerce/plugins/woocommerce/vendor/phpunit/phpunit/phpunit --configuration=./tests/phpunit.xml --bootstrap=./tests/bootstrap.php --coverage-clover=coverage.xml
 
       - name: Upload code coverage report to Codecov
         env:
