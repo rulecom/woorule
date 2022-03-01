@@ -58,7 +58,7 @@ class Woorule_Order_Hooks {
 			'tags'                => $this->get_subscription_tags( $order, $status_to ),
 			'subscribers'         => array(
 				'email'        => $order->get_billing_email(),
-				'phone_number' => $order->get_billing_phone(),
+				'phone_number' => Woorule_Utils::get_order_phone_number( $order ),
 				'language'     => substr( get_locale(), 0, 2 ),
 				'fields'       => array_merge(
 					$this->get_subscriber_fields( $order ),
@@ -68,7 +68,26 @@ class Woorule_Order_Hooks {
 			),
 		);
 
-		RuleMailer_API::subscribe( $subscription );
+		$result = RuleMailer_API::subscribe( $subscription );
+		if ( is_wp_error( $result ) && 400 === $result->get_error_code() ) {
+			// New attempt without phone number
+			unset( $subscription['subscribers']['phone_number'] );
+
+			// Remove phone number from fields
+			if ( isset( $subscription['subscribers'] ) && isset( $subscription['subscribers']['fields'] ) ) {
+				$fields = $subscription['subscribers']['fields'];
+
+				foreach ($fields as $key => $field) {
+					if ( 'Order.BillingTele' === $field['key'] ) {
+						unset( $fields[ $key ] );
+					}
+				}
+
+				$subscription['subscribers']['fields'] = $fields;
+			}
+
+			RuleMailer_API::subscribe( $subscription );
+		}
 
 		if ( ! $order->meta_exists( '_cart_in_progress_deleted' ) ) {
 			RuleMailer_API::delete_subscriber_tag( $order->get_billing_email(), 'CartInProgress' );
@@ -272,7 +291,7 @@ class Woorule_Order_Hooks {
 			),
 			array(
 				'key'   => 'Order.BillingTele',
-				'value' => $order->get_billing_phone(),
+				'value' => Woorule_Utils::get_order_phone_number( $order ),
 			),
 			array(
 				'key'   => 'Order.BillingCompany',
