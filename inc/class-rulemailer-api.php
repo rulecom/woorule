@@ -20,7 +20,7 @@ class RuleMailer_API {
 	 *
 	 * @param array $body_data Body data.
 	 *
-	 * @return void
+	 * @return array|WP_Error
 	 */
 	public static function subscribe( $body_data ) {
 		$data = array(
@@ -36,16 +36,26 @@ class RuleMailer_API {
 
 		if ( is_wp_error( $resp ) ) {
 			static::log( 'Error: ' . $resp->get_error_message() );
-		} else {
-			$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
-			if ( isset( $resp['error'] ) ) {
-				static::log( 'Error: ' . wc_print_r( $resp, true ) );
-				static::log( 'Error: ' . wc_print_r( $body_data, true ) );
-			} else {
-				static::log( 'Subscribe Success: ' . wc_print_r( $resp, true ) );
-				static::log( 'Subscribe Success: ' . wc_print_r( $body_data, true ) );
-			}
+
+			return $resp;
 		}
+
+		if ( 200 !== $resp['response']['code'] ) {
+			return new WP_Error( $resp['response']['code'], $resp['response']['message'] );
+		}
+
+		$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
+		if ( isset( $resp['error'] ) ) {
+			static::log( 'Error: ' . wc_print_r( $resp, true ) );
+			static::log( 'Error: ' . wc_print_r( $body_data, true ) );
+
+			return new WP_Error( 600, $resp['error'] );
+		} else {
+			static::log( 'Subscribe Success: ' . wc_print_r( $resp, true ) );
+			static::log( 'Subscribe Success: ' . wc_print_r( $body_data, true ) );
+		}
+
+		return $resp;
 	}
 
 	/**
