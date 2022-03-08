@@ -64,7 +64,7 @@ class RuleMailer_API {
 	 * @param string $email Subscriber email.
 	 * @param string $tag Tag.
 	 *
-	 * @return void
+	 * @return array|WP_Error
 	 */
 	public static function delete_subscriber_tag( $email, $tag ) {
 		$data = array(
@@ -77,15 +77,25 @@ class RuleMailer_API {
 
 		if ( is_wp_error( $resp ) ) {
 			static::log( 'Error delete subscriber tag: ' . $resp->get_error_message() );
-		} else {
-			$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
-			if ( isset( $resp['error'] ) ) {
-				static::log( 'Error: ' . wc_print_r( $resp, true ) );
-				static::log( 'Error: ' . wc_print_r( compact( 'email', 'tag' ), true ) );
-			} else {
-				static::log( 'Subscriber tag deleted successfully: ' . wc_print_r( $resp, true ) );
-			}
+
+			return $resp;
 		}
+
+		if ( 200 !== $resp['response']['code'] ) {
+			return new WP_Error( $resp['response']['code'], $resp['response']['message'] );
+		}
+
+		$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
+		if ( isset( $resp['error'] ) ) {
+			static::log( 'Error: ' . wc_print_r( $resp, true ) );
+			static::log( 'Error: ' . wc_print_r( compact( 'email', 'tag' ), true ) );
+
+			return new WP_Error( 600, $resp['error'] );
+		} else {
+			static::log( 'Subscriber tag deleted successfully: ' . wc_print_r( $resp, true ) );
+		}
+
+		return $resp;
 	}
 
 	/**
