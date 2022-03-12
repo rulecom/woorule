@@ -49,7 +49,7 @@ class Woorule {
 		}
 
 		add_action( 'admin_menu', array( $this, 'settings_page_init' ) );
-		add_action( 'admin_head', array( $this, 'admin_css' ) );
+        add_action( 'admin_enqueue_scripts', __CLASS__ . '::admin_enqueue_scripts' );
 
 		// This will add the direct "Settings" link inside wp plugins menu.
 		add_filter( 'plugin_action_links_woorule/woorule.php', array( $this, 'settings_link' ) );
@@ -153,32 +153,26 @@ class Woorule {
 		);
 	}
 
-	/**
-	 * Output admin CSS.
-	 *
-	 * @return void
-	 */
-	public function admin_css() {
-		// @todo: move this to css file.
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo <<<EOT
-<style>
-	form.woorule {
-		margin-top: 20px;
+    /**
+     * Enqueue Scripts in admin
+     *
+     * @param $hook
+     *
+     * @return void
+     */
+    public static function admin_enqueue_scripts( $hook ) {
+        if ( 'toplevel_page_woorule-settings' === $hook ) {
+            $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+            wp_enqueue_style(
+                'woorule-css',
+                WOORULE_URL . 'assets/admin' . $suffix . '.css',
+                array(),
+                WOORULE_VERSION,
+                'all'
+            );
+        }
     }
-    .woorule .description {
-        display: inline-block;
-        width: 100%; margin-top: 5px;
-    }
-    .woorule tr.line {
-        border-bottom: 1px solid #ddd;
-    }
-    .woorule h2 {
-        margin: 0;
-    }
-</style>
-EOT;
-	}
 
 	/**
 	 * Render settings page.

@@ -23,7 +23,7 @@ jobs:
           composer global require squizlabs/php_codesniffer
           composer global require "wp-coding-standards/wpcs"
           phpcs --config-set installed_paths ~/.composer/vendor/wp-coding-standards/wpcs
-          phpcs --standard=WordPress-Core --report=code --ignore=.github,.wordpress-org,assets/js/*.min.js --runtime-set ignore_warnings_on_exit true ./
+          phpcs --standard=WordPress-Core --report=code --ignore=.github,.wordpress-org,assets/*.js,assets/*.css --runtime-set ignore_warnings_on_exit true ./
 
       - name: Run PHPMD inspection
         run: |
