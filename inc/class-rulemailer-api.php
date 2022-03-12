@@ -11,6 +11,12 @@
  * RuleMailer_API class.
  *
  * @package WooRule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
  */
 class RuleMailer_API {
 	const URL = 'https://app.rule.io/api/v2/subscribers';
@@ -21,6 +27,7 @@ class RuleMailer_API {
 	 * @param array $body_data Body data.
 	 *
 	 * @return array|WP_Error
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	public static function subscribe( $body_data ) {
 		$data = array(
@@ -65,6 +72,7 @@ class RuleMailer_API {
 	 * @param string $tag Tag.
 	 *
 	 * @return array|WP_Error
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	public static function delete_subscriber_tag( $email, $tag ) {
 		$data = array(
@@ -104,6 +112,7 @@ class RuleMailer_API {
 	 * @param mixed $msg Message.
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	private static function log( $msg ) {
 		if ( WP_DEBUG === true ) {

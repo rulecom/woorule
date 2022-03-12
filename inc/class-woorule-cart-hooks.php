@@ -12,6 +12,13 @@
  * Class Woorule_Order_Hooks
  *
  * @package Woorule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Cart_Hooks {
 	/**
@@ -122,7 +129,7 @@ class Woorule_Cart_Hooks {
 			if ( isset( $subscription['subscribers'] ) && isset( $subscription['subscribers']['fields'] ) ) {
 				$fields = $subscription['subscribers']['fields'];
 
-				foreach ($fields as $key => $field) {
+				foreach ( $fields as $key => $field ) {
 					if ( 'Order.BillingTele' === $field['key'] ) {
 						unset( $fields[ $key ] );
 					}

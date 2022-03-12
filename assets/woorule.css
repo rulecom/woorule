@@ -1,26 +1,26 @@
 .woorule-subscribe {
-    width: 100%;
-    display: block;
+	width: 100%;
+	display: block;
 }
 
 .woorule-subscribe form {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .woorule-subscribe label, .woorule-subscribe p {
-    flex: 0 1 100%;
+	flex: 0 1 100%;
 }
 
 .woorule-subscribe .hidden {
-    display: none;
+	display: none;
 }
 
 .woorule-subscribe .success {
-    color: green;
+	color: green;
 }
 
 .woorule-subscribe .error {
-    color: red;
+	color: red;
 }

@@ -11,6 +11,13 @@
  * Class Woorule_Klarna_Checkout_For_Woocommerce
  *
  * @package Woorule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Klarna_Checkout_For_Woocommerce {
 	/**
@@ -100,12 +107,13 @@ class Woorule_Klarna_Checkout_For_Woocommerce {
 	 * @param array $options Options.
 	 *
 	 * @return array
+	 * @SuppressWarnings(PHPMD.Superglobals)
 	 */
 	public function update_options( $options ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$options['woorule_klarna_checkout_show'] = isset( $_POST['woorule_klarna_checkout_show'] )
 			// phpcs:ignore WordPress.Security
-			? sanitize_text_field( $_POST['woorule_klarna_checkout_show'] )
+			? sanitize_text_field( wc_clean( $_POST['woorule_klarna_checkout_show'] ) )
 			: '';
 
 		return $options;
@@ -136,6 +144,7 @@ class Woorule_Klarna_Checkout_For_Woocommerce {
 	 * @param array $klarna_order Klarna order data.
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	public function custom_checkout_field_update_order_meta( $order_id, $klarna_order ) {
 		if (

@@ -9,6 +9,12 @@
  * Class Woorule_Shortcode
  *
  * @package Woorule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Shortcode {
 	/**
@@ -71,14 +77,14 @@ class Woorule_Shortcode {
 	public function output( $atts ) {
 		$atts = shortcode_atts(
 			array(
-				'title'       => __( 'Newsletter subscription', 'woorule' ),
-				'submit'      => __( 'Submit', 'woorule' ),
-				'placeholder' => __( 'Your e-mail', 'woorule' ),
-				'success'     => __( 'Thank you!', 'woorule' ),
-				'error'       => __( 'Oops, something is wrong..', 'woorule' ),
-				'tag'         => '',
-				'checkbox'    => '',
-        'require_opt_in' => false,
+				'title'          => __( 'Newsletter subscription', 'woorule' ),
+				'submit'         => __( 'Submit', 'woorule' ),
+				'placeholder'    => __( 'Your e-mail', 'woorule' ),
+				'success'        => __( 'Thank you!', 'woorule' ),
+				'error'          => __( 'Oops, something is wrong..', 'woorule' ),
+				'tag'            => '',
+				'checkbox'       => '',
+				'require_opt_in' => false,
 			),
 			$atts,
 			'woorule'
@@ -95,12 +101,14 @@ class Woorule_Shortcode {
 	 * Subscribe user.
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.Superglobals)
+	 * @SuppressWarnings(PHPMD.ExitExpression)
 	 */
 	public static function subscribe_user() {
 		// Check for nonce security.
 		if (
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-			! wp_verify_nonce( $_POST['nonce'], 'woorule' )
+			! wp_verify_nonce( wc_clean( $_POST['nonce'] ), 'woorule' )
 			||
 			! isset( $_POST['email'] )
 		) {
@@ -108,7 +116,7 @@ class Woorule_Shortcode {
 		}
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-		$email = filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL );
+		$email = filter_var( wc_clean( $_POST['email'] ), FILTER_VALIDATE_EMAIL );
 		if ( ! $email ) {
 			die( 'err' );
 		}
@@ -118,13 +126,13 @@ class Woorule_Shortcode {
 		// Add custom tags if set.
 		if ( isset( $_POST['tags'] ) ) {
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-			foreach ( explode( ',', $_POST['tags'] ) as $tag ) {
+			foreach ( explode( ',', wc_clean( $_POST['tags'] ) ) as $tag ) {
 				$tags[] = sanitize_text_field( $tag );
 			}
 		}
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-		$require_opt_in = filter_var( $_POST['requireOptIn'], FILTER_VALIDATE_BOOLEAN );
+		$require_opt_in = filter_var( wc_clean( $_POST['requireOptIn'] ), FILTER_VALIDATE_BOOLEAN );
 
 		$subscription = array(
 			'apikey'              => Woorule_Options::get_api_key(),
