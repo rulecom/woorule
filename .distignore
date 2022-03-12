@@ -1,7 +1,9 @@
 /.git
 /.github
 /.wordpress-org
+/tests
 
 .distignore
 .gitignore
 readme.md
+composer.json
