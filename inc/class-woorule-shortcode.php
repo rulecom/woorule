@@ -40,35 +40,35 @@ class Woorule_Shortcode {
 	 * @return void
 	 */
 	public function register_assets() {
-        global $post;
+		global $post;
 
-        if ( has_shortcode( $post->post_content, 'woorule' ) ) {
-            $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		if ( has_shortcode( $post->post_content, 'woorule' ) ) {
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-            wp_enqueue_style(
-                'woorule',
-                WOORULE_URL . 'assets/woorule' . $suffix . '.css',
-                array(),
-                WOORULE_VERSION
-            );
+			wp_enqueue_style(
+				'woorule',
+				WOORULE_URL . 'assets/woorule' . $suffix . '.css',
+				array(),
+				WOORULE_VERSION
+			);
 
-            wp_enqueue_script(
-                'woorule',
-                WOORULE_URL . 'assets/woorule' . $suffix . '.js',
-                array( 'jquery' ),
-                WOORULE_VERSION,
-                true
-            );
+			wp_enqueue_script(
+				'woorule',
+				WOORULE_URL . 'assets/woorule' . $suffix . '.js',
+				array( 'jquery' ),
+				WOORULE_VERSION,
+				true
+			);
 
-            wp_localize_script(
-                'woorule',
-                'ajax_var',
-                array(
-                    'url'   => admin_url( 'admin-ajax.php' ),
-                    'nonce' => wp_create_nonce( 'woorule' ),
-                )
-            );
-        }
+			wp_localize_script(
+				'woorule',
+				'ajax_var',
+				array(
+					'url'   => admin_url( 'admin-ajax.php' ),
+					'nonce' => wp_create_nonce( 'woorule' ),
+				)
+			);
+		}
 
 	}
 
