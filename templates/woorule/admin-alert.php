@@ -1,0 +1,97 @@
+<?php
+/**
+ * Admin settings.
+ *
+ * @package Woorule
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/* @var array $args Template arguments. */
+?>
+<tr>
+	<th>
+		<h2><?php esc_html_e( 'Product Alert', 'woorule' ); ?></h2>
+	</th>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alert_product_show">
+			<?php esc_html_e( 'Show signup form on the product page', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input type="checkbox" name="woorule_alert_product_show" id="woorule_alert_product_show" <?php checked( $args['show'], 'on' ); ?> />
+		<span class="description">
+			<?php esc_html_e( 'Display a signup form on the product page', 'woorule' ); ?>
+		</span>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alert_label">
+			<?php esc_html_e( 'Signup form label', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alert_label" id="woorule_alert_label" type="text" value="<?php echo esc_attr( $args['label'] ); ?>" class="regular-text code"/>
+		<span class="description">
+					<?php esc_html_e( 'Text to display next to the signup form', 'woorule' ); ?>
+				</span>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alert_placeholder">
+			<?php esc_html_e( 'Placeholder', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alert_placeholder" id="woorule_alert_placeholder" type="text" value="<?php echo esc_attr( $args['placeholder'] ); ?>" class="regular-text code"/>
+		<span class="description"> <?php esc_html_e( 'Placeholder', 'woorule' ); ?> </span>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alert_success">
+			<?php esc_html_e( 'Message for successful submission', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alert_success" id="woorule_alert_success" type="text" value="<?php echo esc_attr( $args['success'] ); ?>" class="regular-text code"/>
+		<span class="description"> <?php esc_html_e( 'Message for successful submission', 'woorule' ); ?> </span>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alert_error">
+			<?php esc_html_e( 'Message for failed submission', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alert_error" id="woorule_alert_error" type="text" value="<?php echo esc_attr( $args['error'] ); ?>" class="regular-text code"/>
+		<span class="description"> <?php esc_html_e( 'Message for failed submission', 'woorule' ); ?> </span>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alert_button">
+			<?php esc_html_e( 'Button text', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alert_button" id="woorule_alert_button" type="text" value="<?php echo esc_attr( $args['button'] ); ?>" class="regular-text code"/>
+		<span class="description"> <?php esc_html_e( 'Button text', 'woorule' ); ?> </span>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alert_tags">
+			<?php esc_html_e( 'Tags', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alert_tags" id="woorule_alert_tags" type="text" value="<?php echo esc_attr( $args['tags'] ); ?>" class="regular-text code"/>
+		<span class="description"> <?php esc_html_e( 'Signup form tags (Comma separated)', 'woorule' ); ?> </span>
+	</td>
+</tr>

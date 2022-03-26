@@ -1,0 +1,20 @@
+.woorule-alert {
+  width: 100%;
+  display: block; }
+
+.woorule-alert form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; }
+
+.woorule-alert label, .woorule-subscribe p {
+  flex: 0 1 100%; }
+
+.woorule-alert .hidden {
+  display: none; }
+
+.woorule-alert .success {
+  color: green; }
+
+.woorule-alert .error {
+  color: red; }

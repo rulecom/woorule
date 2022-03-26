@@ -5,6 +5,7 @@
  * @package Woorule
  */
 
+require_once WOORULE_PATH . 'inc/trait-woorule-logging.php';
 require_once WOORULE_PATH . 'inc/class-woorule-utils.php';
 require_once WOORULE_PATH . 'inc/class-woorule-checkout.php';
 require_once WOORULE_PATH . 'inc/class-woorule-order-hooks.php';
@@ -12,6 +13,9 @@ require_once WOORULE_PATH . 'inc/class-woorule-cart-hooks.php';
 require_once WOORULE_PATH . 'inc/class-woorule-shortcode.php';
 require_once WOORULE_PATH . 'inc/class-woorule-options.php';
 require_once WOORULE_PATH . 'inc/class-rulemailer-api.php';
+require_once WOORULE_PATH . 'inc/class-productalert-api.php';
+require_once WOORULE_PATH . 'inc/class-woorule-alert.php';
+require_once WOORULE_PATH . 'inc/class-woorule-alert-shortcode.php';
 
 /**
  * Class Woorule
