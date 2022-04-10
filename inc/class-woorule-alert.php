@@ -183,11 +183,13 @@ class Woorule_Alert {
 			: '';
 
 		// Save ProductAlert settings
+		// phpcs:disable
 		ProductAlert_API::put_settings( array(
 			'apikey'           => Woorule_Options::get_api_key(),
 			'alert_min_stock'  => $options['woorule_alert_min_stock'],
 			'alerts_per_stock' => $options['woorule_alerts_per_stock'],
 		) );
+		// phpcs:enable
 
 		return $options;
 	}
