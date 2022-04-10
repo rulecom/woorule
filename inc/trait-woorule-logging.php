@@ -51,7 +51,7 @@ trait Woorule_Logging {
 	 * @param string $url
 	 * @return void
 	 */
-	public function http_api_debug( $response, $arg2, $arg3, $parsed_args, $url )  {
+	public function http_api_debug( $response, $arg2, $arg3, $parsed_args, $url ) {
 		$method          = $parsed_args['method'];
 		$request_body    = isset( $parsed_args['body'] ) ? $parsed_args['body'] : '';
 		$request_headers = isset( $parsed_args['headers'] ) ?
