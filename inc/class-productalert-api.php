@@ -45,10 +45,11 @@ class ProductAlert_API {
 			'body'     => wp_json_encode( $body_data ),
 		);
 
+		self::activate_api_logging();
 		$resp = wp_remote_post( self::URL . '/alerts', $data );
-		if ( is_wp_error( $resp ) ) {
-			static::log( 'Error: ' . $resp->get_error_message() );
+		self::deactivate_api_logging();
 
+		if ( is_wp_error( $resp ) ) {
 			return $resp;
 		}
 
@@ -58,13 +59,7 @@ class ProductAlert_API {
 
 		$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
 		if ( isset( $resp['error'] ) ) {
-			static::log( 'Error: ' . wc_print_r( $resp, true ) );
-			static::log( 'Error: ' . wc_print_r( $body_data, true ) );
-
 			return new WP_Error( 600, $resp['error'] );
-		} else {
-			static::log( 'Success: ' . wc_print_r( $resp, true ) );
-			static::log( 'Success: ' . wc_print_r( $body_data, true ) );
 		}
 
 		return $resp;
@@ -89,10 +84,11 @@ class ProductAlert_API {
 			'body'     => wp_json_encode( $body_data ),
 		);
 
+		self::activate_api_logging();
 		$resp = wp_remote_request( self::URL . '/products', $data );
-		if ( is_wp_error( $resp ) ) {
-			static::log( 'Error: ' . $resp->get_error_message() );
+		self::deactivate_api_logging();
 
+		if ( is_wp_error( $resp ) ) {
 			return $resp;
 		}
 
@@ -102,13 +98,7 @@ class ProductAlert_API {
 
 		$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
 		if ( isset( $resp['error'] ) ) {
-			static::log( 'Error: ' . wc_print_r( $resp, true ) );
-			static::log( 'Error: ' . wc_print_r( $body_data, true ) );
-
 			return new WP_Error( 600, $resp['error'] );
-		} else {
-			static::log( 'Success: ' . wc_print_r( $resp, true ) );
-			static::log( 'Success: ' . wc_print_r( $body_data, true ) );
 		}
 
 		return $resp;
@@ -133,10 +123,11 @@ class ProductAlert_API {
 			'body'     => wp_json_encode( $body_data ),
 		);
 
+		self::activate_api_logging();
 		$resp = wp_remote_request( self::URL . '/settings', $data );
-		if ( is_wp_error( $resp ) ) {
-			static::log( 'Error: ' . $resp->get_error_message() );
+		self::deactivate_api_logging();
 
+		if ( is_wp_error( $resp ) ) {
 			return $resp;
 		}
 
@@ -146,17 +137,9 @@ class ProductAlert_API {
 
 		$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
 		if ( isset( $resp['error'] ) ) {
-			static::log( 'Error: ' . wc_print_r( $resp, true ) );
-			static::log( 'Error: ' . wc_print_r( $body_data, true ) );
-
 			return new WP_Error( 600, $resp['error'] );
-		} else {
-			static::log( 'Success: ' . wc_print_r( $resp, true ) );
-			static::log( 'Success: ' . wc_print_r( $body_data, true ) );
 		}
 
 		return $resp;
 	}
-
-
 }
