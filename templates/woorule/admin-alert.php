@@ -95,3 +95,26 @@ defined( 'ABSPATH' ) || exit;
 		<span class="description"> <?php esc_html_e( 'Signup form tags (Comma separated)', 'woorule' ); ?> </span>
 	</td>
 </tr>
+<tr>
+	<th>
+		<label for="woorule_alert_min_stock">
+			<?php esc_html_e( 'Minimum stock', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alert_min_stock" id="woorule_alert_min_stock" type="number" value="<?php echo esc_attr( $args['min_stock'] ); ?>" class="regular-text code"/>
+		<span class="description"> <?php esc_html_e( 'The minimum stock units needed to start triggering alerts. The default is 10.', 'woorule' ); ?> </span>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="woorule_alerts_per_stock">
+			<?php esc_html_e( 'Number of alerts', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input name="woorule_alerts_per_stock" id="woorule_alerts_per_stock" type="number" value="<?php echo esc_attr( $args['per_stock'] ); ?>" class="regular-text code"/>
+		<span class="description"> <?php esc_html_e( 'The number of alerts that are triggered for every inventory unit in stock. The default is 20.', 'woorule' ); ?> </span>
+	</td>
+</tr>
+

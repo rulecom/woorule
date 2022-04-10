@@ -67,20 +67,15 @@ class Woorule_Alert {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function product_object_save( $product, $data_store ) {
-		/* $r = ProductAlert_API::put_settings( array(
-			'apikey' => Woorule_Options::get_api_key(),
-			'alert_min_stock' => 1,
-			'alerts_per_stock' => 20
-		) ); */
-		/* $result = ProductAlert_API::put_product( array(
-			'apikey' => Woorule_Options::get_api_key(),
-			'product_id' => $product->get_id(),
-			'stock' => $product->get_stock_quantity()
-		) );
-
-		if ( is_wp_error( $result  ) ) {
-			WC_Admin_Meta_Boxes::add_error( $result->get_error_message() );
-		} */
+//        $result = ProductAlert_API::put_product( array(
+//            'apikey' => Woorule_Options::get_api_key(),
+//            'product_id' => $product->get_id(),
+//            'stock' => $product->get_stock_quantity()
+//        ) );
+//
+//        if ( is_wp_error( $result  ) ) {
+//            WC_Admin_Meta_Boxes::add_error( $result->get_error_message() );
+//        }
 
 		// Create Background Process Task
 		$background_process = new Woorule_Background_Alert_Queue();
@@ -125,6 +120,8 @@ class Woorule_Alert {
 		$options_defaults['woorule_alert_placeholder']  = __( 'Your e-mail', 'woorule' );
 		$options_defaults['woorule_alert_button']       = __( 'Submit', 'woorule' );
 		$options_defaults['woorule_alert_tags']         = '';
+		$options_defaults['woorule_alert_min_stock']    = '10';
+		$options_defaults['woorule_alerts_per_stock']   = '20';
 
 		return $options_defaults;
 	}
@@ -146,6 +143,8 @@ class Woorule_Alert {
 					'placeholder' => Woorule_Options::get_alert_placeholder(),
 					'button'      => Woorule_Options::get_alert_button(),
 					'tags'        => Woorule_Options::get_alert_tags(),
+					'min_stock'   => Woorule_Options::get_alert_min_stock(),
+					'per_stock'   => Woorule_Options::get_alerts_per_stock(),
 				),
 			),
 			'',
@@ -162,31 +161,43 @@ class Woorule_Alert {
 	 * @SuppressWarnings(PHPMD.Superglobals)
 	 */
 	public function update_options( $options ) {
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$options['woorule_alert_product_show'] = isset( $_POST['woorule_alert_product_show'] )
-            // phpcs:ignore WordPress.Security
+			// phpcs:ignore WordPress.Security
 			? sanitize_text_field( wc_clean( $_POST['woorule_alert_product_show'] ) )
 			: '';
 
 		$options['woorule_alert_label'] = isset( $_POST['woorule_alert_label'] )
-            // phpcs:ignore WordPress.Security
+			// phpcs:ignore WordPress.Security
 			? sanitize_text_field( wc_clean( $_POST['woorule_alert_label'] ) )
 			: '';
 
 		$options['woorule_alert_placeholder'] = isset( $_POST['woorule_alert_placeholder'] )
-            // phpcs:ignore WordPress.Security
+			// phpcs:ignore WordPress.Security
 			? sanitize_text_field( wc_clean( $_POST['woorule_alert_placeholder'] ) )
 			: '';
 
 		$options['woorule_alert_button'] = isset( $_POST['woorule_alert_button'] )
-            // phpcs:ignore WordPress.Security
+			// phpcs:ignore WordPress.Security
 			? sanitize_text_field( wc_clean( $_POST['woorule_alert_button'] ) )
 			: '';
 
-		$options['woorule_alert_tags'] = isset( $_POST['woorule_alert_tags'] )
-            // phpcs:ignore WordPress.Security
-			? sanitize_text_field( wc_clean( $_POST['woorule_alert_tags'] ) )
+		$options['woorule_alert_min_stock'] = isset( $_POST['woorule_alert_min_stock'] )
+			// phpcs:ignore WordPress.Security
+			? sanitize_text_field( wc_clean( $_POST['woorule_alert_min_stock'] ) )
 			: '';
+
+		$options['woorule_alerts_per_stock'] = isset( $_POST['woorule_alerts_per_stock'] )
+			// phpcs:ignore WordPress.Security
+			? sanitize_text_field( wc_clean( $_POST['woorule_alerts_per_stock'] ) )
+			: '';
+
+		// Save ProductAlert settings
+		ProductAlert_API::put_settings( array(
+			'apikey'           => Woorule_Options::get_api_key(),
+			'alert_min_stock'  => $options['woorule_alert_min_stock'],
+			'alerts_per_stock' => $options['woorule_alerts_per_stock']
+		) );
 
 		return $options;
 	}
