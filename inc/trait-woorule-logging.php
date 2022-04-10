@@ -61,6 +61,7 @@ trait Woorule_Logging {
 	 * @param array $parsed_args
 	 * @param string $url
 	 * @return void
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function http_api_debug( $response, $arg2, $arg3, $parsed_args, $url ) {
 		$method          = $parsed_args['method'];
