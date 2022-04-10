@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Woorule_Logging trait.
+ *
+ * @package WooRule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ */
 trait Woorule_Logging {
 
 	/**
