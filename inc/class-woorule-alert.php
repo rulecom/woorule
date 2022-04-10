@@ -67,16 +67,6 @@ class Woorule_Alert {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function product_object_save( $product, $data_store ) {
-//        $result = ProductAlert_API::put_product( array(
-//            'apikey' => Woorule_Options::get_api_key(),
-//            'product_id' => $product->get_id(),
-//            'stock' => $product->get_stock_quantity()
-//        ) );
-//
-//        if ( is_wp_error( $result  ) ) {
-//            WC_Admin_Meta_Boxes::add_error( $result->get_error_message() );
-//        }
-
 		// Create Background Process Task
 		$background_process = new Woorule_Background_Alert_Queue();
 		$background_process->push_to_queue(
@@ -196,7 +186,7 @@ class Woorule_Alert {
 		ProductAlert_API::put_settings( array(
 			'apikey'           => Woorule_Options::get_api_key(),
 			'alert_min_stock'  => $options['woorule_alert_min_stock'],
-			'alerts_per_stock' => $options['woorule_alerts_per_stock']
+			'alerts_per_stock' => $options['woorule_alerts_per_stock'],
 		) );
 
 		return $options;
