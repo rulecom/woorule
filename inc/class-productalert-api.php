@@ -17,6 +17,7 @@
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class ProductAlert_API {
 

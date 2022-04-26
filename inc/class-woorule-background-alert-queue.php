@@ -143,6 +143,7 @@ class Woorule_Background_Alert_Queue extends WC_Background_Process {
 	 *
 	 * @param WC_Product $product
 	 * @return array[]
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	private function get_product_fields( WC_Product $product ) {
 		$data                      = array();

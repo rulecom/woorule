@@ -151,6 +151,7 @@ class Woorule_Alert {
 	 *
 	 * @return array
 	 * @SuppressWarnings(PHPMD.Superglobals)
+	 * @SuppressWarnings(PHPMD.NPathComplexity)
 	 */
 	public function update_options( $options ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -175,12 +176,12 @@ class Woorule_Alert {
 			: '';
 
 		$options['woorule_alert_tags'] = isset( $_POST['woorule_alert_tags'] )
-            // phpcs:ignore WordPress.Security
+			// phpcs:ignore WordPress.Security
 			? sanitize_text_field( wc_clean( $_POST['woorule_alert_tags'] ) )
 			: '';
 
 		$options['woorule_alert_product_tags'] = isset( $_POST['woorule_alert_product_tags'] )
-            // phpcs:ignore WordPress.Security
+			// phpcs:ignore WordPress.Security
 			? sanitize_text_field( wc_clean( $_POST['woorule_alert_product_tags'] ) )
 			: '';
 
