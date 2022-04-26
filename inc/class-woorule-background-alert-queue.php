@@ -72,13 +72,37 @@ class Woorule_Background_Alert_Queue extends WC_Background_Process {
 	protected function task( $item ) {
 		$this->log( sprintf( 'Start task: %s', var_export( $item, true ) ) );
 
-		$result = ProductAlert_API::put_product(
-			array(
-				'apikey'     => Woorule_Options::get_api_key(),
-				'product_id' => $item['product_id'],
-				'stock'      => $item['stock'],
-			)
-		);
+        $product = wc_get_product( $item['product_id'] );
+        if ( ! $product ) {
+            // Remove from queue
+            return false;
+        }
+
+        // Check for pending alerts
+        $products = ProductAlert_API::get_products();
+        if ( ! is_wp_error( $products ) ) {
+            $pending_products = array_column( $products['products'], 'product_id' );
+            if ( ! in_array( $item['product_id'], $pending_products ) ) {
+                $this->log( sprintf( 'Product alert is not pending: %s', $item['product_id'] ) );
+
+                // Remove from queue
+                return false;
+            }
+        }
+
+        $params = array(
+            'apikey'     => Woorule_Options::get_api_key(),
+            'product_id' => $item['product_id'],
+            'stock'      => $item['stock'],
+            'fields'     => $this->get_product_fields( $product )
+        );
+
+        $tags = Woorule_Options::get_alert_product_tags();
+        if ( ! empty( $tags ) ) {
+            $params['alert_tags'] = explode( ',', $tags );
+        }
+
+		$result = ProductAlert_API::put_product( $params );
 
 		if ( is_wp_error( $result ) ) {
 			/** @var WP_Error $result */
@@ -113,4 +137,41 @@ class Woorule_Background_Alert_Queue extends WC_Background_Process {
 			$this->save()->dispatch();
 		}
 	}
+
+    /**
+     * Get Product Fields.
+     *
+     * @param WC_Product $product
+     * @return array[]
+     */
+    private function get_product_fields( WC_Product $product ) {
+        $data = array();
+        $data['sku']               = $product->get_sku();
+        $data['name']              = $product->get_name();
+        $data['description']       = $product->get_description();
+        $data['short_description'] = $product->get_short_description();
+        $data['url']               = $product->get_permalink();
+        $data['price']             = $product->get_price();
+        $data['regular_price']     = $product->get_regular_price();
+        $data['sale_price']        = $product->get_sale_price();
+        $data['tax_status']        = $product->get_tax_status();
+        $data['tax_class']         = $product->get_tax_class();
+
+        $image = wp_get_attachment_image_src( $product->get_image_id(), 'full' );
+        if ( $image ) {
+            $data['image'] = array_shift( $image );
+        } else {
+            $data['image'] = wc_placeholder_img_src( 'full' );
+        }
+
+        $result = array();
+        foreach ( $data as $key => $value ) {
+            $result[] = array(
+                'key' => $key,
+                'value' => $value
+            );
+        }
+
+        return $result;
+    }
 }

@@ -109,7 +109,8 @@ class Woorule_Alert {
 		$options_defaults['woorule_alert_error']        = __( 'Oops, something is wrong..', 'woorule' );
 		$options_defaults['woorule_alert_placeholder']  = __( 'Your e-mail', 'woorule' );
 		$options_defaults['woorule_alert_button']       = __( 'Submit', 'woorule' );
-		$options_defaults['woorule_alert_tags']         = '';
+		$options_defaults['woorule_alert_tags']         = 'Rule - Waiting For Product Alert';
+        $options_defaults['woorule_alert_product_tags'] = '';
 		$options_defaults['woorule_alert_min_stock']    = '10';
 		$options_defaults['woorule_alerts_per_stock']   = '20';
 
@@ -126,15 +127,16 @@ class Woorule_Alert {
 			'woorule/admin-alert.php',
 			array(
 				'args' => array(
-					'show'        => Woorule_Options::get_alert_product_show(),
-					'label'       => Woorule_Options::get_alert_label(),
-					'success'     => Woorule_Options::get_alert_success(),
-					'error'       => Woorule_Options::get_alert_error(),
-					'placeholder' => Woorule_Options::get_alert_placeholder(),
-					'button'      => Woorule_Options::get_alert_button(),
-					'tags'        => Woorule_Options::get_alert_tags(),
-					'min_stock'   => Woorule_Options::get_alert_min_stock(),
-					'per_stock'   => Woorule_Options::get_alerts_per_stock(),
+					'show'         => Woorule_Options::get_alert_product_show(),
+					'label'        => Woorule_Options::get_alert_label(),
+					'success'      => Woorule_Options::get_alert_success(),
+					'error'        => Woorule_Options::get_alert_error(),
+					'placeholder'  => Woorule_Options::get_alert_placeholder(),
+					'button'       => Woorule_Options::get_alert_button(),
+					'tags'         => Woorule_Options::get_alert_tags(),
+                    'product_tags' => Woorule_Options::get_alert_product_tags(),
+					'min_stock'    => Woorule_Options::get_alert_min_stock(),
+					'per_stock'    => Woorule_Options::get_alerts_per_stock(),
 				),
 			),
 			'',
@@ -171,6 +173,16 @@ class Woorule_Alert {
 			// phpcs:ignore WordPress.Security
 			? sanitize_text_field( wc_clean( $_POST['woorule_alert_button'] ) )
 			: '';
+
+        $options['woorule_alert_tags'] = isset( $_POST['woorule_alert_tags'] )
+            // phpcs:ignore WordPress.Security
+            ? sanitize_text_field( wc_clean( $_POST['woorule_alert_tags'] ) )
+            : '';
+
+        $options['woorule_alert_product_tags'] = isset( $_POST['woorule_alert_product_tags'] )
+            // phpcs:ignore WordPress.Security
+            ? sanitize_text_field( wc_clean( $_POST['woorule_alert_product_tags'] ) )
+            : '';
 
 		$options['woorule_alert_min_stock'] = isset( $_POST['woorule_alert_min_stock'] )
 			// phpcs:ignore WordPress.Security

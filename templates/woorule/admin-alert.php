@@ -87,13 +87,30 @@ defined( 'ABSPATH' ) || exit;
 <tr>
 	<th>
 		<label for="woorule_alert_tags">
-			<?php esc_html_e( 'Tags', 'woorule' ); ?>
+			<?php esc_html_e( 'Subscriber Tags', 'woorule' ); ?>
 		</label>
 	</th>
 	<td>
 		<input name="woorule_alert_tags" id="woorule_alert_tags" type="text" value="<?php echo esc_attr( $args['tags'] ); ?>" class="regular-text code"/>
-		<span class="description"> <?php esc_html_e( 'Signup form tags (Comma separated)', 'woorule' ); ?> </span>
+		<span class="description">
+            <?php esc_html_e( 'Signup form tags (Comma separated)', 'woorule' ); ?>
+            <?php esc_html_e( 'Tags that will be added to a subscriber on the Rule platform as soon as a new alert is created', 'woorule' ); ?>
+        </span>
 	</td>
+</tr>
+<tr>
+    <th>
+        <label for="woorule_alert_product_tags">
+            <?php esc_html_e( 'Subscriber Tags', 'woorule' ); ?>
+        </label>
+    </th>
+    <td>
+        <input name="woorule_alert_product_tags" id="woorule_alert_product_tags" type="text" value="<?php echo esc_attr( $args['product_tags'] ); ?>" class="regular-text code"/>
+        <span class="description">
+            <?php esc_html_e( 'Signup form tags (Comma separated)', 'woorule' ); ?>
+            <?php esc_html_e( 'Tags that are applied to a subscriber when an alert is triggered. Note: If this option is provided it will overwrite any existing alert tags.', 'woorule' ); ?>
+        </span>
+    </td>
 </tr>
 <tr>
 	<th>
