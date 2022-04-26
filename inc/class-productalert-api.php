@@ -64,38 +64,38 @@ class ProductAlert_API {
 		return $resp;
 	}
 
-    /**
-     * Retrieve a list of products with pending alerts.
-     *
-     * @return array|WP_Error
-     */
-    public static function get_products() {
-        self::activate_api_logging();
-        $resp = wp_remote_get(
-            self::URL . '/products',
-            array(
-                'headers' => array(
-                    'Authorization' => 'Bearer ' . Woorule_Options::get_api_key()
-                )
-            )
-        );
-        self::deactivate_api_logging();
+	/**
+	 * Retrieve a list of products with pending alerts.
+	 *
+	 * @return array|WP_Error
+	 */
+	public static function get_products() {
+		self::activate_api_logging();
+		$resp = wp_remote_get(
+			self::URL . '/products',
+			array(
+				'headers' => array(
+					'Authorization' => 'Bearer ' . Woorule_Options::get_api_key(),
+				),
+			)
+		);
+		self::deactivate_api_logging();
 
-        if ( is_wp_error( $resp ) ) {
-            return $resp;
-        }
+		if ( is_wp_error( $resp ) ) {
+			return $resp;
+		}
 
-        if ( 200 !== $resp['response']['code'] ) {
-            return new WP_Error( $resp['response']['code'], $resp['response']['message'] );
-        }
+		if ( 200 !== $resp['response']['code'] ) {
+			return new WP_Error( $resp['response']['code'], $resp['response']['message'] );
+		}
 
-        $resp = json_decode( wp_remote_retrieve_body( $resp ), true );
-        if ( isset( $resp['error'] ) ) {
-            return new WP_Error( 600, $resp['error'] );
-        }
+		$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
+		if ( isset( $resp['error'] ) ) {
+			return new WP_Error( 600, $resp['error'] );
+		}
 
-        return $resp;
-    }
+		return $resp;
+	}
 
 	/**
 	 * Create Alert.
@@ -135,43 +135,43 @@ class ProductAlert_API {
 		return $resp;
 	}
 
-    /**
-     * Deletes a product entry and all pending alerts for that product.
-     *
-     * @param array{product_id: string} $body_data
-     *
-     * @return array|WP_Error
-     */
-    public static function delete_product( $body_data ) {
-        $data = array(
-            'method'   => 'DELETE',
-            'timeout'  => 45,
-            'blocking' => true,
-            'headers'  => array(
-                'Content-Type' => 'application/json',
-            ),
-            'body'     => wp_json_encode( $body_data ),
-        );
+	/**
+	 * Deletes a product entry and all pending alerts for that product.
+	 *
+	 * @param array{product_id: string} $body_data
+	 *
+	 * @return array|WP_Error
+	 */
+	public static function delete_product( $body_data ) {
+		$data = array(
+			'method'   => 'DELETE',
+			'timeout'  => 45,
+			'blocking' => true,
+			'headers'  => array(
+				'Content-Type' => 'application/json',
+			),
+			'body'     => wp_json_encode( $body_data ),
+		);
 
-        self::activate_api_logging();
-        $resp = wp_remote_request( self::URL . '/products', $data );
-        self::deactivate_api_logging();
+		self::activate_api_logging();
+		$resp = wp_remote_request( self::URL . '/products', $data );
+		self::deactivate_api_logging();
 
-        if ( is_wp_error( $resp ) ) {
-            return $resp;
-        }
+		if ( is_wp_error( $resp ) ) {
+			return $resp;
+		}
 
-        if ( 200 !== $resp['response']['code'] ) {
-            return new WP_Error( $resp['response']['code'], $resp['response']['message'] );
-        }
+		if ( 200 !== $resp['response']['code'] ) {
+			return new WP_Error( $resp['response']['code'], $resp['response']['message'] );
+		}
 
-        $resp = json_decode( wp_remote_retrieve_body( $resp ), true );
-        if ( isset( $resp['error'] ) ) {
-            return new WP_Error( 600, $resp['error'] );
-        }
+		$resp = json_decode( wp_remote_retrieve_body( $resp ), true );
+		if ( isset( $resp['error'] ) ) {
+			return new WP_Error( 600, $resp['error'] );
+		}
 
-        return $resp;
-    }
+		return $resp;
+	}
 
 	/**
 	 * Create Alert.
