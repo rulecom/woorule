@@ -87,6 +87,7 @@ class Woorule_Alert {
 	 */
 	public function add_stock_html( $html, $product ) {
 		if ( 'on' === Woorule_Options::get_alert_product_show() &&
+			$product->managing_stock() &&
 			( ! $product->is_in_stock() || $product->get_stock_quantity() <= 0 )
 		) {
 			$html .= do_shortcode( '[woorule_alert product_id="' . $product->get_id() . '"]' );
