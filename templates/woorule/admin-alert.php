@@ -9,6 +9,22 @@ defined( 'ABSPATH' ) || exit;
 
 /* @var array $args Template arguments. */
 ?>
+<script>
+	jQuery( document ).ready( function ( $ ) {
+		var elm = $( '#woorule_alert_product_show' );
+		if ( elm.is( ':checked' ) ) {
+			$( '.alert-tr' ).removeClass( 'hidden' );
+		}
+
+		$( elm ).on( 'click', function() {
+			if ( elm.is( ':checked' ) ) {
+				$( '.alert-tr' ).removeClass( 'hidden' );
+			} else {
+				$( '.alert-tr' ).addClass( 'hidden' );
+			}
+		} );
+	} );
+</script>
 <tr>
 	<th>
 		<h2><?php esc_html_e( 'Product Alert', 'woorule' ); ?></h2>
@@ -27,7 +43,7 @@ defined( 'ABSPATH' ) || exit;
 		</span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_label">
 			<?php esc_html_e( 'Signup form label', 'woorule' ); ?>
@@ -40,7 +56,7 @@ defined( 'ABSPATH' ) || exit;
 				</span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_placeholder">
 			<?php esc_html_e( 'Placeholder', 'woorule' ); ?>
@@ -51,7 +67,7 @@ defined( 'ABSPATH' ) || exit;
 		<span class="description"> <?php esc_html_e( 'Placeholder', 'woorule' ); ?> </span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_success">
 			<?php esc_html_e( 'Message for successful submission', 'woorule' ); ?>
@@ -62,7 +78,7 @@ defined( 'ABSPATH' ) || exit;
 		<span class="description"> <?php esc_html_e( 'Message for successful submission', 'woorule' ); ?> </span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_error">
 			<?php esc_html_e( 'Message for failed submission', 'woorule' ); ?>
@@ -73,7 +89,7 @@ defined( 'ABSPATH' ) || exit;
 		<span class="description"> <?php esc_html_e( 'Message for failed submission', 'woorule' ); ?> </span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_button">
 			<?php esc_html_e( 'Button text', 'woorule' ); ?>
@@ -84,7 +100,7 @@ defined( 'ABSPATH' ) || exit;
 		<span class="description"> <?php esc_html_e( 'Button text', 'woorule' ); ?> </span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_tags">
 			<?php esc_html_e( 'Subscriber Tags', 'woorule' ); ?>
@@ -98,7 +114,7 @@ defined( 'ABSPATH' ) || exit;
 		</span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_product_tags">
 			<?php esc_html_e( 'Subscriber Tags', 'woorule' ); ?>
@@ -112,7 +128,7 @@ defined( 'ABSPATH' ) || exit;
 		</span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alert_min_stock">
 			<?php esc_html_e( 'Minimum stock', 'woorule' ); ?>
@@ -123,7 +139,7 @@ defined( 'ABSPATH' ) || exit;
 		<span class="description"> <?php esc_html_e( 'The minimum stock units needed to start triggering alerts. The default is 10.', 'woorule' ); ?> </span>
 	</td>
 </tr>
-<tr>
+<tr class="alert-tr hidden">
 	<th>
 		<label for="woorule_alerts_per_stock">
 			<?php esc_html_e( 'Number of alerts', 'woorule' ); ?>
