@@ -17,10 +17,11 @@ jQuery( document ).ready(
                 e.preventDefault();
                 $( '.woorule-alert .error' ).hide();
 
-                let product_id = $( '.woorule-alert #product_id' ).val();
-                let email      = $( '.woorule-alert #semail' ).val();
-                let tags       = $( '.woorule-alert .tag' ).val();
-                //const requireOptIn = $( '.woorule-alert [name="require-opt-in"]' ).val();
+                let form       = $( this );
+                let product_id = $( '[name="product_id"]', form ).val();
+                let email      = $( '[name="email"]', form ).val();
+                let tags       = $( '[name="tags"]', form ).val();
+                //const requireOptIn = $( '[name="require-opt-in"]', form ).val();
 
                 if (( ! email) || (email.length < 4)) {
                     woorule_error();
@@ -53,9 +54,7 @@ jQuery( document ).ready(
 
                             } else {
                                 woorule_error();
-                                return;
                             }
-
                         },
                     }
                 );

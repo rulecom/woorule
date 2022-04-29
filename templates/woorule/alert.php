@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 
 <div class="woorule-alert">
 	<form>
-		<input type="hidden" value="<?php echo esc_html( $args['product_id'] ); ?>" name="product_id" id="product_id"/>
+		<input type="hidden" value="<?php echo esc_html( $args['product_id'] ); ?>" name="product_id" />
 		<label for="semail" class="form_elem"><?php echo esc_html( $args['label'] ); ?></label>
 		<input type="text" id="semail" name="email" class="form_elem" placeholder="<?php echo esc_html( $args['placeholder'] ); ?>"/>
 		<input type="submit" value="<?php echo esc_html( $args['button'] ); ?>" class="form_elem"
