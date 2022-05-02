@@ -89,7 +89,8 @@ defined( 'ABSPATH' ) || exit;
 			<td>
 				<input name="woorule_api" id="woorule_api" type="text" class="regular-text code" value="<?php echo esc_attr( $args['api_key'] ); ?>"/>
 				<span class="description">
-					<?php echo wp_kses_post(
+					<?php
+                    echo wp_kses_post(
 						__(
 							'You can find your Rule API key in the <a href="https://app.rule.io/#/settings/developer">developer tab in your Rule account</a>.',
 							'woorule'

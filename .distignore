@@ -7,3 +7,6 @@
 .gitignore
 readme.md
 composer.json
+gulpfile.js
+package.json
+package-lock.json

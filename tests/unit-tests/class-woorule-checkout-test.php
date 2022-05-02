@@ -1,6 +1,17 @@
-<?php
+<?php // @codingStandardsIgnoreStart
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class Woorule_Checkout_Test extends WC_Unit_Test_Case {
+    // @codingStandardsIgnoreEnd
+
 	public function test_checkout_field() {
 		$object = new Woorule_Checkout();
 
@@ -23,6 +34,9 @@ class Woorule_Checkout_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( '', $result );
 	}
 
+	/**
+	 * @SuppressWarnings(PHPMD.Superglobals)
+	 */
 	public function test_custom_checkout_field_update_order_meta() {
 		$order = WC_Helper_Order::create_order();
 

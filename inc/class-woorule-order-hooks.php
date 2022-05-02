@@ -12,6 +12,13 @@
  * Class Woorule_Order_Hooks
  *
  * @package Woorule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Order_Hooks {
 	const ALLOWED_STATUSES = array( 'processing', 'completed', 'shipped' );
@@ -40,6 +47,7 @@ class Woorule_Order_Hooks {
 	 * @param string $status_to Status "to".
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function order_status_changed( $order_id, $status_from, $status_to ) {
 		if ( ! in_array( $status_to, self::ALLOWED_STATUSES, true ) ) {
@@ -77,7 +85,7 @@ class Woorule_Order_Hooks {
 			if ( isset( $subscription['subscribers'] ) && isset( $subscription['subscribers']['fields'] ) ) {
 				$fields = $subscription['subscribers']['fields'];
 
-				foreach ($fields as $key => $field) {
+				foreach ( $fields as $key => $field ) {
 					if ( 'Order.BillingTele' === $field['key'] ) {
 						unset( $fields[ $key ] );
 					}
@@ -196,6 +204,7 @@ class Woorule_Order_Hooks {
 	 * @param string $status_to Status "to".
 	 *
 	 * @return array
+	 * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
 	 */
 	protected function get_order_fields( $order, $status_to ) {
 		switch ( $status_to ) {

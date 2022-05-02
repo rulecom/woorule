@@ -1,0 +1,31 @@
+name: Code verification
+
+on: [push, pull_request, pull_request_target]
+
+jobs:
+  test:
+    name: Code verification
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: '7.3'
+          extension: intl, mbstring, json, bcmath
+          coverage: xdebug
+          tools: composer, php-cs-fixer, phpunit:7.5.20, phpcpd, phpmd
+
+      - name: Run PHPCS inspection
+        run: |
+          composer global require squizlabs/php_codesniffer
+          composer global require "wp-coding-standards/wpcs"
+          phpcs --config-set installed_paths ~/.composer/vendor/wp-coding-standards/wpcs
+          phpcs --standard=WordPress-Core --report=code --ignore=.github,.wordpress-org,assets/*.js,assets/*.css --runtime-set ignore_warnings_on_exit true ./
+
+      - name: Run PHPMD inspection
+        run: |
+          composer global require "phpmd/phpmd"
+          phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude .github

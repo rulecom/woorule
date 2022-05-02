@@ -9,6 +9,12 @@
  * Class Woorule_Order_Hooks
  *
  * @package Woorule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Checkout {
 	/**
@@ -56,13 +62,14 @@ class Woorule_Checkout {
 	 * @param int $order_id Order ID.
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.Superglobals)
 	 */
 	public function custom_checkout_field_update_order_meta( $order_id ) {
 		update_post_meta(
 			$order_id,
 			'woorule_opt_in',
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			empty( $_POST['woorule_opt_in'] ) ? '' : 'true'
+			empty( wc_clean( $_POST['woorule_opt_in'] ) ) ? '' : 'true'
 		);
 	}
 }

@@ -17,10 +17,18 @@ require_once WOORULE_PATH . 'inc/class-rulemailer-api.php';
  * Class Woorule
  *
  * @package Woorule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule {
 	/**
 	 * Woorule constructor.
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'update_options' ) );
@@ -41,7 +49,7 @@ class Woorule {
 		}
 
 		add_action( 'admin_menu', array( $this, 'settings_page_init' ) );
-		add_action( 'admin_head', array( $this, 'admin_css' ) );
+		add_action( 'admin_enqueue_scripts', __CLASS__ . '::admin_enqueue_scripts' );
 
 		// This will add the direct "Settings" link inside wp plugins menu.
 		add_filter( 'plugin_action_links_woorule/woorule.php', array( $this, 'settings_link' ) );
@@ -146,30 +154,24 @@ class Woorule {
 	}
 
 	/**
-	 * Output admin CSS.
+	 * Enqueue Scripts in admin
+	 *
+	 * @param $hook
 	 *
 	 * @return void
 	 */
-	public function admin_css() {
-		// @todo: move this to css file.
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo <<<EOT
-<style>
-	form.woorule {
-		margin-top: 20px;
-    }
-    .woorule .description {
-        display: inline-block;
-        width: 100%; margin-top: 5px;
-    }
-    .woorule tr.line {
-        border-bottom: 1px solid #ddd;
-    }
-    .woorule h2 {
-        margin: 0;
-    }
-</style>
-EOT;
+	public static function admin_enqueue_scripts( $hook ) {
+		if ( 'toplevel_page_woorule-settings' === $hook ) {
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			wp_enqueue_style(
+				'woorule-css',
+				WOORULE_URL . 'assets/admin' . $suffix . '.css',
+				array(),
+				WOORULE_VERSION,
+				'all'
+			);
+		}
 	}
 
 	/**
@@ -197,9 +199,10 @@ EOT;
 	 * Update plugin options.
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.Superglobals)
 	 */
 	public function update_options() {
-		if ( isset( $_POST['save'] ) && 'woorule' === $_POST['save'] ) {
+		if ( isset( $_POST['save'] ) && 'woorule' === wc_clean( $_POST['save'] ) ) {
 			check_admin_referer( 'woorule-settings' );
 
 			Woorule_Options::set_options(
@@ -209,10 +212,10 @@ EOT;
 						'sanitize_text_field',
 						array(
 							// phpcs:disable WordPress.Security.ValidatedSanitizedInput
-							'woorule_api_key'        => isset( $_POST['woorule_api'] ) ? $_POST['woorule_api'] : '',
-							'woorule_checkout_tags'  => isset( $_POST['woorule_checkout_tags'] ) ? $_POST['woorule_checkout_tags'] : '',
-							'woorule_checkout_label' => isset( $_POST['woorule_checkout_label'] ) ? $_POST['woorule_checkout_label'] : '',
-							'woorule_checkout_show'  => isset( $_POST['woorule_checkout_show'] ) ? $_POST['woorule_checkout_show'] : '',
+							'woorule_api_key'        => isset( $_POST['woorule_api'] ) ? wc_clean( $_POST['woorule_api'] ) : '',
+							'woorule_checkout_tags'  => isset( $_POST['woorule_checkout_tags'] ) ? wc_clean( $_POST['woorule_checkout_tags'] ) : '',
+							'woorule_checkout_label' => isset( $_POST['woorule_checkout_label'] ) ? wc_clean( $_POST['woorule_checkout_label'] ) : '',
+							'woorule_checkout_show'  => isset( $_POST['woorule_checkout_show'] ) ? wc_clean( $_POST['woorule_checkout_show'] ) : '',
 							// phpcs:enable WordPress.Security.ValidatedSanitizedInput
 						)
 					)

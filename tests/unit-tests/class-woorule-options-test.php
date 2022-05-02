@@ -1,6 +1,17 @@
-<?php
+<?php // @codingStandardsIgnoreStart
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class Woorule_Options_Test extends WC_Unit_Test_Case {
+    // @codingStandardsIgnoreEnd
+
 	public function test_options() {
 		$result = Woorule_Options::set_api_key( 'test' );
 		$this->assertNull( $result );

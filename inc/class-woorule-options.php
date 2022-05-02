@@ -22,6 +22,12 @@
  * @method static set_options( array $options )
  *
  * @package Woorule
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
  */
 class Woorule_Options {
 	const OPTIONS_KEY = 'woocommerce_rulemailer_settings';
@@ -66,6 +72,7 @@ class Woorule_Options {
 	 * @return mixed
 	 *
 	 * @throws BadMethodCallException Exception if not a getter function.
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	public static function __callStatic( $name, $arguments ) {
 		$instance = self::get_instance();
@@ -105,6 +112,7 @@ class Woorule_Options {
 	 * @param mixed $value Value.
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	protected function set( $option_name, $value ) {
 		$options = self::load_options();

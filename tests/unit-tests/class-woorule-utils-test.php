@@ -1,6 +1,17 @@
-<?php
+<?php // @codingStandardsIgnoreStart
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class WC_Rule_Utils_Test extends WC_Unit_Test_Case {
+    // @codingStandardsIgnoreEnd
+
 	public function test_round() {
 		$object = new Woorule_Utils();
 		$this->assertInstanceOf( Woorule_Utils::class, new $object );

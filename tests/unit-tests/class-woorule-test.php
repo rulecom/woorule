@@ -1,6 +1,17 @@
-<?php
+<?php // @codingStandardsIgnoreStart
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.MissingImport)
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class WC_Rule_Test extends WC_Unit_Test_Case {
+    // @codingStandardsIgnoreEnd
+
 	public function test_methods() {
 		$object = new Woorule();
 
@@ -31,15 +42,18 @@ class WC_Rule_Test extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'Rule API', $result );
 	}
 
+	/**
+	 * @SuppressWarnings(PHPMD.Superglobals)
+	 */
 	public function test_update_options() {
 		$object = new Woorule();
 
-		$_REQUEST[ '_wpnonce' ] = wp_create_nonce( 'woorule-settings' );
-		$_POST[ 'save' ] = 'woorule';
-		$_POST['woorule_api'] = 'test';
-		$_POST['woorule_checkout_tags'] = 'test';
+		$_REQUEST['_wpnonce']            = wp_create_nonce( 'woorule-settings' );
+		$_POST['save']                   = 'woorule';
+		$_POST['woorule_api']            = 'test';
+		$_POST['woorule_checkout_tags']  = 'test';
 		$_POST['woorule_checkout_label'] = 'test';
-		$_POST['woorule_checkout_show'] = 'test';
+		$_POST['woorule_checkout_show']  = 'test';
 		$object->update_options();
 
 		$result = Woorule_Options::get_api_key();
