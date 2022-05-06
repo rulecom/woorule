@@ -218,7 +218,7 @@ class Woorule_Cart_Hooks {
 			),
 			array(
 				'key'   => 'Order.Date',
-				'value' => gmdate( 'Y/m/d H:i:s' ),
+				'value' => gmdate( 'Y-m-d H:i:s' ),
 				'type'  => 'datetime',
 			),
 			array(
