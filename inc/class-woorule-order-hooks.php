@@ -209,10 +209,10 @@ class Woorule_Order_Hooks {
 	protected function get_order_fields( $order, $status_to ) {
 		switch ( $status_to ) {
 			case 'processing':
-				$order_date = date_format( $order->get_date_created(), 'Y/m/d H:i:s' );
+				$order_date = date_format( $order->get_date_created(), 'Y-m-d H:i:s' );
 				break;
 			case 'completed':
-				$order_date = date_format( $order->get_date_completed(), 'Y/m/d H:i:s' );
+				$order_date = date_format( $order->get_date_completed(), 'Y-m-d H:i:s' );
 				break;
 			default:
 				$order_date = '';
