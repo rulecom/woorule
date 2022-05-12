@@ -2,7 +2,7 @@
 Contributors: rulecom
 Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 5.6+
 Stable tag: 2.7.5
 License: MIT
