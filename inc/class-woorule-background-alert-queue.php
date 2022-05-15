@@ -173,6 +173,21 @@ class Woorule_Background_Alert_Queue extends WC_Background_Process {
 			);
 		}
 
+        // Add attributes
+        if ( 'variation' === $product->get_type() ) {
+            /** @var WC_Product_Variation $product */
+
+            $attributes = wc_get_product_variation_attributes( $product->get_id() );
+            foreach ($attributes as $key => $value) {
+                $attribute = str_replace('attribute_', '', $key);
+
+                $result[] = array(
+                    'key'   => wc_attribute_label( $attribute ),
+                    'value' => $product->get_attribute( $attribute ),
+                );
+            }
+        }
+
 		return $result;
 	}
 }

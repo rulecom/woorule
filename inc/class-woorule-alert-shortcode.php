@@ -43,7 +43,7 @@ class Woorule_Alert_Shortcode {
 	public function register_assets() {
 		global $post;
 
-		$add_assets = false;
+		$add_assets = true;
 
 		if ( is_product() && is_object( $post ) ) {
 			$product = wc_get_product( $post->ID );
@@ -142,6 +142,8 @@ class Woorule_Alert_Shortcode {
 					'message' => __( 'Invalid data.', 'woorule' ),
 				)
 			);
+
+            return;
 		}
 
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -153,6 +155,8 @@ class Woorule_Alert_Shortcode {
 					'message' => __( 'Product ID is invalid.', 'woorule' ),
 				)
 			);
+
+            return;
 		}
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -164,6 +168,8 @@ class Woorule_Alert_Shortcode {
 					'message' => __( 'E-Mail is invalid.', 'woorule' ),
 				)
 			);
+
+            return;
 		}
 
 		// Default tag should exist. Otherwise there will be an error from RULE API.
@@ -179,10 +185,22 @@ class Woorule_Alert_Shortcode {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		//$require_opt_in = filter_var( wc_clean( $_POST['requireOptIn'] ), FILTER_VALIDATE_BOOLEAN );
 
+        $product = wc_get_product( $product_id );
+        if ( ! $product->get_id() ) {
+            wp_send_json_error(
+                array(
+                    'state'   => 'error',
+                    'message' => __( 'Product is invalid.', 'woorule' ),
+                )
+            );
+
+            return;
+        }
+
 		$result = ProductAlert_API::create_alert(
 			array(
 				'apikey'     => Woorule_Options::get_api_key(),
-				'product_id' => $product_id,
+				'product_id' => $product->get_id(),
 				'email'      => $email,
 				'tags'       => $tags,
 			)
