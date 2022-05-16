@@ -178,7 +178,7 @@ class Woorule_Background_Alert_Queue extends WC_Background_Process {
 			/** @var WC_Product_Variation $product */
 
 			$attributes = wc_get_product_variation_attributes( $product->get_id() );
-			foreach ($attributes as $key => $value) {
+			foreach ( $attributes as $key => $value ) {
 				$attribute = str_replace( 'attribute_', '', $key );
 
 				$result[] = array(
