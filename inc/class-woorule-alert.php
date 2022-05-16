@@ -74,6 +74,7 @@ class Woorule_Alert {
 	 * @param int $i
 	 * @return void
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 * @SuppressWarnings(PHPMD.ShortVariable)
 	 */
 	public function save_product_variation( $variation_id, $i ) {
 		$variation = new WC_Product_Variation( $variation_id );
