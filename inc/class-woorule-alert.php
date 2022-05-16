@@ -52,12 +52,12 @@ class Woorule_Alert {
 			2
 		);
 
-        add_action(
-            'woocommerce_save_product_variation',
-            array( $this, 'save_product_variation' ),
-            20,
-            2
-        );
+		add_action(
+			'woocommerce_save_product_variation',
+			array( $this, 'save_product_variation' ),
+			20,
+			2
+		);
 
 		add_action( 'woocommerce_init', array( $this, 'woocommerce_init' ) );
 
@@ -67,45 +67,44 @@ class Woorule_Alert {
 		}
 	}
 
-    /**
-     * Process product variation.
-     *
-     * @param int $variation_id
-     * @param int $i
-     * @return void
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function save_product_variation( $variation_id, $i )
-    {
-        $variation = new WC_Product_Variation( $variation_id );
+	/**
+	 * Process product variation.
+	 *
+	 * @param int $variation_id
+	 * @param int $i
+	 * @return void
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 */
+	public function save_product_variation( $variation_id, $i ) {
+		$variation = new WC_Product_Variation( $variation_id );
 
-        // Create Background Process Task
-        $background_process = new Woorule_Background_Alert_Queue();
-        $background_process->push_to_queue(
-            array(
-                'product_id' => $variation->get_id(),
-                'stock'      => $variation->get_stock_quantity(),
-            )
-        );
-        $background_process->save();
-    }
+		// Create Background Process Task
+		$background_process = new Woorule_Background_Alert_Queue();
+		$background_process->push_to_queue(
+			array(
+				'product_id' => $variation->get_id(),
+				'stock'      => $variation->get_stock_quantity(),
+			)
+		);
+		$background_process->save();
+	}
 
 	/**
-     * Process product.
-     *
+	 * Process product.
+	 *
 	 * @param WC_Product $product
 	 * @param object $data_store
 	 * @return void
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function product_object_save( $product, $data_store ) {
-        if ( 'variable' === $product->get_type() ) {
-            /** @var WC_Product_Variable $product */
+		if ( 'variable' === $product->get_type() ) {
+			/** @var WC_Product_Variable $product */
 
-            // Variable products must be processed by `woocommerce_save_product_variation` hook
+			// Variable products must be processed by `woocommerce_save_product_variation` hook
 
-            return;
-        }
+			return;
+		}
 
 		// Create Background Process Task
 		$background_process = new Woorule_Background_Alert_Queue();

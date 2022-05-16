@@ -143,10 +143,10 @@ class Woorule_Alert_Shortcode {
 				)
 			);
 
-            return;
+			return;
 		}
 
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		$product_id = wc_clean( $_POST['product_id'] );
 		if ( ! $product_id ) {
 			wp_send_json_error(
@@ -156,7 +156,7 @@ class Woorule_Alert_Shortcode {
 				)
 			);
 
-            return;
+			return;
 		}
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -169,14 +169,14 @@ class Woorule_Alert_Shortcode {
 				)
 			);
 
-            return;
+			return;
 		}
 
 		// Default tag should exist. Otherwise there will be an error from RULE API.
 		$tags = array();
 		// Add custom tags if set.
 		if ( isset( $_POST['tags'] ) ) {
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 			foreach ( explode( ',', wc_clean( $_POST['tags'] ) ) as $tag ) {
 				$tags[] = sanitize_text_field( $tag );
 			}
@@ -185,17 +185,17 @@ class Woorule_Alert_Shortcode {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		//$require_opt_in = filter_var( wc_clean( $_POST['requireOptIn'] ), FILTER_VALIDATE_BOOLEAN );
 
-        $product = wc_get_product( $product_id );
-        if ( ! $product->get_id() ) {
-            wp_send_json_error(
-                array(
-                    'state'   => 'error',
-                    'message' => __( 'Product is invalid.', 'woorule' ),
-                )
-            );
+		$product = wc_get_product( $product_id );
+		if ( ! $product->get_id() ) {
+			wp_send_json_error(
+				array(
+					'state'   => 'error',
+					'message' => __( 'Product is invalid.', 'woorule' ),
+				)
+			);
 
-            return;
-        }
+			return;
+		}
 
 		$result = ProductAlert_API::create_alert(
 			array(
