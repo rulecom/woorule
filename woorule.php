@@ -14,6 +14,8 @@
  *
  * Text Domain:     woorule
  * Domain Path:     /languages
+ * WC requires at least: 3.0.0
+ * WC tested up to: 6.5.1
  *
  * @package WooRule
  */
