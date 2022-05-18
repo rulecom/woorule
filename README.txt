@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 6.0
 Requires PHP: 5.6+
-Stable tag: 2.7.5
+Stable tag: 2.7.6
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
