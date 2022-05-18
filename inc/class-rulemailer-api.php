@@ -19,7 +19,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  */
 class RuleMailer_API {
-	const URL = 'https://app.rule.io/api/v2/subscribers';
+	const URL = 'https://app.rule.io/api/v2/subscribers?source=woorule&version=2.7.6';
 
 	/**
 	 * Subscribe.
