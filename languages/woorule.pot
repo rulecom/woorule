@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WooRule plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooRule 2.7.5\n"
+"Project-Id-Version: WooRule 2.7.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woorule\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-02-02T11:13:33+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.5\n"
+"X-Generator: WP-CLI 2.7.6\n"
 "X-Domain: woorule\n"
 
 #. Plugin Name of the plugin
