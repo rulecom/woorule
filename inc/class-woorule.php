@@ -61,11 +61,7 @@ class Woorule {
 	 * @return bool
 	 */
 	protected function is_woocommerce_activated() {
-		return in_array(
-			'woocommerce/woocommerce.php',
-			(array) apply_filters( 'active_plugins', get_option( 'active_plugins' ) ),
-			true
-		);
+		return class_exists( 'WooCommerce', false ) || defined( 'WC_ABSPATH' );
 	}
 
 	/**
