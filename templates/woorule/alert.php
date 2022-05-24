@@ -3,6 +3,7 @@
  * 'woorule_alert' shortcode.
  *
  * @package Woorule
+ * @codeCoverageIgnore
  */
 
 defined( 'ABSPATH' ) || exit;

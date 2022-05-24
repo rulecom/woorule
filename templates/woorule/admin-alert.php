@@ -3,6 +3,7 @@
  * Admin settings.
  *
  * @package Woorule
+ * @codeCoverageIgnore
  */
 
 defined( 'ABSPATH' ) || exit;

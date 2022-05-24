@@ -1,9 +1,4 @@
 <?php
-/**
- * Class Woorule_Alert_Shortcode
- *
- * @package Woorule
- */
 
 /**
  * Class Woorule_Alert_Shortcode
@@ -127,6 +122,7 @@ class Woorule_Alert_Shortcode {
 	 * @return void
 	 * @SuppressWarnings(PHPMD.Superglobals)
 	 * @SuppressWarnings(PHPMD.ExitExpression)
+	 * @codeCoverageIgnore
 	 */
 	public static function subscribe_alert() {
 		// Check for nonce security.

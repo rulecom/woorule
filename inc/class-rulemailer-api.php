@@ -69,6 +69,7 @@ class RuleMailer_API {
 	 *
 	 * @return array|WP_Error
 	 * @SuppressWarnings(PHPMD.ElseExpression)
+	 * @codeCoverageIgnore
 	 */
 	public static function delete_subscriber_tag( $email, $tag ) {
 		$data = array(

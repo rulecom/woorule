@@ -38,6 +38,7 @@ trait Woorule_Logging {
 	 * Activate API logging.
 	 *
 	 * @return void
+	 * @codeCoverageIgnore
 	 */
 	private static function activate_api_logging() {
 		add_action( 'http_api_debug', __CLASS__ . '::http_api_debug', 20, 5 );
@@ -47,6 +48,7 @@ trait Woorule_Logging {
 	 * Deactivate API logging.
 	 *
 	 * @return void
+	 * @codeCoverageIgnore
 	 */
 	private static function deactivate_api_logging() {
 		remove_action( 'http_api_debug', __CLASS__ . '::http_api_debug', 20 );
@@ -62,6 +64,7 @@ trait Woorule_Logging {
 	 * @param string $url
 	 * @return void
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 * @codeCoverageIgnore
 	 */
 	public static function http_api_debug( $response, $arg2, $arg3, $parsed_args, $url ) {
 		$method          = $parsed_args['method'];

@@ -78,16 +78,18 @@ class Woorule_Alert {
 	 */
 	public function save_product_variation( $variation_id, $i ) {
 		$variation = new WC_Product_Variation( $variation_id );
+		if ( $variation->get_id() ) {
+			// Create Background Process Task
+			$background_process = new Woorule_Background_Alert_Queue();
+			$background_process->push_to_queue(
+				array(
+					'product_id' => $variation->get_id(),
+					'stock'      => $variation->get_stock_quantity(),
+				)
+			);
 
-		// Create Background Process Task
-		$background_process = new Woorule_Background_Alert_Queue();
-		$background_process->push_to_queue(
-			array(
-				'product_id' => $variation->get_id(),
-				'stock'      => $variation->get_stock_quantity(),
-			)
-		);
-		$background_process->save();
+			$background_process->save();
+		}
 	}
 
 	/**
