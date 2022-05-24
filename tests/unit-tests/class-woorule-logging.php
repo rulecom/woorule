@@ -25,15 +25,15 @@ class WC_Rule_Logging extends WC_Unit_Test_Case {
 
 	public function test_http_api_debug() {
 		$response = array(
-			'body' => '',
+			'body'     => '',
 			'response' => array(
 				'code' => 200
 			)
 		);
 
 		$parsed_args = array(
-			'method' => 'GET',
-			'body' => '',
+			'method'  => 'GET',
+			'body'    => '',
 			'headers' => array()
 		);
 

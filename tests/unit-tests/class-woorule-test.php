@@ -10,7 +10,7 @@
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class WC_Rule_Test extends WC_Unit_Test_Case {
-    // @codingStandardsIgnoreEnd
+	// @codingStandardsIgnoreEnd
 
 	public function test_methods() {
 		$object = new Woorule();

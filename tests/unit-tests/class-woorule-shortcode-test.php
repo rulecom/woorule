@@ -10,7 +10,7 @@
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Shortcode_Test extends WC_Unit_Test_Case {
-    // @codingStandardsIgnoreEnd
+	// @codingStandardsIgnoreEnd
 
 	public function test_output() {
 		$object = new Woorule_Shortcode();

@@ -10,7 +10,7 @@
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Checkout_Test extends WC_Unit_Test_Case {
-    // @codingStandardsIgnoreEnd
+	// @codingStandardsIgnoreEnd
 
 	public function test_checkout_field() {
 		$object = new Woorule_Checkout();

@@ -9,8 +9,8 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class RuleMailer_API_Test extends WC_Unit_Test_Case {
-    // @codingStandardsIgnoreEnd
+class ProductAlert_API_Test extends WC_Unit_Test_Case {
+	// @codingStandardsIgnoreEnd
 
 	/**
 	 * @var string
@@ -94,7 +94,7 @@ class RuleMailer_API_Test extends WC_Unit_Test_Case {
 	public function test_put_settings() {
 		$result = ProductAlert_API::put_settings(
 			array(
-				'apikey'     => 'wrong-key',
+				'apikey' => 'wrong-key',
 			)
 		);
 
