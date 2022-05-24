@@ -12,7 +12,7 @@
 class WC_Rule_Alert_Shortcode extends WC_Unit_Test_Case {
 	// @codingStandardsIgnoreEnd
 
-	public function test_save_product_variation() {
+	public function test_register_assets() {
 		$object = new Woorule_Alert_Shortcode();
 		$this->assertInstanceOf( Woorule_Alert_Shortcode::class, new $object );
 
