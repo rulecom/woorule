@@ -55,7 +55,7 @@ class WC_Rule_Alert extends WC_Unit_Test_Case {
 		$this->assertInstanceOf( Woorule_Alert::class, new $object );
 
 		ob_start();
-		$result = $object->add_options_defaults( array() );
+		$result   = $object->add_options_defaults( array() );
 		$contents = ob_get_contents();
 		ob_end_clean();
 

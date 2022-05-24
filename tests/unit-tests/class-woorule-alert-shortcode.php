@@ -28,12 +28,12 @@ class WC_Rule_Alert_Shortcode extends WC_Unit_Test_Case {
 
 	public function test_subscribe_alert() {
 		$product = WC_Helper_Product::create_simple_product();
-		$object = new Woorule_Alert_Shortcode();
+		$object  = new Woorule_Alert_Shortcode();
 
-		$_POST['nonce'] = wp_create_nonce( 'woorule' );
-		$_POST['email'] = 'test@example.com';
+		$_POST['nonce']      = wp_create_nonce( 'woorule' );
+		$_POST['email']      = 'test@example.com';
 		$_POST['product_id'] = $product->get_id();
-		$result = $object->subscribe_alert();
+		$result              = $object->subscribe_alert();
 
 		$this->assertNull( $result );
 	}

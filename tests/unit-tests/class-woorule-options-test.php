@@ -10,7 +10,7 @@
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class Woorule_Options_Test extends WC_Unit_Test_Case {
-    // @codingStandardsIgnoreEnd
+	// @codingStandardsIgnoreEnd
 
 	public function test_options() {
 		$result = Woorule_Options::set_api_key( 'test' );
