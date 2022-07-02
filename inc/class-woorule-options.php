@@ -37,16 +37,16 @@ class Woorule_Options {
 	 *
 	 * @return void
 	 */
-	protected function __wakeup() {
-	}
+	//protected function __wakeup() {
+	//}
 
 	/**
 	 * Prevent cloning.
 	 *
 	 * @return void
 	 */
-	protected function __clone() {
-	}
+	//protected function __clone() {
+	//}
 
 	/**
 	 * Get class instance.

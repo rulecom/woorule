@@ -16,6 +16,11 @@ require_once WOORULE_PATH . 'inc/class-rulemailer-api.php';
 require_once WOORULE_PATH . 'inc/class-productalert-api.php';
 require_once WOORULE_PATH . 'inc/class-woorule-alert.php';
 require_once WOORULE_PATH . 'inc/class-woorule-alert-shortcode.php';
+require_once WOORULE_PATH . 'interfaces/interface-woorule-wc-fields.php';
+require_once WOORULE_PATH . 'interfaces/interface-woorule-rule-fields.php';
+require_once WOORULE_PATH . 'inc/class-woorule-builder-order-fields.php';
+require_once WOORULE_PATH . 'inc/class-woorule-builder-cart-fields.php';
+require_once WOORULE_PATH . 'inc/class-woorule-builder.php';
 
 /**
  * Class Woorule
