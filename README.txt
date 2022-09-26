@@ -108,7 +108,7 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
 
-= 2.7.8 =
+= 2.8.0 =
 * Added product alert functionality
 
 = 2.7.6 =
