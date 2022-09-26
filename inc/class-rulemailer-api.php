@@ -21,7 +21,7 @@
 class RuleMailer_API {
 	use Woorule_Logging;
 
-	const URL = 'https://app.rule.io/api/v2/subscribers?source=woorule&version=2.7.6';
+	const URL = 'https://app.rule.io/api/v2/subscribers?source=woorule&version=2.8.0';
 
 	/**
 	 * Subscribe.

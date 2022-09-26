@@ -8,7 +8,7 @@
  * Plugin Name:     WooRule
  * Plugin URI:      http://github.com/rulecom/woorule
  * Description:     Rule integration for WooCommerce
- * Version:         2.7.6
+ * Version:         2.8.0
  * Author:          Rule
  * Author URI:      http://rule.se
  *
@@ -20,7 +20,7 @@
  * @package WooRule
  */
 
-define( 'WOORULE_VERSION', '2.7.6' );
+define( 'WOORULE_VERSION', '2.8.0' );
 define( 'WOORULE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOORULE_URL', plugin_dir_url( __FILE__ ) );
 
