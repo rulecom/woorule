@@ -5,6 +5,11 @@
   <admin-texts>
     <key name="woocommerce_rulemailer_settings">
       <key name="woorule_checkout_label"/>
+      <key name="woorule_alert_label"/>
+      <key name="woorule_alert_success"/>
+      <key name="woorule_alert_error"/>
+      <key name="woorule_alert_placeholder"/>
+      <key name="woorule_alert_button"/>
     </key>
   </admin-texts>
   <shortcodes>

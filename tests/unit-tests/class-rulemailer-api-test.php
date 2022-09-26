@@ -10,16 +10,34 @@
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class RuleMailer_API_Test extends WC_Unit_Test_Case {
-    // @codingStandardsIgnoreEnd
+	// @codingStandardsIgnoreEnd
+
+	/**
+	 * @var string
+	 */
+	private $api_key;
+
+	/**
+	 * @var bool
+	 */
+	private $is_configured = false;
+
+	/**
+	 * @return void
+	 */
+	public function setUp(): void {
+		parent::setUp();
+
+		$this->api_key = getenv( 'RULE_API_KEY' );
+
+		if ( ! empty( $this->api_key ) ) {
+			$this->is_configured = true;
+		}
+	}
 
 	public function test_subscribe() {
-		$api_key = getenv( 'RULE_API_KEY' );
-		if ( empty( $api_key ) ) {
-			$this->markTestSkipped( 'RULE_API_KEY is not defined.' );
-		}
-
 		$subscription = array(
-			'apikey'              => $api_key,
+			'apikey'              => $this->api_key,
 			'update_on_duplicate' => true,
 			'auto_create_tags'    => true,
 			'auto_create_fields'  => true,
@@ -34,7 +52,12 @@ class RuleMailer_API_Test extends WC_Unit_Test_Case {
 		);
 
 		$result = RuleMailer_API::subscribe( $subscription );
-		$this->assertIsArray( $result );
+
+		if ( $this->is_configured ) {
+			$this->assertIsArray( $result );
+		} else {
+			$this->assertInstanceOf( WP_Error::class, $result );
+		}
 	}
 
 	/**

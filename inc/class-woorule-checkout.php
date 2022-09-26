@@ -49,7 +49,7 @@ class Woorule_Checkout {
 					'class'   => array( 'input-checkbox' ),
 					'label'   => Woorule_Options::get_checkout_label(),
 				),
-				1
+				12
 			);
 
 			echo '</div>';

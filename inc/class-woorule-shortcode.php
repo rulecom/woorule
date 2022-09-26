@@ -108,6 +108,7 @@ class Woorule_Shortcode {
 	 * @return void
 	 * @SuppressWarnings(PHPMD.Superglobals)
 	 * @SuppressWarnings(PHPMD.ExitExpression)
+	 * @codeCoverageIgnore
 	 */
 	public static function subscribe_user() {
 		// Check for nonce security.
