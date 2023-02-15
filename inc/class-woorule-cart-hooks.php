@@ -130,7 +130,7 @@ class Woorule_Cart_Hooks {
 				$fields = $subscription['subscribers']['fields'];
 
 				foreach ( $fields as $key => $field ) {
-					if ( 'Order.BillingTele' === $field['key'] ) {
+					if ( 'Cart.BillingTele' === $field['key'] ) {
 						unset( $fields[ $key ] );
 					}
 				}
@@ -213,90 +213,90 @@ class Woorule_Cart_Hooks {
 	protected function get_order_fields() {
 		return array(
 			array(
-				'key'   => 'Order.Date',
+				'key'   => 'Cart.Date',
 				'value' => gmdate( 'Y-m-d H:i:s' ),
 				'type'  => 'datetime',
 			),
 			array(
-				'key'   => 'Order.Subtotal',
+				'key'   => 'Cart.Subtotal',
 				'value' => Woorule_Utils::round( WC()->cart->get_subtotal() ),
 			),
 			array(
-				'key'   => 'Order.SubtotalVat',
+				'key'   => 'Cart.SubtotalVat',
 				'value' => Woorule_Utils::round( WC()->cart->get_subtotal() + WC()->cart->get_cart_contents_tax() ),
 			),
 			array(
-				'key'   => 'Order.Discount',
+				'key'   => 'Cart.Discount',
 				'value' => Woorule_Utils::round( WC()->cart->get_discount_total() ),
 			),
 			array(
-				'key'   => 'Order.Shipping',
+				'key'   => 'Cart.Shipping',
 				'value' => Woorule_Utils::round( WC()->cart->get_shipping_total() ),
 			),
 			array(
-				'key'   => 'Order.ShippingVat',
+				'key'   => 'Cart.ShippingVat',
 				'value' => Woorule_Utils::round( WC()->cart->get_shipping_total() + WC()->cart->get_shipping_tax() ),
 			),
 			array(
-				'key'   => 'Order.Total',
+				'key'   => 'Cart.Total',
 				'value' => Woorule_Utils::round( WC()->cart->get_total( null ) ),
 			),
 			array(
-				'key'   => 'Order.Vat',
+				'key'   => 'Cart.Vat',
 				'value' => Woorule_Utils::round( WC()->cart->get_total_tax() ),
 			),
 			array(
-				'key'   => 'Order.Currency',
+				'key'   => 'Cart.Currency',
 				'value' => get_woocommerce_currency(),
 			),
 			array(
-				'key'   => 'Order.PaymentMethod',
+				'key'   => 'Cart.PaymentMethod',
 				'value' => null,
 				'type'  => 'multiple',
 			),
 			array(
-				'key'   => 'Order.DeliveryMethod',
+				'key'   => 'Cart.DeliveryMethod',
 				'value' => null,
 				'type'  => 'multiple',
 			),
 			array(
-				'key'   => 'Order.BillingFirstname',
+				'key'   => 'Cart.BillingFirstname',
 				'value' => $this->current_customer->get_billing_first_name(),
 			),
 			array(
-				'key'   => 'Order.BillingLastname',
+				'key'   => 'Cart.BillingLastname',
 				'value' => $this->current_customer->get_billing_last_name(),
 			),
 			array(
-				'key'   => 'Order.BillingStreet',
+				'key'   => 'Cart.BillingStreet',
 				'value' => $this->current_customer->get_billing_address_1(),
 			),
 			array(
-				'key'   => 'Order.BillingCity',
+				'key'   => 'Cart.BillingCity',
 				'value' => $this->current_customer->get_billing_city(),
 			),
 			array(
-				'key'   => 'Order.BillingZipcode',
+				'key'   => 'Cart.BillingZipcode',
 				'value' => $this->current_customer->get_billing_postcode(),
 			),
 			array(
-				'key'   => 'Order.BillingState',
+				'key'   => 'Cart.BillingState',
 				'value' => $this->current_customer->get_billing_state(),
 			),
 			array(
-				'key'   => 'Order.BillingCountry',
+				'key'   => 'Cart.BillingCountry',
 				'value' => $this->current_customer->get_billing_country(),
 			),
 			array(
-				'key'   => 'Order.BillingTele',
+				'key'   => 'Cart.BillingTele',
 				'value' => Woorule_Utils::get_customer_phone_number( $this->current_customer ),
 			),
 			array(
-				'key'   => 'Order.BillingCompany',
+				'key'   => 'Cart.BillingCompany',
 				'value' => $this->current_customer->get_billing_company(),
 			),
 			array(
-				'key'   => 'Order.CartUrl',
+				'key'   => 'Cart.CartUrl',
 				'value' => wc_get_cart_url(),
 			),
 		);
@@ -315,7 +315,7 @@ class Woorule_Cart_Hooks {
 		$brands = array_filter( wp_list_pluck( $items_data['products'], 'brands' ) );
 		if ( ! empty( $brands ) ) {
 			$order_items_fields[] = array(
-				'key'   => 'Order.Brands',
+				'key'   => 'Cart.Brands',
 				'value' => $brands,
 				'type'  => 'multiple',
 			);
@@ -323,7 +323,7 @@ class Woorule_Cart_Hooks {
 
 		if ( ! empty( $items_data['categories'] ) ) {
 			$order_items_fields[] = array(
-				'key'   => 'Order.Collections',
+				'key'   => 'Cart.Collections',
 				'value' => $items_data['categories'],
 				'type'  => 'multiple',
 			);
@@ -331,7 +331,7 @@ class Woorule_Cart_Hooks {
 
 		if ( ! empty( $items_data['tags'] ) ) {
 			$order_items_fields[] = array(
-				'key'   => 'Order.Tags',
+				'key'   => 'Cart.Tags',
 				'value' => $items_data['tags'],
 				'type'  => 'multiple',
 			);
@@ -339,7 +339,7 @@ class Woorule_Cart_Hooks {
 
 		if ( ! empty( $items_data['products'] ) ) {
 			$order_items_fields[] = array(
-				'key'   => 'Order.Products',
+				'key'   => 'Cart.Products',
 				'value' => wp_json_encode( $items_data['products'] ),
 				'type'  => 'json',
 			);
@@ -347,7 +347,7 @@ class Woorule_Cart_Hooks {
 			$products_names = wp_list_pluck( $items_data['products'], 'name' );
 			if ( ! empty( $products_names ) ) {
 				$order_items_fields[] = array(
-					'key'   => 'Order.Names',
+					'key'   => 'Cart.Names',
 					'value' => $products_names,
 					'type'  => 'multiple',
 				);
