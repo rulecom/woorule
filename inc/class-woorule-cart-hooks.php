@@ -212,11 +212,7 @@ class Woorule_Cart_Hooks {
 	 */
 	protected function get_order_fields() {
 		return array(
-			array(
-				'key'   => 'Order.Number',
-				'value' => null,
-			),
-			array(
+            array(
 				'key'   => 'Order.Date',
 				'value' => gmdate( 'Y-m-d H:i:s' ),
 				'type'  => 'datetime',
