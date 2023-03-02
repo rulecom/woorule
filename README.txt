@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 6.0
 Requires PHP: 5.6+
-Stable tag: 2.8.0
+Stable tag: 3.0.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -107,6 +107,12 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 3.0.0 =
+* Updated flow for CartInProgress tags to follow our best practices. Read below what you need to adjust if you use this function.
+* Changed CartInProgress so it will save to custom group Cart instead of Order. Prepare your automations in Rule that triggers on CartInProgress so they will use data from Cart group.
+* When making above change take into consideration your interval on the automations. Triggers created before the upgrade will still have their data in Order group.
+* These changes will create a more accurate history of your orders in Rule while separating unfinished carts into their own data set.
 
 = 2.8.0 =
 * Added product alert functionality
