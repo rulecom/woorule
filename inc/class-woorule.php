@@ -35,11 +35,6 @@ class Woorule {
 	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 */
 	public function __construct() {
-        add_action( 'before_woocommerce_init', function() {
-            if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-            }
-        } );
 		add_action( 'init', array( $this, 'update_options' ) );
 
 		if ( $this->is_woocommerce_activated() ) {
