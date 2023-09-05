@@ -24,6 +24,12 @@ define( 'WOORULE_VERSION', '3.0.0' );
 define( 'WOORULE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOORULE_URL', plugin_dir_url( __FILE__ ) );
 
+add_action( 'before_woocommerce_init', function() {
+    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+    }
+} );
+
 require_once WOORULE_PATH . 'inc/class-woorule.php';
 
 $woorule = new Woorule();
