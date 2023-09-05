@@ -4,7 +4,7 @@ Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
 Tested up to: 6.0
 Requires PHP: 5.6+
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -107,6 +107,9 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 3.0.1 =
+* Added flag for High-Performance Order Storage (HPOS) support
 
 = 3.0.0 =
 * Updated flow for CartInProgress tags to follow our best practices. Read below what you need to adjust if you use this function.
