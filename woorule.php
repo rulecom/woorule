@@ -8,19 +8,19 @@
  * Plugin Name:     WooRule
  * Plugin URI:      http://github.com/rulecom/woorule
  * Description:     Rule integration for WooCommerce
- * Version:         3.0.1
+ * Version:         3.0.2
  * Author:          Rule
  * Author URI:      http://rule.se
  *
  * Text Domain:     woorule
  * Domain Path:     /languages
  * WC requires at least: 3.0.0
- * WC tested up to: 6.5.1
+ * WC tested up to: 8.0.3
  *
  * @package WooRule
  */
 
-define( 'WOORULE_VERSION', '3.0.1' );
+define( 'WOORULE_VERSION', '3.0.2' );
 define( 'WOORULE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOORULE_URL', plugin_dir_url( __FILE__ ) );
 
