@@ -37,7 +37,7 @@ class Woorule_Options {
 	 *
 	 * @return void
 	 */
-	protected function __wakeup() {
+	public function __wakeup() {
 	}
 
 	/**
