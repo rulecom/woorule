@@ -21,9 +21,7 @@ jobs:
       - name: Run PHPCS inspection
         run: |
           composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
-          composer global require squizlabs/php_codesniffer
-          composer global require "wp-coding-standards/wpcs"
-          phpcs --config-set installed_paths ~/.composer/vendor/wp-coding-standards/wpcs
+          composer global require --dev wp-coding-standards/wpcs:"^3.0"
           phpcs --standard=WordPress-Core --report=code --ignore=.github,tests,.wordpress-org,assets/*.js,assets/*.css --runtime-set ignore_warnings_on_exit true ./
 
       - name: Run PHPMD inspection
