@@ -5,7 +5,7 @@ on: [push, pull_request, pull_request_target]
 jobs:
   test:
     name: Code verification
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
