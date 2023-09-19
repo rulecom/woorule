@@ -75,7 +75,6 @@ class Woorule_Alert_Shortcode {
 				)
 			);
 		}
-
 	}
 
 	/**
@@ -110,7 +109,7 @@ class Woorule_Alert_Shortcode {
 				'args' => $atts,
 			),
 			'',
-			dirname( __FILE__ ) . '/../templates/'
+			__DIR__ . '/../templates/'
 		);
 
 		return ob_get_clean();

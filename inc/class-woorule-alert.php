@@ -183,7 +183,7 @@ class Woorule_Alert {
 				),
 			),
 			'',
-			dirname( __FILE__ ) . '/../templates/'
+			__DIR__ . '/../templates/'
 		);
 	}
 
@@ -254,7 +254,7 @@ class Woorule_Alert {
 	 * WooCommerce Init
 	 */
 	public function woocommerce_init() {
-		include_once( dirname( __FILE__ ) . '/class-woorule-background-alert-queue.php' );
+		include_once __DIR__ . '/class-woorule-background-alert-queue.php';
 
 		self::$background_process = new Woorule_Background_Alert_Queue();
 	}

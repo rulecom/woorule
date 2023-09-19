@@ -69,7 +69,6 @@ class Woorule_Shortcode {
 				)
 			);
 		}
-
 	}
 
 	/**
