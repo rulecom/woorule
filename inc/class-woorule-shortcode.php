@@ -42,7 +42,7 @@ class Woorule_Shortcode {
 	public function register_assets() {
 		global $post;
 
-		if ( has_shortcode( $post->post_content, 'woorule' ) ) {
+		if ( $post && has_shortcode( $post->post_content, 'woorule' ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			wp_enqueue_style(

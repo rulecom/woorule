@@ -9,7 +9,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class RuleMailer_API_Test extends WC_Unit_Test_Case {
+class RuleMailer_API_Test extends WP_UnitTestCase {
 	// @codingStandardsIgnoreEnd
 
 	/**
@@ -64,7 +64,8 @@ class RuleMailer_API_Test extends WC_Unit_Test_Case {
 	 * @SuppressWarnings(PHPMD.UnusedLocalVariable)
 	 */
 	public function test_delete_subscriber_tag() {
+		$this->markTestSkipped('TODO: Use mocks');
 		$result = RuleMailer_API::delete_subscriber_tag( 'nobody@example.com', 'test' );
-		//$this->assertIsArray( $result );
+		$this->assertIsArray( $result );
 	}
 }

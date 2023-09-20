@@ -9,7 +9,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class Woorule_Shortcode_Test extends WC_Unit_Test_Case {
+class Woorule_Shortcode_Test extends WP_UnitTestCase {
 	// @codingStandardsIgnoreEnd
 
 	public function test_register_assets() {
