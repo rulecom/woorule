@@ -2,9 +2,9 @@
 Contributors: rulecom
 Tags: rule, woocommerce, newsletter, marketing
 Requires at least: 5.0.0
-Tested up to: 6.3
+Tested up to: 6.3.1
 Requires PHP: 5.6+
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -107,6 +107,9 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 == Changelog ==
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
+
+= 3.0.3 =
+* Added method for wakeup calls required by some plugins
 
 = 3.0.2 =
 * Additional testing for Wordpress 6.3 and WooCommerce 8.0.3
