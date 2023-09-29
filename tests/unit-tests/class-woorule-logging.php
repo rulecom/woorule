@@ -9,7 +9,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class WC_Rule_Logging extends WC_Unit_Test_Case {
+class WC_Rule_Logging extends WP_UnitTestCase {
 	// @codingStandardsIgnoreEnd
 
 	use Woorule_Logging;

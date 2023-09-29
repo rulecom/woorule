@@ -6,26 +6,30 @@ jobs:
   test:
     name: Code verification
     runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'pull_request' || github.event_name == 'push')
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          path: woorule
 
       - name: Install dependencies
         uses: shivammathur/setup-php@master
         with:
-          php-version: '7.3'
-          extension: intl, mbstring, json, bcmath
-          coverage: xdebug
-          tools: composer, php-cs-fixer, phpunit:7.5.20, phpcpd, phpmd
+          php-version: '7.4'
+          extensions: intl, mbstring, json, bcmath
+          tools: composer:v1
 
       - name: Run PHPCS inspection
         run: |
-          composer global require squizlabs/php_codesniffer
-          composer global require "wp-coding-standards/wpcs"
-          phpcs --config-set installed_paths ~/.composer/vendor/wp-coding-standards/wpcs
-          phpcs --standard=WordPress-Core --report=code --ignore=.github,tests,.wordpress-org,assets/*.js,assets/*.css --runtime-set ignore_warnings_on_exit true ./
+          cd $GITHUB_WORKSPACE/woorule
+          composer install
+          ./vendor/bin/phpcs --standard=WordPress-Core --report=code --ignore=.github,tests,.wordpress-org,assets/*.js,assets/*.css,vendor --runtime-set ignore_warnings_on_exit true ./
 
       - name: Run PHPMD inspection
         run: |
-          composer global require "phpmd/phpmd"
-          phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude .github,tests
+          cd $GITHUB_WORKSPACE/woorule
+          composer install
+          ./vendor/bin/phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude .github,tests,vendor

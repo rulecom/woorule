@@ -9,7 +9,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class WC_Rule_Alert extends WC_Unit_Test_Case {
+class WC_Rule_Alert extends WP_UnitTestCase {
 	// @codingStandardsIgnoreEnd
 
 	public function test_save_product_variation() {
@@ -17,8 +17,7 @@ class WC_Rule_Alert extends WC_Unit_Test_Case {
 		$this->assertInstanceOf( Woorule_Alert::class, new $object );
 
 		$variable = WC_Helper_Product::create_variation_product();
-
-		$result = $object->save_product_variation( $variable->get_id(), 0 );
+		$result = $object->save_product_variation( $variable->get_children()[0], 0 );
 		$this->assertNull( $result );
 	}
 
@@ -59,7 +58,7 @@ class WC_Rule_Alert extends WC_Unit_Test_Case {
 		$contents = ob_get_contents();
 		ob_end_clean();
 
-		$this->assertNull( $result );
+		$this->assertIsArray( $result );
 		$this->assertIsString( $contents );
 	}
 

@@ -9,7 +9,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class Woorule_Checkout_Test extends WC_Unit_Test_Case {
+class Woorule_Checkout_Test extends WP_UnitTestCase {
 	// @codingStandardsIgnoreEnd
 
 	public function test_checkout_field() {

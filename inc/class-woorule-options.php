@@ -33,14 +33,6 @@ class Woorule_Options {
 	const OPTIONS_KEY = 'woocommerce_rulemailer_settings';
 
 	/**
-	 * Prevent unserializing.
-	 *
-	 * @return void
-	 */
-	protected function __wakeup() {
-	}
-
-	/**
 	 * Prevent cloning.
 	 *
 	 * @return void
