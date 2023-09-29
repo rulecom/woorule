@@ -9,7 +9,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class WC_Rule_Background_Alert_Queue extends WC_Unit_Test_Case {
+class WC_Rule_Background_Alert_Queue extends WP_UnitTestCase {
 	// @codingStandardsIgnoreEnd
 
 	public function test_dispatch_queue() {

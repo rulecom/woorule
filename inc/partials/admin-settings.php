@@ -6,7 +6,7 @@
  */
 
 // phpcs:disable Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed
-// phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found
+// phpcs:disable Universal.WhiteSpace.PrecisionAlignment.Found
 
 defined( 'ABSPATH' ) || exit;
 

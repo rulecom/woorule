@@ -76,7 +76,7 @@ class ProductAlert_API {
 			self::URL . '/products',
 			array(
 				'headers' => array(
-					'Authorization' => 'Bearer ' . Woorule_Options::get_api_key(),
+					'Authorization' => 'Bearer ' . self::get_api_key(),
 				),
 			)
 		);
@@ -210,5 +210,19 @@ class ProductAlert_API {
 		}
 
 		return $resp;
+	}
+
+	/**
+	 * Get API Key.
+	 *
+	 * @return string
+	 */
+	private static function get_api_key() {
+		$api_key = getenv( 'RULE_API_KEY' );
+		if ( ! $api_key ) {
+			$api_key = Woorule_Options::get_api_key();
+		}
+
+		return $api_key;
 	}
 }

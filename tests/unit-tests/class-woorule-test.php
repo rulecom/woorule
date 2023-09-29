@@ -9,7 +9,7 @@
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
-class WC_Rule_Test extends WC_Unit_Test_Case {
+class WC_Rule_Test extends WP_UnitTestCase {
 	// @codingStandardsIgnoreEnd
 
 	public function test_methods() {
