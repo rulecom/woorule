@@ -401,6 +401,7 @@ class Woorule_Order_Hooks {
 				'qty'       => $item->get_quantity(),
 				'subtotal'  => Woorule_Utils::round( $item->get_total() ),
 				'total'     => Woorule_Utils::round( $price_including_tax * $item->get_quantity() ),
+				'slug'      => $product->get_slug(),
 			);
 
 			$categories_string = wp_strip_all_tags( wc_get_product_category_list( $item->get_product_id() ) );
