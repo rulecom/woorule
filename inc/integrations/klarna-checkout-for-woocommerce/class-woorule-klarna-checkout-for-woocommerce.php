@@ -129,7 +129,7 @@ class Woorule_Klarna_Checkout_For_Woocommerce {
 	public function custom_checkout_field( $request_body ) {
 		$request_body['options']['additional_checkboxes'][] = array(
 			'text'     => Woorule_Options::get_checkout_label(),
-			'checked'  => true,
+			'checked'  => false,
 			'required' => false,
 			'id'       => 'woorule_klarna_opt_in',
 		);
