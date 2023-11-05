@@ -139,6 +139,41 @@ class Woorule_Background_Alert_Queue extends WC_Background_Process {
 	}
 
 	/**
+	 * Mass Product Stock Update.
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	public function mass_update() {
+		$products = ProductAlert_API::get_products();
+		if ( is_wp_error( $products ) ) {
+			throw new \Exception( 'Unable to get alert products.' );
+		}
+
+		$pending_products = array_column( $products['products'], 'product_id' );
+		foreach ( $pending_products as $product_id ) {
+			$product = wc_get_product( $product_id );
+			if ( 'variable' === $product->get_type() ) {
+				continue;
+			}
+
+			$params = array(
+				'apikey'     => Woorule_Options::get_api_key(),
+				'product_id' => $product_id,
+				'stock'      => $product->get_stock_quantity(),
+				'fields'     => $this->get_product_fields( $product ),
+			);
+
+			$tags = Woorule_Options::get_alert_product_tags();
+			if ( ! empty( $tags ) ) {
+				$params['alert_tags'] = explode( ',', $tags );
+			}
+
+			ProductAlert_API::put_product( $params );
+		}
+	}
+
+	/**
 	 * Get Product Fields.
 	 *
 	 * @param WC_Product $product

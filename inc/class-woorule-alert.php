@@ -9,6 +9,7 @@
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  * @SuppressWarnings(PHPMD.MissingImport)
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
@@ -45,19 +46,22 @@ class Woorule_Alert {
 			array( $this, 'update_options' )
 		);
 
-		add_action(
-			'woocommerce_after_product_object_save',
-			array( $this, 'product_object_save' ),
-			20,
-			2
-		);
+		// Automatic products stock synchronization
+		if ( 'on' === Woorule_Options::get_alert_stock_sync() ) {
+			add_action(
+				'woocommerce_after_product_object_save',
+				array( $this, 'product_object_save' ),
+				20,
+				2
+			);
 
-		add_action(
-			'woocommerce_save_product_variation',
-			array( $this, 'save_product_variation' ),
-			20,
-			2
-		);
+			add_action(
+				'woocommerce_save_product_variation',
+				array( $this, 'save_product_variation' ),
+				20,
+				2
+			);
+		}
 
 		add_action( 'woocommerce_init', array( $this, 'woocommerce_init' ) );
 
@@ -65,6 +69,12 @@ class Woorule_Alert {
 			add_action( 'customize_save_after', array( $this, 'maybe_process_queue' ) );
 			add_action( 'after_switch_theme', array( $this, 'maybe_process_queue' ) );
 		}
+
+		// Init Cron Tasks
+		add_action( 'wp', __CLASS__ . '::add_cron_tasks' );
+
+		// Cron Tasks Actions
+		add_action( 'woorule_stock_sync', __CLASS__ . '::stock_sync' );
 	}
 
 	/**
@@ -156,6 +166,7 @@ class Woorule_Alert {
 		$options_defaults['woorule_alert_product_tags'] = '';
 		$options_defaults['woorule_alert_min_stock']    = '10';
 		$options_defaults['woorule_alerts_per_stock']   = '20';
+		$options_defaults['woorule_alert_stock_sync']   = '';
 
 		return $options_defaults;
 	}
@@ -180,6 +191,7 @@ class Woorule_Alert {
 					'product_tags' => Woorule_Options::get_alert_product_tags(),
 					'min_stock'    => Woorule_Options::get_alert_min_stock(),
 					'per_stock'    => Woorule_Options::get_alerts_per_stock(),
+					'stock_sync'   => Woorule_Options::get_alert_stock_sync(),
 				),
 			),
 			'',
@@ -194,6 +206,7 @@ class Woorule_Alert {
 	 *
 	 * @return array
 	 * @SuppressWarnings(PHPMD.Superglobals)
+	 * @SuppressWarnings(PHPMD.CyclomaticComplexity)
 	 * @SuppressWarnings(PHPMD.NPathComplexity)
 	 */
 	public function update_options( $options ) {
@@ -238,6 +251,11 @@ class Woorule_Alert {
 			? sanitize_text_field( wc_clean( $_POST['woorule_alerts_per_stock'] ) )
 			: '';
 
+		$options['woorule_alert_stock_sync'] = isset( $_POST['woorule_alert_stock_sync'] )
+			// phpcs:ignore WordPress.Security
+			? sanitize_text_field( wc_clean( $_POST['woorule_alert_stock_sync'] ) )
+			: '';
+
 		// Save ProductAlert settings
 		// phpcs:disable
 		ProductAlert_API::put_settings( array(
@@ -264,6 +282,25 @@ class Woorule_Alert {
 	 */
 	public function maybe_process_queue() {
 		self::$background_process->dispatch();
+	}
+
+	/**
+	 * Init Cron Tasks
+	 */
+	public static function add_cron_tasks() {
+		if ( ! wp_next_scheduled( 'woorule_stock_sync' ) ) {
+			wp_schedule_event( current_time( 'timestamp' ), 'hourly', 'woorule_stock_sync' ); //phpcs:ignore
+		}
+	}
+
+	/**
+	 * `woorule_stock_sync` action handler.
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	public static function stock_sync() {
+		self::$background_process->mass_update();
 	}
 }
 
