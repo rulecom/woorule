@@ -15,12 +15,13 @@
  * @method static get_checkout_label()
  * @method static get_checkout_show()
  * @method static get_options()
+ * @method static get_alert_stock_sync()
  * @method static set_api_key( string $value )
  * @method static set_checkout_tags( string $value )
  * @method static set_checkout_label( string $value )
  * @method static set_checkout_show( string $value )
  * @method static set_options( array $options )
- *
+ * @method static set_alert_stock_sync( string $value )
  * @package Woorule
  * @SuppressWarnings(PHPMD.CamelCaseClassName)
  * @SuppressWarnings(PHPMD.CamelCaseMethodName)

@@ -108,6 +108,10 @@ If you are just getting started with Rule, you can visit Rule's [Documentation P
 
 For more information, check out our [releases](https://github.com/rulecom/woorule/releases).
 
+= 3.0.5 =
+* Added `Enable automatic products stock synchronization` option
+* Added cron handler for product stock updating hourly
+
 = 3.0.4 =
 * Products in orders now include slug so it can be used in links
 * Email marketing checkbox in Klarna is now off by default to comply with standards

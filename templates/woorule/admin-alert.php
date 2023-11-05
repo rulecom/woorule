@@ -151,4 +151,16 @@ defined( 'ABSPATH' ) || exit;
 		<span class="description"> <?php esc_html_e( 'The number of alerts that are triggered for every inventory unit in stock. The default is 20.', 'woorule' ); ?> </span>
 	</td>
 </tr>
-
+<tr>
+	<th>
+		<label for="woorule_alert_stock_sync">
+			<?php esc_html_e( 'Enable automatic products stock synchronization', 'woorule' ); ?>
+		</label>
+	</th>
+	<td>
+		<input type="checkbox" name="woorule_alert_stock_sync" id="woorule_alert_stock_sync" <?php checked( $args['stock_sync'], 'on' ); ?> />
+		<span class="description">
+			<?php esc_html_e( 'Enable automatic products stock synchronization', 'woorule' ); ?>
+		</span>
+	</td>
+</tr>
